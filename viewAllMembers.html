@@ -1,0 +1,54 @@
+<!--------------------------------------------------------------\
+| Reuben Turner
+\--------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html lang="en-US" ng-app="AppMod">
+	<head>
+		<title>Project Mockup</title>
+		<meta charset="UTF-8">
+		<link href="CSS/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="CSS/styles.css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		<!-- LINK TO JQUERY: -->
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<!-- LINKS TO ANGULAR -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js" type="text/javascript"></script>
+		<script src="JS/main.js"></script>
+	</head>
+	<body ng-controller="AppCtrl as ctrl">
+		<div id="headerDiv">
+			<h1>Tracky</h1>
+			<ul>
+				<li><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+				<li><a href="createMember.html"><span class="glyphicon glyphicon-plus"></span> Create Team Member</a></li>
+				<li><a href="createTeam.html"><span class="glyphicon glyphicon-plus"></span> Create Team</a></li>
+				<li><a href="createProject.html"><span class="glyphicon glyphicon-plus"></span> Create Project</a></li>
+			</ul>
+		</div>
+		<div id="bodyDiv">
+			<div id="tabDiv">
+				<ul class="nav nav-tabs">
+					<li role="presentation"><a href="dashboard.html"><span class="glyphicon glyphicon-globe"></span> Dashboard</a></li>
+					<li role="presentation"><a href="viewAllTeams.html"><span class="glyphicon glyphicon-list-alt"></span> View All Teams</a></li>
+					<li role="presentation"><a href="viewAllProjects.html"><span class="glyphicon glyphicon-list"></span> View All Projects</a></li>
+					<li role="presentation" class="active"><a href="viewAllMembers.html"><span class="glyphicon glyphicon-user"></span> View All Team Members</a></li>
+				</ul>		
+			</div>
+			<div id="memberList">
+				<table class="table table-striped">
+					<tr><th>Employee ID</th><th>Name</th><th>GS Grade</th><th>Role</th><th>Actions</th></tr>
+					<tr ng-repeat="member in ctrl.members">
+						<td>{{member.id}}</td>
+						<td>{{member.first_name}} {{member.last_name}}</td>
+						<td>{{member.gs_grade}}</td>
+						<td>{{member.role}}</td>
+						<td><button class="btn btn-default">Update</button> 
+							<button class="btn btn-danger" ng-click="ctrl.deleteMember(member.id)">Delete</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

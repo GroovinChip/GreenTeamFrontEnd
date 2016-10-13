@@ -1,0 +1,174 @@
+/*--------------------------------------------------------------\
+| Reuben Turner
+\--------------------------------------------------------------*/
+
+/* yellow: #fff59d 
+light gray: #ecf0f1
+darker gray: #b2b5aa
+darker orange: #a6460d
+dark blue: #002a5c
+lighter blue: #15c */
+
+html{
+	height: 100%;
+}
+body{
+	min-height: 100%;
+	font-family: 'Montserrat', sans-serif;
+}
+#headerDiv{
+	background-color: #002a5c;
+	color: white;
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+	padding: 1px;
+	text-align: center;
+}
+#headerDiv ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+	display: inline-block;
+}
+#headerDiv li{
+	display: inline-block;
+	color: white;
+}
+#headerDiv a{
+	padding: 10px;
+	color: white;
+}
+#headerDiv a:hover{
+	text-decoration:none;
+	color: #fff59d;
+}
+.mainDivsHeader{
+	background-color: #ecf0f1;
+	text-align: center;
+	width: 100%;
+	border-radius: 5px 5px 0 0;
+}
+#tabDiv{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	margin-top: 2.5%;
+}
+#tabDiv a{
+	color: #15c;
+}
+#tabDiv a:hover{
+	color: black;
+	cursor: pointer;
+}
+#listContainer{
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	margin-top: 2.5%;
+	/* border: 1px solid black; */
+}
+#projectListDiv{
+	width: 45%;
+	margin-left: auto;
+	margin-right: auto;
+	flex-direction: column;
+	align-items: center;
+	display: inline-flex;
+	border: 1px solid #f5f5f0;
+	border-radius: 5px 5px 0 0;
+	/* box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75); */
+	float: left;
+}
+#calendarDiv{
+	width: 50%;
+	float: right;
+}
+.tableDiv{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+#listContainer a{
+	color: #15c;
+}
+#listContainer a:hover{
+	text-decoration:none;
+	color:#002a5c;
+}
+
+/* -- createMember.html styles -- */
+.wrapper{
+	border: 1px solid #002a5c;
+	border-radius: 5px;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	/* box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75); */
+}
+#ctmHeader{
+	text-align: center;
+	background-color: #ecf0f1;
+	padding: 1px;
+	border-radius: 5px 5px 0 0;
+	border-bottom: 1px solid #002a5c;
+}
+#ctmDiv{
+	padding: 15px;
+}
+
+/* -- createTeam.html styles -- */
+#ctDiv{
+	padding: 15px;
+}
+#membersToAdd{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1%;
+	width: 80%;
+}
+
+/* -- createProject.html styles -- */
+#cpDiv{
+	padding: 15px;
+}
+#cpDiv textarea{
+	resize: none;
+}
+
+.ui-datepicker{
+	background-color: #002a5c;
+}
+
+/* viewAllTeams.html styles */
+#teamList{
+	margin-top: 1%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+/* viewAllProjects.html styles */
+#projectList{
+	margin-top: 1%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+/* viewAllMembers.html styles */
+#memberList{
+	margin-top: 1%;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+
+/* override jqueryUI */
+.ui-progressbar .ui-progressbar-value{
+	margin-top: 0px;
+}
+.fc-day-header{
+		background-color: #f5f5f0;
+}

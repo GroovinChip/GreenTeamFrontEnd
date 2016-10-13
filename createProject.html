@@ -1,0 +1,92 @@
+<!--------------------------------------------------------------\
+| Reuben Turner
+\--------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>Tracky - Create Project</title>
+		<link href="CSS/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="CSS/styles.css">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+		<!-- LINK TO JQUERY: -->
+		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+		<!-- JQUERY UI -->
+		<link rel="stylesheet" href="jqueryUI/jquery-ui.min.css">
+		<script src="jqueryUI/external/jquery/jquery.js"></script>
+		<script src="jqueryUI/jquery-ui.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				var today = new Date();
+				$("datepickerD").attr("min", today);
+				$("datepickerSD").attr("min", today);
+				$( function() {
+					$( "#datepickerD" ).datepicker({ 
+						minDate: -0, maxDate: "+12M +0D",
+						dateFormat: "yy-mm-dd",
+						showButtonPanel: true
+					});
+				} );
+				$( function() {
+					$( "#datepickerSD" ).datepicker({ 
+						minDate: -0, maxDate: "+12M +0D",
+						dateFormat: "yy-mm-dd",
+						showButtonPanel: true
+					});
+				} );
+				$("#createProjBtn").click(function(){
+					var deadline = $("#datepickerD").datepicker("getDate");
+					var startDate = $("#datepickerSD").datepicker("getDate");
+				});
+				// Need to get current date
+			});
+		</script>
+	</head>
+	<body>
+		<div id="headerDiv">
+			<h1>Tracky</h1>
+			<ul>
+				<li><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+				<li><a href="createMember.html"><span class="glyphicon glyphicon-plus"></span> Create Team Member</a></li>
+				<li><a href="createTeam.html"><span class="glyphicon glyphicon-plus"></span> Create Team</a></li>
+				<li><a href="createProject.html"><span class="glyphicon glyphicon-plus"></span> Create Project</a></li>
+			</ul>
+		</div>
+		<div id="bodyDiv">
+			<div class="wrapper">
+				<div id="ctmHeader">
+					<h3>Create Project</h3>
+				</div>
+				<div id="cpDiv">
+					<label>Project Name</label>
+					<input class="form-control" type="text"></input>
+					<label>Description</label>
+					<textarea class="form-control" rows="5"></textarea>
+					<label>Start Date</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>				
+						<input type="date" min="2016-10-06" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
+					</div>
+					<label>Deadline</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>				
+						<input type="date" min="2016-10-06" class="form-control" id="datepickerD" placeholder="Select a date"></input>
+					</div>
+					<label>Status</label>
+					<select class="form-control">
+						<option>Choose a Status</option>
+						<option>Not Started</option>
+						<option>In Progress</option>
+						<option>Completed</option>
+					</select>
+					<br>
+					<button class="btn btn-default" id="createProjBtn">Create Project</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
