@@ -18,14 +18,39 @@ angular.module("AppMod", ["ngRoute"])
 			},function(err) {
 
 			});
+			
+		// Get all teams
+		$http.get('http://localhost:8080/teams')
+			.then(function(resp){
+				self.teams = resp.data;
+			},function(err) {
 
-		// FOR CREATE MEMBER
+			});
+		
+		// Delete Team
+		self.deleteMember = function(id){
+			$http({
+				method: 'DELETE',
+				url: 'http://localhost:8080/deleteteam/'+id
+			}).then(
+				location.reload(true)
+			)
+		};
+
+		// MEMBER OBJECT
 		self.memberObj = {
 			id: "",
 			first_name: "",
 			last_name: "",
 			gs_grade: "",
 			role: ""
+		};
+		
+		// TEAM OBJECT
+		self.teamObj = {
+			id: "",
+			description: "",
+			member_id: ""
 		};
 		
 		// Add new member
@@ -48,16 +73,26 @@ angular.module("AppMod", ["ngRoute"])
 				location.reload(true)
 			)
 		};
-			
-		// FOR CREATE TEAM
-		self.seletedItems = [];
 		
-		self.addToList = function(selectItem){
-			self.seletedItems.push(selectItem);
-			console.log(selectItem);
+		// Add new team
+		self.addNewTeam = function(){
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8080/team',
+				data: self.teamObj
+			}).then(
+				window.location.href = "viewAllTeams.html"
+			)
 		};
 		
-		self.removeFromList = function($index){
-			self.seletedItems.splice($index, 1);
+		// Delete member
+		self.deleteTeam = function(id){
+			$http({
+				method: 'DELETE',
+				url: 'http://localhost:8080/deleteteam/'+id
+			}).then(
+				location.reload(true)
+			)
 		};
+		
 	}]) // end controller

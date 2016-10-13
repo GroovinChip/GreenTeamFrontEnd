@@ -3,7 +3,7 @@
 \--------------------------------------------------------------->
 
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" ng-app="AppMod">
 	<head>
 		<title>Project Mockup</title>
 		<link href="CSS/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -12,10 +12,12 @@
 		<!-- LINK TO JQUERY: -->
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 		<script src="js/.js"></script>
-		<!-- LINK TO ANGULARJS -->
+		<!-- LINKS TO ANGULAR -->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js" type="text/javascript"></script>
+		<script src="JS/main.js"></script>
 	</head>
-	<body>
+	<body ng-controller="AppCtrl as ctrl">
 		<div id="headerDiv">
 			<h1>Tracky</h1>
 			<ul>
@@ -35,8 +37,14 @@
 				</ul>		
 			</div>
 			<div id="teamList">
-				<table class="table">
-					<tr><td>Team Name</td><td>Member Count</td></tr>
+				<table class="table table-striped">
+					<tr><th>Team ID</th><th>Description</th><th>Actions</th></tr>
+					<tr ng-repeat="team in ctrl.teams">
+						<td>{{team.id}}</td>
+						<td>{{team.description}}</td>
+						<td><button class="btn btn-default">Update</button> 
+						<button class="btn btn-danger" ng-click="ctrl.deleteTeam(team.id)">Delete</button></td>
+					</tr>
 				</table>
 			</div>
 		</div>

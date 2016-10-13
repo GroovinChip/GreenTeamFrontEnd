@@ -34,31 +34,15 @@
 				</div>
 				<div id="ctDiv">
 					<label>Team Name</label>
-					<input class="form-control" type="text"></input>
-					<label>Project</label>
-					<select class="form-control">
-						<option>Choose a project</option> <!-- this will fill with projects from the db -->
-						<!-- load from DB -->
-					</select>
+					<input class="form-control" type="text" ng-model="ctrl.teamObj.description"></input>
+					<p ng-bind="ctrl.teamObj.description"></p>
 					<label>Members</label>
-					<div class="input-group">
-						<select class="form-control" id="chooseMembers" ng-model="selectItem">
-							<option value="">Choose Members</option> 
-							<option ng-repeat="member in ctrl.members" id="{{member.id}}">{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
-						</select>
-						<span class="input-group-btn">	
-							<button class="btn btn-primary" id="addMemberBtn" ng-click="ctrl.addToList(selectItem)">Add member</button>
-						</span>
-					</div>
-					<div>
-						<table id="membersToAdd" class="table table-striped">
-							<tr ng-repeat="item in ctrl.seletedItems">
-								<td>{{item}}</td>
-								<td><button class="btn btn-default" ng-click="ctrl.removeFromList($index)">Remove</button></td>
-							</tr>
-						</table>
-					</div>
-					<button class="btn btn-default">Create Team</button>
+					<select class="form-control" id="chooseMembers" ng-model="ctrl.teamObj.member_id">
+						<option value="">Choose Members</option> 
+						<option ng-repeat="member in ctrl.members" value="{{member.id}}">{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
+					</select>
+					<p ng-bind="ctrl.teamObj.member_id"></p>
+					<button class="btn btn-default" ng-click="ctrl.addNewTeam()">Create Team</button>
 				</div>
 			</div>
 		</div>
