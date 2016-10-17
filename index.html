@@ -25,45 +25,7 @@
 		<script src='fullcalendar/fullcalendar.js'></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<link rel="stylesheet" type="text/css" href="CSS/styles.css">
-		<script>
-			$(document).ready(function(){
-				$("#calendar").fullCalendar({
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month,agendaWeek,agendaDay,listWeek'
-					},
-					weekends: false
-				})
-				$(function(){
-					$("#progressbar").progressbar({
-						value: 50
-					});
-				});
-				var today = new Date();
-				$("datepickerD").attr("min", today);
-				$("datepickerSD").attr("min", today);
-				$( function() {
-					$( "#datepickerD" ).datepicker({ 
-						minDate: -0, maxDate: "+12M +0D",
-						dateFormat: "yy-mm-dd",
-						showButtonPanel: true
-					});
-				} );
-				$( function() {
-					$( "#datepickerSD" ).datepicker({ 
-						minDate: -0, maxDate: "+12M +0D",
-						dateFormat: "yy-mm-dd",
-						showButtonPanel: true
-					});
-				} );
-				$("#createProjBtn").click(function(){
-					var deadline = $("#datepickerD").datepicker("getDate");
-					var startDate = $("#datepickerSD").datepicker("getDate");
-				});
-				// Need to get current date
-			});
-		</script>
+		
 	</head>
 	<body ng-controller="AppCtrl as ctrl">
 		<div id="headerDiv">

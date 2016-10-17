@@ -70,13 +70,17 @@ angular.module("AppMod", ["ngRoute"])
 		}
 
 		// MEMBER OBJECT
-		/* self.memberObj = {
+		self.memberObj = {
 			id: "",
 			first_name: "",
 			last_name: "",
 			gs_grade: "",
 			role: ""
-		}; */
+		};
+		// setter
+		self.setMemberObj = function(obj){
+			self.memberObj = obj;
+		};
 		
 		// TEAM OBJECT
 		self.teamObj = {
@@ -149,18 +153,20 @@ angular.module("AppMod", ["ngRoute"])
 			)
 		};
 		
-		self.memberObj = {};
+		//self.memberObj = {};
 		
-		// nav to member upd page
+		// nav to member upd page, build obj 
 		self.toUpdMem = function(member){
-			self.memberObj = member;
+			console.log(self.memberObj);
+			//self.memberObj = member;
+			self.setMemberObj(member);
 			console.log(self.memberObj);
 			$location.path ('/updateMember');
 			console.log(self.memberObj);
 		};
 
 		self.logMember = function(){
-			console.log(self.memberObj);
+			console.log(self.memToUpd);
 		};
 		
 	}]) // end controller
