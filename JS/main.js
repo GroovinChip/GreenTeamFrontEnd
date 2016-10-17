@@ -97,6 +97,7 @@ angular.module("AppMod", ["ngRoute"])
 			priority: null,
 			start_date: null,
 			deadline: null,
+			work_remaining: null,
 			phase: null
 		};
 		

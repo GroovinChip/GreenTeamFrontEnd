@@ -9,7 +9,7 @@
 	</div>
 	<div id="projectList">
 		<table class="table table-striped">
-			<tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Priority</th><th>Start Date</th><th>Deadline</th><th>Phase</th><th>Actions</th></tr>
+			<tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Priority</th><th>Start Date</th><th>Deadline</th><th>Work Remaining</th><th>Actions</th></tr>
 			<tr ng-repeat="project in ctrl.projects">
 				<td>{{project.id}}</td>
 				<td>{{project.name}}</td>
@@ -18,7 +18,7 @@
 				<td>{{project.priority}}</td>
 				<td>{{project.start_date | date:'MMM dd, yyyy'}}</td>
 				<td>{{project.deadline | date:'MMM dd, yyyy'}}</}}</td>
-				<td>{{project.phase}}</td>
+				<td>{{project.work_remaining}}</td>
 				<td><button class="btn btn-default">Edit</button> <button class="btn btn-danger" ng-click="ctrl.deleteProject(project.id)">Delete</button> <!-- <button class="btn btn-primary" ng-click="ctrl.console(project)">Console</button> --></td>
 			</tr>
 		</table>
