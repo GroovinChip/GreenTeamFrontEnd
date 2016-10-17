@@ -19,7 +19,8 @@
 						var event = {
 							title: projects[count].description,
 							start: projects[count].start_date,
-							end: projects[count].deadline
+							end: projects[count].deadline,
+							textColor: 'black'
 						};
 						$("#calendar").fullCalendar('renderEvent', event);
 					}
