@@ -1,3 +1,27 @@
+<script>
+	var today = new Date();
+	$("#datepickerD").attr("min", today);
+	$("#datepickerSD").attr("min", today);
+	$( function() {
+		$( "#datepickerD" ).datepicker({ 
+			minDate: -0, maxDate: "+12M +0D",
+			dateFormat: "yy-mm-dd",
+			showButtonPanel: true
+		});
+	} );
+	$( function() {
+		$( "#datepickerSD" ).datepicker({ 
+			minDate: -0, maxDate: "+12M +0D",
+			dateFormat: "yy-mm-dd",
+			showButtonPanel: true
+		});
+	} );
+	$("#createProjBtn").click(function(){
+		var deadline = $("#datepickerD").datepicker("getDate");
+		var startDate = $("#datepickerSD").datepicker("getDate");
+	});
+	// Need to get current date
+</script>
 <div id="bodyDiv">
 	<div class="wrapper">
 		<div id="ctmHeader">

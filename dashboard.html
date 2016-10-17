@@ -9,6 +9,7 @@
 				right: 'month,agendaWeek,agendaDay,listWeek'
 			},
 			weekends: false,
+			nowIndicator: true,
 			events: function(start, end, callback){
 				$.ajax({
 					url: 'http://localhost:8080/projects'
@@ -18,7 +19,8 @@
 						var event = {
 							title: projects[count].description,
 							start: projects[count].start_date,
-							end: projects[count].deadline
+							end: projects[count].deadline,
+							textColor: 'black'
 						};
 						$("#calendar").fullCalendar('renderEvent', event);
 					}
@@ -31,28 +33,6 @@
 				value: 50
 			});
 		});
-		var today = new Date();
-		$("datepickerD").attr("min", today);
-		$("datepickerSD").attr("min", today);
-		$( function() {
-			$( "#datepickerD" ).datepicker({ 
-				minDate: -0, maxDate: "+12M +0D",
-				dateFormat: "yy-mm-dd",
-				showButtonPanel: true
-			});
-		} );
-		$( function() {
-			$( "#datepickerSD" ).datepicker({ 
-				minDate: -0, maxDate: "+12M +0D",
-				dateFormat: "yy-mm-dd",
-				showButtonPanel: true
-			});
-		} );
-		$("#createProjBtn").click(function(){
-			var deadline = $("#datepickerD").datepicker("getDate");
-			var startDate = $("#datepickerSD").datepicker("getDate");
-		});
-		// Need to get current date
 	});
 </script>
 <div id="bodyDiv">
