@@ -3,23 +3,20 @@
 	$("#datepickerD").attr("min", today);
 	$("#datepickerSD").attr("min", today);
 	$( function() {
-		$( "#datepickerD" ).datepicker({ 
+		$( "#datepickerD" ).datepicker({
 			minDate: -0, maxDate: "+12M +0D",
 			dateFormat: "yy-mm-dd",
 			showButtonPanel: true
 		});
 	} );
 	$( function() {
-		$( "#datepickerSD" ).datepicker({ 
+		$( "#datepickerSD" ).datepicker({
 			minDate: -0, maxDate: "+12M +0D",
 			dateFormat: "yy-mm-dd",
-			showButtonPanel: true
+			showButtonPanel: true,
+			setDate: today
 		});
 	} );
-	$("#createProjBtn").click(function(){
-		var deadline = $("#datepickerD").datepicker("getDate");
-		var startDate = $("#datepickerSD").datepicker("getDate");
-	});
 	// Need to get current date
 </script>
 <div id="bodyDiv">
@@ -29,32 +26,50 @@
 		</div>
 		<div id="cpDiv">
 			<label>Project Name</label>
-			<input class="form-control" type="text"></input>
+			<input ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
 			<label>Description</label>
-			<textarea class="form-control" rows="5"></textarea>
+			<textarea ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
+			<label>Priority</label>
+			<select ng-model="ctrl.projectObj.priority" class="form-control">
+				<option value="">Choose a Priority</option>
+				<option value=1>Low</option>
+				<option value=2>Normal</option>
+				<option value=3>High</option>
+				<option value=4>Critical</option>
+			</select>
 			<label>Start Date</label>
 			<div class="input-group">
 				<span class="input-group-addon" id="basic-addon1">
 					<span class="glyphicon glyphicon-calendar"></span>
-				</span>				
-				<input type="date" min="2016-10-06" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
+				</span>
+				<input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
 			</div>
 			<label>Deadline</label>
 			<div class="input-group">
 				<span class="input-group-addon" id="basic-addon1">
 					<span class="glyphicon glyphicon-calendar"></span>
-				</span>				
-				<input type="date" min="2016-10-06" class="form-control" id="datepickerD" placeholder="Select a date"></input>
+				</span>
+				<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
 			</div>
 			<label>Status</label>
-			<select class="form-control">
-				<option>Choose a Status</option>
-				<option>Not Started</option>
-				<option>In Progress</option>
-				<option>Completed</option>
+			<select ng-model="ctrl.projectObj.active" class="form-control">
+				<option value="">Choose a Status</option>
+				<option value=0>Inactive</option>
+				<option value=1>Active</option>
+				<option value=2>Completed</option>
+			</select>
+			<label>Phase</label>
+			<select ng-model="ctrl.projectObj.phase" class="form-control">
+				<option value="">Choose a Phase</option>
+				<option value="Planning and Analysis">Planning and Analysis</option>
+				<option value="Requirements">Requirements</option>
+				<option value="Development">Development</option>
+				<option value="Testing and Validation">Testing and Validation</option>
+				<option value="Integration">Integration</option>
+				<option value="Production">Production</option>
 			</select>
 			<br>
-			<button class="btn btn-default" ng-click="ctrl.addNewProject()">Create Project</button>
+			<button class="btn btn-default" ng-click="ctrl.createProject()">Create Project</button>
 		</div>
 	</div>
 </div>

@@ -89,14 +89,15 @@ angular.module("AppMod", ["ngRoute"])
 			member_id: ""
 		};
 		
-		self.projObj = {
-			id: "",
-			description: "",
-			active: "",
-			priority: "",
-			start_date: "",
-			deadline: "",
-			phase: ""
+		self.projectObj = {
+			id: null,
+			name: null,
+			description: null,
+			active: null,
+			priority: null,
+			start_date: null,
+			deadline: null,
+			phase: null
 		};
 		
 		// Add new member
@@ -148,6 +149,29 @@ angular.module("AppMod", ["ngRoute"])
 			$http({
 				method: 'DELETE',
 				url: 'http://localhost:8080/deleteteam/'+id
+			}).then(
+				location.reload(true)
+			)
+		};
+		
+		// KYLE'S CREATE PROJECT
+		self.createProject = function() {
+				self.projectObj.deadline = $("#datepickerD").datepicker("getDate");
+		    self.projectObj.start_date = $("#datepickerSD").datepicker("getDate");
+			  $http({
+					method: 'POST',
+					url: "http://localhost:8080/project",
+					data: self.projectObj
+				}).then(function() {
+					$location.path("/viewAllProjects");
+				});
+			}
+		
+		// Delete Project
+		self.deleteProject = function(id){
+			$http({
+				method: 'DELETE',
+				url: 'http://localhost:8080/deleteproject/'+id
 			}).then(
 				location.reload(true)
 			)

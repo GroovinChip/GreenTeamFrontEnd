@@ -1,6 +1,6 @@
 <script>
 	$(document).ready(function(){
-		var projects = []
+		var projects = [];		
 		
 		$("#calendar").fullCalendar({
 			header: {
@@ -19,8 +19,7 @@
 						var event = {
 							title: projects[count].description,
 							start: projects[count].start_date,
-							end: projects[count].deadline,
-							textColor: 'black'
+							end: projects[count].deadline
 						};
 						$("#calendar").fullCalendar('renderEvent', event);
 					}
