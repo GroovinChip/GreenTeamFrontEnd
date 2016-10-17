@@ -1,18 +1,19 @@
 <div id="bodyDiv">
 	<div class="wrapper">
 		<div id="ctmHeader">
-			<h3>Create Team</h3>
+			<h3>Update Team</h3>
 		</div>
 		<div id="ctDiv">
 			<label>Team Name</label>
 			<input class="form-control" type="text" ng-model="ctrl.teamObj.description"></input>
+			<p ng-bind="ctrl.teamObj.description"></p>
 			<label>Members</label>
 			<select class="form-control" id="chooseMembers" ng-model="ctrl.teamObj.member_id">
 				<option value="">Choose Members</option> 
 				<option ng-repeat="member in ctrl.members" value="{{member.id}}">{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
 			</select>
-			<br>
-			<button class="btn btn-default" ng-click="ctrl.addNewTeam()">Create Team</button>
+			<p ng-bind="ctrl.teamObj.member_id"></p>
+			<button class="btn btn-default" ng-click="ctrl.updateTeam()">Update Team</button>
 		</div>
 	</div>
 </div>

@@ -1,5 +1,5 @@
 angular.module("AppMod", ["ngRoute"])
-	.controller("AppCtrl", ['$http', '$routeParams', function($http, $routeParams) {
+	.controller("AppCtrl", ['$http', '$routeParams', '$location', function($http, $routeParams, $location) {
 		var self = this;
 		self.id = $routeParams.memberId;
 	
@@ -36,21 +36,63 @@ angular.module("AppMod", ["ngRoute"])
 				location.reload(true)
 			)
 		};
+		
+		// Get all projects
+		$http.get('http://localhost:8080/projects')
+			.then(function(resp){
+				self.projects = resp.data;
+				for(var count = 0; count < self.projects.length; count++){
+					var activeStatus = (self.projects[count].active == 1)?self.projects[count].active = "Inactive":self.projects[count].active = "Active"
+					
+					switch(self.projects[count].priority){
+						case 1:
+							self.projects[count].priority = "Low";
+							break;
+						case 2:
+							self.projects[count].priority = "Normal";
+							break;
+						case 3:
+							self.projects[count].priority = "High";
+							break;
+						case 4:
+							self.projects[count].priority = "Critical";
+							break;
+					}
+				}
+				
+			},function(err) {
+
+			});
+		
+		self.console = function(project){
+			self.projObj.active = project.active,
+			console.log(self.projObj.active)
+		}
 
 		// MEMBER OBJECT
-		self.memberObj = {
+		/* self.memberObj = {
 			id: "",
 			first_name: "",
 			last_name: "",
 			gs_grade: "",
 			role: ""
-		};
+		}; */
 		
 		// TEAM OBJECT
 		self.teamObj = {
 			id: "",
 			description: "",
 			member_id: ""
+		};
+		
+		self.projObj = {
+			id: "",
+			description: "",
+			active: "",
+			priority: "",
+			start_date: "",
+			deadline: "",
+			phase: ""
 		};
 		
 		// Add new member
@@ -60,7 +102,19 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/member',
 				data: self.memberObj
 			}).then(
-				window.location.href = "viewAllMembers.html"
+				window.location.href = "http://localhost:8081/#/viewAllMembers"
+			)
+		};
+		
+		// Update member
+		self.updateMember = function(){
+			$http({
+				method: 'PUT',
+				url: 'http://localhost:8080/member',
+				data: self.memberObj
+			}).then(
+				//window.location.href = "viewAllMembers.html"
+				console.log(self.memberObj)
 			)
 		};
 		
@@ -81,7 +135,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/team',
 				data: self.teamObj
 			}).then(
-				window.location.href = "viewAllTeams.html"
+				window.location.href = "http://localhost:8081/#/viewAllTeams"
 			)
 		};
 		
@@ -95,4 +149,68 @@ angular.module("AppMod", ["ngRoute"])
 			)
 		};
 		
+		self.memberObj = {};
+		
+		// nav to member upd page
+		self.toUpdMem = function(member){
+			self.memberObj = member;
+			console.log(self.memberObj);
+			$location.path ('/updateMember');
+			console.log(self.memberObj);
+		};
+
+		self.logMember = function(){
+			console.log(self.memberObj);
+		};
+		
 	}]) // end controller
+	.config(['$routeProvider', function($routeProvider){
+		$routeProvider
+		.when('/', {
+			templateUrl: 'dashboard.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		}).when('/viewAllMembers', {
+			templateUrl: 'viewAllMembers.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		}).when('/viewAllTeams', {
+			templateUrl: 'viewAllTeams.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		}).when('/viewAllProjects', {
+			templateUrl: 'viewAllProjects.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		})
+		.when('/createMember', {
+			templateUrl: 'createMember.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		})
+		.when('/createTeam', {
+			templateUrl: 'createTeam.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		})
+		.when('/createProject', {
+			templateUrl: 'createProject.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		})
+		.when('/updateMember', {
+			templateUrl: 'updateMember.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		})
+		.when('/updateTeam', {
+			templateUrl: 'updateTeam.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		})
+		.when('/updateProject', {
+			templateUrl: 'updateProject.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		});
+	}]) 

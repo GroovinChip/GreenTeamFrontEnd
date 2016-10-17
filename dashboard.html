@@ -1,80 +1,25 @@
-<!--------------------------------------------------------------\
-| Reuben Turner
-\--------------------------------------------------------------->
-
-<!DOCTYPE html>
-<html lang="en-US">
-	<head>
-		<title>Tracky - Dashboard</title>
-		<link href="CSS/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-		<!-- LINK TO JQUERY: -->
-		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-		<!-- JQUERY UI -->
-		<link rel="stylesheet" href="jqueryUI/jquery-ui.min.css">
-		<script src="jqueryUI/external/jquery/jquery.js"></script>
-		<script src="jqueryUI/jquery-ui.min.js"></script>
-		<!-- FULLCALENDAR PLUGIN -->
-		<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-		<script src='fullcalendar/lib/jquery.min.js'></script>
-		<script src='fullcalendar/lib/moment.min.js'></script>
-		<script src='fullcalendar/fullcalendar.js'></script>
-		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<link rel="stylesheet" type="text/css" href="CSS/styles.css">
-		<script>
-			$(document).ready(function(){
-				$("#calendar").fullCalendar({
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month,agendaWeek,agendaDay,listWeek'
-					},
-					weekends: false
-				})
-				$(function(){
-					$("#progressbar").progressbar({
-						value: 50
-					});
-				});
-			});
-		</script>
-	</head>
-	<body>
-		<div id="headerDiv">
-			<h1>Tracky</h1>
-			<ul>
-				<li><a href="dashboard.html"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-				<li><a href="createMember.html"><span class="glyphicon glyphicon-plus"></span> Create Team Member</a></li>
-				<li><a href="createTeam.html"><span class="glyphicon glyphicon-plus"></span> Create Team</a></li>
-				<li><a href="createProject.html"><span class="glyphicon glyphicon-plus"></span> Create Project</a></li>
-			</ul>
-		</div>
-		<div id="bodyDiv">
-			<div id="tabDiv">
-				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="dashboard.html"><span class="glyphicon glyphicon-globe"></span> Dashboard</a></li>
-					<li role="presentation"><a href="viewAllTeams.html"><span class="glyphicon glyphicon-list-alt"></span> View All Teams</a></li>
-					<li role="presentation"><a href="viewAllProjects.html"><span class="glyphicon glyphicon-list"></span> View All Projects</a></li>
-					<li role="presentation"><a href="viewAllMembers.html"><span class="glyphicon glyphicon-user"></span> View All Team Members</a></li>
-				</ul>		
+<div id="bodyDiv">
+	<div id="tabDiv">
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#/"><span class="glyphicon glyphicon-globe"></span> Dashboard</a></li>
+			<li role="presentation"><a href="#/viewAllTeams"><span class="glyphicon glyphicon-list-alt"></span> View All Teams</a></li>
+			<li role="presentation"><a href="#/viewAllProjects"><span class="glyphicon glyphicon-list"></span> View All Projects</a></li>
+			<li role="presentation"><a href="#/viewAllMembers"><span class="glyphicon glyphicon-user"></span> View All Team Members</a></li>
+		</ul>		
+	</div>
+	<div id="listContainer">
+		<div class="table-responsive" id ="projectListDiv">
+			<div class="mainDivsHeader">
+				<h3>Projects That Need Attention</h3>				
 			</div>
-			<div id="listContainer">
-				<div class="table-responsive" id ="projectListDiv">
-					<div class="mainDivsHeader">
-						<h3>Projects That Need Attention</h3>				
-					</div>
-					<div class="tableDiv">
-						<table class="table">
-							<tr><th>Name</th><th>Deadline</th><th>Progress</th><th>Actions</th></tr>
-							<!-- <tr><td>Test One</td><td>10/30/2016</td><td><div id="progressbar"></div>
-							</td><td><div class="btn-group"><button class="btn btn-default">Edit</button><button class="btn btn-default">Delete</button></div></td></tr> -->
-						</table>
-					</div>
-				</div>
-				<div id="calendarDiv">
-					<div id="calendar"></div>
-				</div>
+			<div class="tableDiv">
+				<table class="table">
+					<tr><th>Name</th><th>Deadline</th><th>Progress</th><th>Actions</th></tr>
+				</table>
 			</div>
 		</div>
-	</body>
-</html>
+		<div id="calendarDiv">
+			<div id="calendar"></div>
+		</div>
+	</div>
+</div>

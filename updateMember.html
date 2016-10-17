@@ -1,9 +1,11 @@
 <div id="bodyDiv">
 	<div class="wrapper">
 		<div id="ctmHeader">
-			<h3>Create Team Member</h3>
+			<h3>Update Team Member</h3>
 		</div>
 		<div id="ctmDiv">
+			<label>ID</label>
+			<p>{{ctrl.memberObj.id}}</p>
 			<label>First Name</label>
 			<input ng-model="ctrl.memberObj.first_name" class="form-control" type="text"></input>
 			<label>Last Name</label>
@@ -30,10 +32,15 @@
 			<label>Role</label>
 			<select class="form-control" ng-model="ctrl.memberObj.role">
 				<option value="">Choose a Role</option>
-				<option>Placeholder</option>
+				<option>Developer</option>
+				<option>Analyst</option>
+				<option>Validator</option>
+				<option>Team Lead</option>
+				<option>Project Manager</option>
 			</select>
 			<br>
-			<button ng-click="ctrl.addNewMember()" class="btn btn-default" id="createMemberBtn">Create Member</button>
+			<button ng-click="ctrl.updateMember()" class="btn btn-default">Update Member</button>
+			<button ng-click="ctrl.logMember()" class="btn btn-default">Log Current Member OBJ</button>
 		</div>
 	</div>
 </div>
