@@ -9,9 +9,10 @@
 	</div>
 	<div id="projectList">
 		<table class="table table-striped">
-			<tr><th>ID</th><th>Description</th><th>Status</th><th>Priority</th><th>Start Date</th><th>Deadline</th><th>Phase</th><th>Actions</th></tr>
+			<tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Priority</th><th>Start Date</th><th>Deadline</th><th>Phase</th><th>Actions</th></tr>
 			<tr ng-repeat="project in ctrl.projects">
 				<td>{{project.id}}</td>
+				<td>{{project.name}}</td>
 				<td>{{project.description}}</td>
 				<td>{{project.active}}</td>
 				<td>{{project.priority}}</td>
