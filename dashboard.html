@@ -1,13 +1,29 @@
 <script>
 	$(document).ready(function(){
-		$("#calendar").fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,agendaWeek,agendaDay,listWeek'
-			},
-			weekends: false
-		})
+		var projects = []
+		$.ajax({
+			url: 'http://localhost:8080/projects'
+		}).then(function(projects){
+			for(var count = 0; count < projects.length; count++){
+				$("#calendar").fullCalendar({
+					header: {
+						left: 'prev,next today',
+						center: 'title',
+						right: 'month,agendaWeek,agendaDay,listWeek'
+					},
+					weekends: false,
+					events:[
+						{
+							title: projects[count].description,
+							start: projects[count].start_date,
+							end: projects[count].deadline
+						}
+					]
+				});
+				console.log(projects[count]);
+			}		
+		});
+		
 		$(function(){
 			$("#progressbar").progressbar({
 				value: 50
