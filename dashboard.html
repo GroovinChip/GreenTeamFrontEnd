@@ -1,7 +1,7 @@
 <script>
 	$(document).ready(function(){
 		var projects = []
-		$.ajax({
+		/*$.ajax({
 			url: 'http://localhost:8080/projects'
 		}).then(function(projects){
 			for(var count = 0; count < projects.length; count++){
@@ -22,6 +22,24 @@
 				});
 				console.log(projects[count]);
 			}		
+		}); */
+		
+		$("#calendar").fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay,listWeek'
+			},
+			weekends: false,
+			events: function(start, end, callback){
+				$.ajax({
+					url: 'http://localhost:8080/projects'
+				}).then(function(projects){
+					for(var count = 0; count < projects.length; count++){
+						console.log(projects[count].description)
+					}
+				});		
+			}
 		});
 		
 		$(function(){
