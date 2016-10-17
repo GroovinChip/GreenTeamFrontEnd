@@ -1,28 +1,6 @@
 <script>
 	$(document).ready(function(){
 		var projects = []
-		/*$.ajax({
-			url: 'http://localhost:8080/projects'
-		}).then(function(projects){
-			for(var count = 0; count < projects.length; count++){
-				$("#calendar").fullCalendar({
-					header: {
-						left: 'prev,next today',
-						center: 'title',
-						right: 'month,agendaWeek,agendaDay,listWeek'
-					},
-					weekends: false,
-					events:[
-						{
-							title: projects[count].description,
-							start: projects[count].start_date,
-							end: projects[count].deadline
-						}
-					]
-				});
-				console.log(projects[count]);
-			}		
-		}); */
 		
 		$("#calendar").fullCalendar({
 			header: {
@@ -35,8 +13,14 @@
 				$.ajax({
 					url: 'http://localhost:8080/projects'
 				}).then(function(projects){
+					console.log("AJAX CALL PERFORMED");
 					for(var count = 0; count < projects.length; count++){
-						console.log(projects[count].description)
+						var event = {
+							title: projects[count].description,
+							start: projects[count].start_date,
+							end: projects[count].deadline
+						};
+						$("#calendar").fullCalendar('renderEvent', event, 'stick');
 					}
 				});		
 			}
