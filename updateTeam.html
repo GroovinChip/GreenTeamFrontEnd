@@ -4,15 +4,17 @@
 			<h3>Update Team</h3>
 		</div>
 		<div id="ctDiv">
-			<label>Team Name</label>
-			<input class="form-control" type="text" ng-model="ctrl.teamObj.description"></input>
-			<p ng-bind="ctrl.teamObj.description"></p>
+			<label>ID</label>
+            &nbsp;<input id="team-id" size="3" disabled />
+			<br>
+			<label>Description</label>
+			<input class="form-control" id="description" type="text" ></input>
 			<label>Members</label>
-			<select class="form-control" id="chooseMembers" ng-model="ctrl.teamObj.member_id">
+			<select class="form-control" id="chooseMembers">
 				<option value="">Choose Members</option> 
-				<option ng-repeat="member in ctrl.members" value="{{member.id}}">{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
+				<option ng-repeat="member in ctrl.members" value={{member.id}}>{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
 			</select>
-			<p ng-bind="ctrl.teamObj.member_id"></p>
+			<br>
 			<button class="btn btn-default" ng-click="ctrl.updateTeam()">Update Team</button>
 		</div>
 	</div>

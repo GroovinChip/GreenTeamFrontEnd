@@ -9,11 +9,12 @@
 	</div>
 	<div id="teamList">
 		<table class="table table-striped">
-			<tr><th>Team ID</th><th>Description</th><th>Actions</th></tr>
+			<tr><th>Team ID</th><th>Description</th><th>ID of Team Member</th><th>Actions</th></tr>
 			<tr ng-repeat="team in ctrl.teams">
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
-				<td><button class="btn btn-default" ng-click="">Update</button> 
+				<td>{{team.member_id}}</td>
+				<td><button class="btn btn-default" ng-click="ctrl.toUpdTeam(team.id, team.member_id)">Update</button> 
 				<button class="btn btn-danger" ng-click="ctrl.deleteTeam(team.id)">Delete</button></td>
 			</tr>
 		</table>

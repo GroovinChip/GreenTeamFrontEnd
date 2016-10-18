@@ -109,29 +109,40 @@ angular.module("AppMod", ["ngRoute"])
 				data: self.memberObj
 			}).then(
 				window.location.href = "http://localhost:8081/#/viewAllMembers"
-			)
+			).then(
+                location.reload(true)
+            )
 		};
 		
-		// Update member
+		// KYLE'S Update member
 		self.updateMember = function(){
+			var member = {};
+			member.id = $("#member-id").val();
+			member.first_name = $("#first-name").val();
+			member.last_name = $("#last-name").val();
+			member.gs_grade = $("#gs-grade").val();
+			member.role = $("#role").val();
+
 			$http({
 				method: 'PUT',
-				url: 'http://localhost:8080/member',
-				data: self.memberObj
-			}).then(
-				//window.location.href = "viewAllMembers.html"
-				console.log(self.memberObj)
-			)
-		};
+				url: 'http://localhost:8080/updatemember',
+				data: member
+			}).then(function() {
+				$location.path("/viewAllMembers");
+			});
+		}; // end updateMember
 		
-		// Delete member
+		// KYLE'S Delete member
 		self.deleteMember = function(id){
-			$http({
-				method: 'DELETE',
-				url: 'http://localhost:8080/deletemember/'+id
-			}).then(
-				location.reload(true)
-			)
+			var conf = confirm("Delete member with ID: " + id + "?");
+			if(conf) {
+				$http({
+					method: 'DELETE',
+					url: 'http://localhost:8080/deletemember/'+id
+				}).then(
+					location.reload(true)
+				)
+			}
 		};
 		
 		// Add new team
@@ -142,24 +153,45 @@ angular.module("AppMod", ["ngRoute"])
 				data: self.teamObj
 			}).then(
 				window.location.href = "http://localhost:8081/#/viewAllTeams"
-			)
+			).then(
+                location.reload(true)
+            )
 		};
 		
-		// Delete member
-		self.deleteTeam = function(id){
+		// Update team
+		self.updateTeam = function(){
+			var team = {};
+			team.id = $("#team-id").val();
+			team.description = $("#description").val();
+			team.team_id = $("#chooseMembers").val();
+
 			$http({
-				method: 'DELETE',
-				url: 'http://localhost:8080/deleteteam/'+id
-			}).then(
-				location.reload(true)
-			)
+				method: 'PUT',
+				url: 'http://localhost:8080/updateteam',
+				data: team
+			}).then(function() {
+				$location.path("/viewAllTeams");
+			});
+		}; // end updateMember
+		
+		// Delete member		
+		self.deleteTeam = function(id){
+			var conf = confirm("Delete team with ID: " + id + "?");
+			if(conf) {
+				$http({
+					method: 'DELETE',
+					url: 'http://localhost:8080/deleteteam/'+id
+				}).then(
+					location.reload(true)
+				)
+			}
 		};
 		
 		// KYLE'S CREATE PROJECT
 		self.createProject = function() {
-				self.projectObj.deadline = $("#datepickerD").datepicker("getDate");
+			self.projectObj.deadline = $("#datepickerD").datepicker("getDate");
 		    self.projectObj.start_date = $("#datepickerSD").datepicker("getDate");
-			  $http({
+			$http({
 					method: 'POST',
 					url: "http://localhost:8080/project",
 					data: self.projectObj
@@ -168,30 +200,59 @@ angular.module("AppMod", ["ngRoute"])
 				});
 			}
 		
-		// Delete Project
+		// Delete member		
 		self.deleteProject = function(id){
-			$http({
-				method: 'DELETE',
-				url: 'http://localhost:8080/deleteproject/'+id
-			}).then(
-				location.reload(true)
-			)
+			var conf = confirm("Delete project with ID: " + id + "?");
+			if(conf) {
+				$http({
+					method: 'DELETE',
+					url: 'http://localhost:8080/deleteproject/'+id
+				}).then(
+					location.reload(true)
+				)
+			}
 		};
 		
 		//self.memberObj = {};
 		
-		// nav to member upd page, build obj 
-		self.toUpdMem = function(member){
-			console.log(self.memberObj);
-			//self.memberObj = member;
-			self.setMemberObj(member);
-			console.log(self.memberObj);
-			$location.path ('/updateMember');
-			console.log(self.memberObj);
-		};
+		// nav to member upd page
+		self.toUpdMem = function(memberId){
+			$http.get("http://localhost:8080/member/" + memberId).
+			then(function(resp) {
+				var member = resp.data;
 
-		self.logMember = function(){
-			console.log(self.memToUpd);
+				$("#member-id").val(member.id);
+				$("#first-name").val(member.first_name);
+				$("#last-name").val(member.last_name);
+				$('#gs-grade option:contains(' + member.gs_grade + ')').prop('selected', true);
+				$('#role option:contains(' + member.role + ')').prop('selected', true);
+			}) // end get
+			//self.memberObj = member;
+			$location.path ('/updateMember');
+		};
+		
+		// nav to team upd page
+		self.toUpdTeam = function(teamId, teamMemberId){
+			$http.get("http://localhost:8080/team/" + teamId).
+			then(function(resp) {
+				var team = resp.data;
+
+				$("#team-id").val(team.id);
+				$("#description").val(team.description);
+				$('#chooseMembers option[value="'+teamMemberId+'"]').attr("selected", "selected");
+				console.log(teamMemberId);
+			}) // end get
+			$location.path ('/updateTeam');
+		};
+		
+		// nav to proj upd page
+		self.toUpdProj = function(projId){
+			$http.get("http://localhost:8080/project/" + projId).
+			then(function(resp) {
+				var project = resp.data;
+				
+			}) // end get
+			$location.path ('/updateProject');
 		};
 		
 	}]) // end controller

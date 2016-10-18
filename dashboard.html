@@ -14,7 +14,7 @@
 				$.ajax({
 					url: 'http://localhost:8080/projects'
 				}).then(function(projects){
-					console.log("AJAX CALL PERFORMED");
+					//console.log("AJAX CALL PERFORMED");
 					for(var count = 0; count < projects.length; count++){
 						var event = {
 							title: projects[count].description,
@@ -52,6 +52,17 @@
 			<div class="tableDiv">
 				<table class="table">
 					<tr><th>Name</th><th>Deadline</th><th>Progress</th><th>Actions</th></tr>
+					<tr ng-repeat=" project in ctrl.projects">
+						<td>{{project.name}}</td>
+						<td>{{project.deadline | date:'MMM dd, yyyy'}}</td>
+						<td>{{}}</td>
+						<td>
+							<div class="btn-group">
+								<button class="btn btn-default" title="Update Project"><span class="glyphicon glyphicon-pencil"></span></button>
+								<button class="btn btn-info" title="Add a Comment"><span class="glyphicon glyphicon-comment"></span></button>
+							</div>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

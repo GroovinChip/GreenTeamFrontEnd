@@ -18,7 +18,7 @@
 				<td>{{project.start_date | date:'MMM dd, yyyy'}}</td>
 				<td>{{project.deadline | date:'MMM dd, yyyy'}}</}}</td>
 				<td>{{project.work_remaining}} hours</td>
-				<td><button class="btn btn-default">Edit</button> <button class="btn btn-danger" ng-click="ctrl.deleteProject(project.id)">Delete</button> <!-- <button class="btn btn-primary" ng-click="ctrl.console(project)">Console</button> --></td>
+				<td><button class="btn btn-default" ng-click="ctrl.toUpdProj(project.id)" title="Update {{project.name}}">Update</button> <button class="btn btn-danger" ng-click="ctrl.deleteProject(project.id)" title="Delete {{project.name}}">Delete</button></td>
 			</tr>
 		</table>
 	</div>
