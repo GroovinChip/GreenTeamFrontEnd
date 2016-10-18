@@ -46,7 +46,7 @@
 			<div class="tableDiv">
 				<table class="table">
 					<tr><th>Name</th><th>Deadline</th><th>Progress</th><th>Actions</th></tr>
-					<tr ng-repeat="project in ctrl.projects | orderBy:project.project_health:true" ng-if="project.project_health < 100 && ctrl.today < project.deadline">
+					<tr ng-repeat="project in ctrl.projects | orderBy:project.project_health:true" ng-if="project.project_health < 100 && ctrl.today < project.deadline" ng-style="ctrl.changeColor(project.project_health)">
 						<td>{{project.name}}</td>
 						<td>{{project.deadline | date:'MMM dd, yyyy'}}</td>
 						<td>

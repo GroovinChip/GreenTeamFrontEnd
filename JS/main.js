@@ -71,6 +71,7 @@ angular.module("AppMod", ["ngRoute"])
 
 			});
 		
+		//
 		self.calcProjHealth = function(startDate, deadline, work_remaining){
 			var today = new Date();
 			var dDate1 = new Date();
@@ -113,7 +114,18 @@ angular.module("AppMod", ["ngRoute"])
 			return projectHealth;
 		}
 		
-		
+		//
+		self.changeColor = function(health){
+			if(health < 100 && health > 90){
+				return { color: "#e6e600" };
+			}
+			else if(health < 90 && health > 80){
+				return { color: "orange" };
+			}
+			else if(health < 80){
+				return { color: "red" };
+			}
+		}
 
 		// MEMBER OBJECT
 		self.memberObj = {
