@@ -74,6 +74,7 @@ angular.module("AppMod", ["ngRoute"])
 		//
 		self.calcProjHealth = function(startDate, deadline, work_remaining){
 			var today = new Date();
+			today.setHours(0,0,0,0);
 			var dDate1 = new Date();
 			if(startDate <= today){
 				dDate1 = today;
