@@ -126,6 +126,16 @@ angular.module("AppMod", ["ngRoute"])
 				return { color: "red" };
 			}
 		}
+		
+		//
+		self.passToNotes = function(id){
+			$http.get("http://localhost:8080/project/" + id).
+			then(function(resp) {
+				//var project = resp.data;
+				self.projectObj = resp.data;
+				console.log(self.projectObj);
+			}) // end get
+		}
 
 		// MEMBER OBJECT
 		self.memberObj = {

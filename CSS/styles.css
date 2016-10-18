@@ -161,6 +161,10 @@ body{
 	width: 80%;
 }
 
+#popupNoteInput{
+	resize: none;
+}
+
 /* override jqueryUI */
 .ui-progressbar .ui-progressbar-value{
 	margin-top: 0px;
