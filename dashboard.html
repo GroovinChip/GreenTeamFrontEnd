@@ -30,11 +30,12 @@
 		
 		$("#closeModal").click(function(){
 			$("#popupNoteInput").val("");
-			console.log("CLICK");
 		});
 		$("#x").click(function(){
 			$("#popupNoteInput").val("");
-			console.log("CLICK");
+		});
+		$("#clear").click(function(){
+			$("#popupNoteInput").val("");
 		});
 	});
 </script>
@@ -77,7 +78,7 @@
 			<div id="calendar"></div>
 		</div>
 		<!-- Modal -->
-		<div class="modal fade" id="notes" role="dialog">
+		<div class="modal fade" id="notes" role="dialog" data-backdrop="static">
 			<div class="modal-dialog">			
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -86,14 +87,18 @@
 						<h4 class="modal-title">Notes for {{ctrl.projectObj.name}}</h4>
 					</div>
 					<div class="modal-body">
-						<textarea class="form-control" id="popupNoteInput" rows="5"></textarea>
+						<textarea class="form-control" id="popupNoteInput" rows="5"ng-model="ctrl.note"></textarea>
 						<br>
 							<div style="text-align:center">
-							<button class="btn btn-info">Add Note</button>
+							<button class="btn btn-info" ng-click="ctrl.addProjNote(ctrl.note)">Add Note</button>
+							<button class="btn btn-info" id="clear">Clear</button>
 						</div>
 					</div>
 					<div id="noteHistory" class="modal-footer" style="text-align:center">
-						<p>Note history will be here</p>
+						<div style="text-align: left;border-bottom: 1px solid #e5e5e5" ng-repeat="note in ctrl.noteObj">
+							<p style="text-decoration: underline">{{note.timestamp}}</p>
+							<p>{{note.message}}</p>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>

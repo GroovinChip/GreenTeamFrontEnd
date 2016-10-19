@@ -25,12 +25,15 @@
             <h3>Update Project</h3>
         </div>
         <div id="cpDiv">
+            <label>ID</label>
+            &nbsp;<input id="project-id" size="3" disabled />
+            <br>
             <label>Project Name</label>
-            <input ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
+            <input id="project-name" ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
             <label>Description</label>
-            <textarea ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
+            <textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
             <label>Priority</label>
-            <select ng-model="ctrl.projectObj.priority" class="form-control">
+            <select id="project-priority" ng-model="ctrl.projectObj.priority" class="form-control">
                 <option value="">Choose a Priority</option>
                 <option value=1>Low</option>
                 <option value=2>Normal</option>
@@ -52,14 +55,14 @@
                 <input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
             </div>
             <label>Status</label>
-            <select ng-model="ctrl.projectObj.active" class="form-control">
+            <select id="project-status" ng-model="ctrl.projectObj.active" class="form-control">
                 <option value="">Choose a Status</option>
                 <option value=0>Inactive</option>
                 <option value=1>Active</option>
                 <option value=2>Completed</option>
             </select>
             <label>Phase</label>
-            <select ng-model="ctrl.projectObj.phase" class="form-control">
+            <select id="project-phase" ng-model="ctrl.projectObj.phase" class="form-control">
                 <option value="">Choose a Phase</option>
                 <option value="Planning and Analysis">Planning and Analysis</option>
                 <option value="Requirements">Requirements</option>
@@ -69,7 +72,7 @@
                 <option value="Production">Production</option>
             </select>
             <label>Work Remaining</label>
-            <input ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
+            <input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
             <br>
             <button class="btn btn-default" ng-click="ctrl.updateProject()">Update Project</button>
         </div>

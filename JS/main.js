@@ -39,6 +39,15 @@ angular.module("AppMod", ["ngRoute"])
 			)
 		};
 		
+		// Get notes by project id 
+		self.getProjNotes = function(id){
+			$http.get('http://localhost:8080/getprojectnotes/'+id)
+				.then(function(resp){
+					self.notes = resp.data;
+					console.log("Notes array:", self.notes);
+				});
+		}
+		
 		// Get all projects
 		$http.get('http://localhost:8080/projects')
 			.then(function(resp){
@@ -134,8 +143,16 @@ angular.module("AppMod", ["ngRoute"])
 			then(function(resp) {
 				//var project = resp.data;
 				self.projectObj = resp.data;
-				console.log(self.projectObj);
+				self.getProjNotes(id);
 			}) // end get
+		}
+		
+		//
+		
+		//
+		self.addProjNote = function(note){
+			self.note = note;
+			console.log(self.note);
 		}
 
 		// MEMBER OBJECT
@@ -158,6 +175,7 @@ angular.module("AppMod", ["ngRoute"])
 			member_id: ""
 		};
 		
+		// PROJECT OBJECT
 		self.projectObj = {
 			id: null,
 			name: null,
@@ -169,6 +187,13 @@ angular.module("AppMod", ["ngRoute"])
 			work_remaining: null,
 			phase: null
 		};
+		
+		// NOTE OBJECT
+		self.noteObj = {
+			id: null,
+			message: null,
+			timestamp: null
+		}
 		
 		// Add new member
 		self.addNewMember = function(){
@@ -268,6 +293,29 @@ angular.module("AppMod", ["ngRoute"])
 					$location.path("/viewAllProjects");
 				});
 			}
+			
+		// Update project
+        self.updateProject = function(){
+            var project = {};
+            project.id = $("#project-id").val();
+            project.name = $("#project-name").val();
+            project.description = $("#project-description").val();
+            project.active = $("#project-active").val();
+            project.priority = $("#project-priority").val();
+            // project.start_date = $("#datepickerSD").val();
+            project.start_date = $("#datepickerSD").datepicker("getDate");
+            // project.deadline = $("#datepickerD").val();
+            project.deadline = $("#datepickerD").datepicker("getDate");
+            project.work_remaining = $("#project-work").val();
+            project.phase = $("#project-phase").val();
+            $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/updateproject',
+                data: project
+            }).then(function() {
+                $location.path("/viewAllProjects");
+            });
+        }; // end updateProject
 		
 		// Delete member		
 		self.deleteProject = function(id){
@@ -315,14 +363,22 @@ angular.module("AppMod", ["ngRoute"])
 		};
 		
 		// nav to proj upd page
-		self.toUpdProj = function(projId){
-			$http.get("http://localhost:8080/project/" + projId).
-			then(function(resp) {
-				var project = resp.data;
-				
-			}) // end get
-			$location.path ('/updateProject');
-		};
+        self.toUpdProj = function(projId){
+            $http.get("http://localhost:8080/project/" + projId).
+            then(function(resp) {
+                var project = resp.data;
+                $("#project-id").val(project.id);
+                $("#project-name").val(project.name);
+                $("#project-description").val(project.description);
+                $('#project-active option:contains(' + project.active + ')').prop('selected', true);
+                $('#project-priority option:contains(' + project.priority + ')').prop('selected', true);
+                $('#datepickerSD option:contains(' + project.start_date + ')').prop('selected', true);
+                $('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
+                $("#project-work").val(project.work_remaining);
+                $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
+            }) // end get
+            $location.path ('/updateProject');
+        };
 		
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){
