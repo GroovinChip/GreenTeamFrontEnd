@@ -41,10 +41,11 @@ angular.module("AppMod", ["ngRoute"])
 		
 		// Get notes by project id 
 		self.getProjNotes = function(id){
-			$http.get('http://localhost:8080/getprojectnotes/'+id)
+			$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
 					self.notes = resp.data;
 					console.log("Notes array:", self.notes);
+					console.log("I'm here!");
 				});
 		}
 		
@@ -53,6 +54,7 @@ angular.module("AppMod", ["ngRoute"])
 			.then(function(resp){
 				self.projects = resp.data;
 				for(var count = 0; count < self.projects.length; count++){
+					// will need to get changed to a switch to account for the value '2'
 					var activeStatus = (self.projects[count].active == 1)?self.projects[count].active = "Inactive":self.projects[count].active = "Active"
 					
 					switch(self.projects[count].priority){
@@ -148,6 +150,13 @@ angular.module("AppMod", ["ngRoute"])
 		}
 		
 		//
+		self.openTeamUpdModal = function(id){
+			$http.get("http://localhost:8080/team/" + id).
+			then(function(resp) {
+				//var project = resp.data;
+				self.teamObj = resp.data;
+			}) // end get
+		}
 		
 		//
 		self.addProjNote = function(note){
@@ -380,6 +389,14 @@ angular.module("AppMod", ["ngRoute"])
             $location.path ('/updateProject');
         };
 		
+		self.toViewProject = function(id){
+			$http.get('http://localhost:8080/project/' + id).
+				then(function(resp){
+					var project = resp.data;
+					$("#project-name").val(project.name);
+				});
+		}
+		
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider
@@ -427,6 +444,10 @@ angular.module("AppMod", ["ngRoute"])
 		})
 		.when('/updateProject', {
 			templateUrl: 'updateProject.html',
+			controller: 'AppCtrl',
+			controllerAs: 'ctrl'
+		}).when('/viewProject', {
+			templateUrl: 'viewProject.html',
 			controller: 'AppCtrl',
 			controllerAs: 'ctrl'
 		});

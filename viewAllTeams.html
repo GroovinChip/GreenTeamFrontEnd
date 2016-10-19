@@ -1,3 +1,16 @@
+<script>
+	$(document).ready(function(){
+		$("#closeModal").click(function(){
+			$("#popupNoteInput").val("");
+		});
+		$("#x").click(function(){
+			$("#popupNoteInput").val("");
+		});
+		$("#clear").click(function(){
+			$("#popupNoteInput").val("");
+		});
+	});
+</script>
 <div id="bodyDiv">
 	<div id="tabDiv">
 		<ul class="nav nav-tabs">
@@ -14,9 +27,38 @@
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
 				<td>{{team.member_id}}</td>
-				<td><button class="btn btn-default" ng-click="ctrl.toUpdTeam(team.id, team.member_id)">Update</button> 
+				<td><button class="btn btn-default" ng-click="ctrl.openTeamUpdModal(team.id)" data-toggle="modal" data-target="#updateTeamModal">Update</button> 
 				<button class="btn btn-default" ng-click="ctrl.deleteTeam(team.id)">Delete</button></td>
 			</tr>
 		</table>
 	</div>
+<!-- Modal -->
+<div class="modal fade" id="updateTeamModal" role="dialog" data-backdrop="static">
+	<div class="modal-dialog">			
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+				<h4 class="modal-title">Update {{}}</h4>
+			</div>
+			<div class="modal-body">
+				<label>ID</label>
+				&nbsp;<input id="team-id" size="3" disabled />
+				<br>
+				<label>Description</label>
+				<input class="form-control" id="description" type="text" ></input>
+				<label>Members</label>
+				<select class="form-control" id="chooseMembers">
+					<option value="">Choose Members</option> 
+					<option ng-repeat="member in ctrl.members" value={{member.id}}>{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
+				</select>
+				<br>
+				<button class="btn btn-default" ng-click="ctrl.updateTeam()">Update Team</button>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+			</div>
+		</div>				
+	</div>
+</div>
 </div>
