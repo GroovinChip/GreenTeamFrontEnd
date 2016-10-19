@@ -27,6 +27,15 @@
 				});		
 			}
 		});
+		
+		$("#closeModal").click(function(){
+			$("#popupNoteInput").val("");
+			console.log("CLICK");
+		});
+		$("#x").click(function(){
+			$("#popupNoteInput").val("");
+			console.log("CLICK");
+		});
 	});
 </script>
 <div id="bodyDiv">
@@ -45,19 +54,19 @@
 			</div>
 			<div class="tableDiv">
 				<table class="table">
-					<tr><th>Name</th><th>Deadline</th><th>Progress</th><th>Priority</th><th>Actions</th></tr>
+					<tr><th>Name</th><th>Deadline</th><th>Project Health</th><th>Priority</th><th>Actions</th></tr>
 					<tr ng-repeat="project in ctrl.projects | orderBy:project.project_health:true" ng-if="project.project_health < 100 && ctrl.today < project.deadline" ng-style="ctrl.changeColor(project.project_health)">
 						<td>{{project.name}}</td>
 						<td>{{project.deadline | date:'MMM dd, yyyy'}}</td>
 						<td>
-							<progress max="100" value="{{project.project_health}}"></progress>
-							<label>{{project.project_health}}% Health</label>
+							<progress max="100" value="{{project.project_health}}" ng-style="{ctrl.changeColor(project.project_health)}"></progress>
+							<label>{{project.project_health}}%</label>
 						</td>
 						<td>{{project.priority}}</td>
 						<td>
 							<div class="btn-group">
 								<button class="btn btn-default" title="Update Project" ng-click="ctrl.toUpdProj(project.id)"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button class="btn btn-info" title="Add a Comment" data-toggle="modal" data-target="#notes"><span class="glyphicon glyphicon-comment" ng-click="ctrl.passToNotes(project.id)"></span></button>
+								<button class="btn btn-info" title="Add a Comment" data-toggle="modal" data-target="#notes" ng-click="ctrl.passToNotes(project.id)"><span class="glyphicon glyphicon-comment"></span></button>
 							</div>
 						</td>
 					</tr>
@@ -69,12 +78,11 @@
 		</div>
 		<!-- Modal -->
 		<div class="modal fade" id="notes" role="dialog">
-			<div class="modal-dialog">
-				
+			<div class="modal-dialog">			
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
 						<h4 class="modal-title">Notes for {{ctrl.projectObj.name}}</h4>
 					</div>
 					<div class="modal-body">
@@ -88,10 +96,9 @@
 						<p>Note history will be here</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
 					</div>
-				</div>
-				
+				</div>				
 			</div>
 		</div>
 	</div>

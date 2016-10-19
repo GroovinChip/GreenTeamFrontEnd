@@ -117,10 +117,10 @@ angular.module("AppMod", ["ngRoute"])
 		
 		//
 		self.changeColor = function(health){
-			if(health < 100 && health > 90){
+			if(health < 100 && health >= 90){
 				return { color: "#e6e600" };
 			}
-			else if(health < 90 && health > 80){
+			else if(health < 90 && health >= 80){
 				return { color: "orange" };
 			}
 			else if(health < 80){
