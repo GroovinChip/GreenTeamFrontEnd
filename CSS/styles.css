@@ -165,6 +165,14 @@ body{
 	resize: none;
 }
 
+.modal-dialog{
+	margin-top: 5%;
+}
+#noteHistory{
+	max-height: 350px;
+	overflow: auto;
+}
+
 /* override jqueryUI */
 .ui-progressbar .ui-progressbar-value{
 	margin-top: 0px;
