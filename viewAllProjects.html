@@ -1,3 +1,24 @@
+<script>
+    var today = new Date();
+    $("#datepickerD").attr("min", today);
+    $("#datepickerSD").attr("min", today);
+    $( function() {
+        $( "#datepickerD" ).datepicker({
+            minDate: -0, maxDate: "+12M +0D",
+            dateFormat: "yy-mm-dd",
+            showButtonPanel: true
+        });
+    } );
+    $( function() {
+        $( "#datepickerSD" ).datepicker({
+            minDate: -0, maxDate: "+12M +0D",
+            dateFormat: "yy-mm-dd",
+            showButtonPanel: true,
+            setDate: today
+        });
+    } );
+    // Need to get current date
+</script>
 <div id="bodyDiv">
 	<div id="tabDiv">
 		<ul class="nav nav-tabs">
@@ -65,11 +86,21 @@
 						<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
 					</div>
 					<label>Status</label>
-					<select id="project-status" ng-model="ctrl.projectObj.active" class="form-control">
+					<select id="project-status" ng-model="ctrl.projectObj.status" class="form-control">
 						<option value="">Choose a Status</option>
 						<option value=0>Inactive</option>
 						<option value=1>Active</option>
 						<option value=2>Completed</option>
+					</select>
+					<label>Phase</label>
+					<select id="project-phase" ng-model="ctrl.projectObj.phase" class="form-control">
+						<option value="">Choose a Phase</option>
+						<option value="Planning and Analysis">Planning and Analysis</option>
+						<option value="Requirements">Requirements</option>
+						<option value="Development">Development</option>
+						<option value="Testing and Validation">Testing and Validation</option>
+						<option value="Integration">Integration</option>
+						<option value="Production">Production</option>
 					</select>
 					<label>Work Remaining</label>
 					<input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
