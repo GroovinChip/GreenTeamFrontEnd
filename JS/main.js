@@ -39,6 +39,16 @@ angular.module("AppMod", ["ngRoute"])
 			)
 		};
 		
+		//
+		self.passToNotes = function(id){
+			$http.get("http://localhost:8080/project/" + id).
+			then(function(resp) {
+				//var project = resp.data;
+				self.projectObj = resp.data;
+				self.getProjNotes(id);
+			}) // end get
+		}
+		
 		// Get notes by project id 
 		self.getProjNotes = function(id){
 			$http.get('http://localhost:8080/notes/'+id)
@@ -57,7 +67,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/note',
 				data: self.noteObj
 			}).then(
-				
+				self.passToNotes(self.noteObj.project_id)
 			)
 		}
 		
@@ -162,16 +172,6 @@ angular.module("AppMod", ["ngRoute"])
 			else if(health < 80){
 				return { color: "red" };
 			}
-		}
-		
-		//
-		self.passToNotes = function(id){
-			$http.get("http://localhost:8080/project/" + id).
-			then(function(resp) {
-				//var project = resp.data;
-				self.projectObj = resp.data;
-				self.getProjNotes(id);
-			}) // end get
 		}
 		
 		//
