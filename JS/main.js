@@ -44,9 +44,34 @@ angular.module("AppMod", ["ngRoute"])
 			$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
 					self.notes = resp.data;
-					console.log("Notes array:", self.notes);
-					console.log("I'm here!");
 				});
+		}
+		
+		// Add a note to a project
+		self.addProjNote = function(note, id){
+			self.noteObj.message = note;
+			self.noteObj.project_id = id;
+			console.log(self.noteObj);
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8080/note',
+				data: self.noteObj
+			}).then(
+				
+			)
+		}
+		
+		// Delete a note
+		self.deleteNote = function(id){
+			var conf = confirm("Delete this note?");
+			if(conf) {
+				$http({
+					method: 'DELETE',
+					url: 'http://localhost:8080/deletenote/'+id
+				}).then(
+					
+				)
+			}
 		}
 		
 		// Get all projects
@@ -82,7 +107,7 @@ angular.module("AppMod", ["ngRoute"])
 
 			});
 		
-		//
+		// Calculate the health level of a project
 		self.calcProjHealth = function(startDate, deadline, work_remaining){
 			var today = new Date();
 			today.setHours(0,0,0,0);
@@ -126,7 +151,7 @@ angular.module("AppMod", ["ngRoute"])
 			return projectHealth;
 		}
 		
-		//
+		// Based on the health level of a project, change the color
 		self.changeColor = function(health){
 			if(health < 100 && health >= 90){
 				return { color: "#e6e600" };
@@ -156,12 +181,6 @@ angular.module("AppMod", ["ngRoute"])
 				//var project = resp.data;
 				self.teamObj = resp.data;
 			}) // end get
-		}
-		
-		//
-		self.addProjNote = function(note){
-			self.note = note;
-			console.log(self.note);
 		}
 
 		// MEMBER OBJECT
@@ -201,7 +220,8 @@ angular.module("AppMod", ["ngRoute"])
 		self.noteObj = {
 			id: null,
 			message: null,
-			timestamp: null
+			time_stamp: null,
+			project_id: null
 		}
 		
 		// Add new member

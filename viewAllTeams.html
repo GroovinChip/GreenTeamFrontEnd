@@ -22,7 +22,7 @@
 	</div>
 	<div id="teamList">
 		<table class="table table-striped">
-			<tr><th>Team ID</th><th>Description</th><th>ID of Team Member</th><th>Actions</th></tr>
+			<tr><th>Team ID</th><th>Team Name</th><th>ID of Team Member</th><th>Actions</th></tr>
 			<tr ng-repeat="team in ctrl.teams">
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
@@ -45,7 +45,7 @@
 				<label>ID</label>
 				&nbsp;<input id="team-id" size="3" disabled />
 				<br>
-				<label>Description</label>
+				<label>Team Name</label>
 				<input class="form-control" id="description" type="text" ></input>
 				<label>Members</label>
 				<select class="form-control" id="chooseMembers">
