@@ -210,7 +210,7 @@ angular.module("AppMod", ["ngRoute"])
 			id: null,
 			name: null,
 			description: null,
-			active: null,
+			status: null,
 			priority: null,
 			start_date: null,
 			deadline: null,
@@ -327,7 +327,8 @@ angular.module("AppMod", ["ngRoute"])
 			
         // Update project
         self.updateProject = function(){
-            var project = {};
+            console.log("¯\\_(ツ)_/¯");
+			var project = {};
             project.id = $("#project-id").val();
             project.name = $("#project-name").val();
             project.description = $("#project-description").val();
@@ -338,13 +339,13 @@ angular.module("AppMod", ["ngRoute"])
             // project.deadline = $("#datepickerD").val();
             project.deadline = $("#datepickerD").datepicker("getDate");
             project.work_remaining = $("#project-work").val();
-            project.phase = $("#project-phase").val();
+            project.phase = "";
             $http({
                 method: 'PUT',
                 url: 'http://localhost:8080/updateproject',
                 data: project
             }).then(function() {
-                $location.path("/viewAllProjects");
+                location.reload(true);
             });
         }; // end updateProject
 		
@@ -361,27 +362,9 @@ angular.module("AppMod", ["ngRoute"])
 			}
 		};
 		
-
-		// nav to member upd page
-		// DEPRECATED
-		self.toUpdMem = function(memberId){
-			$http.get("http://localhost:8080/member/" + memberId).
-			then(function(resp) {
-				var member = resp.data;
-
-				$("#member-id").val(member.id);
-				$("#first-name").val(member.first_name);
-				$("#last-name").val(member.last_name);
-				$('#gs-grade option:contains(' + member.gs_grade + ')').prop('selected', true);
-				$('#role option:contains(' + member.role + ')').prop('selected', true);
-			}) // end get
-			//self.memberObj = member;
-			$location.path ('/updateMember');
-		};
-		
 		// update member using modal
 		self.openMemberUpdModal = function(id){
-			console.log("ITS ME");
+			console.log("IT'S ME");
 			$http.get("http://localhost:8080/member/" + id).
 			then(function(resp) {
 				var member = resp.data;
@@ -392,21 +375,7 @@ angular.module("AppMod", ["ngRoute"])
 				$('#gs-grade option:contains(' + member.gs_grade + ')').prop('selected', true);
 				$('#role option:contains(' + member.role + ')').prop('selected', true);
 			}) // end get
-		}
-		
-		// nav to team upd page
-		// DEPRECATED!
-        self.toUpdTeam = function(teamId){
-            $http.get("http://localhost:8080/team/" + teamId).
-            then(function(resp) {
-                var team = resp.data;
-                $("#team-id").val(team.id);
-                $("#description").val(team.description);
-                $('#chooseMembers option[value="'+ team.member_id +'"]').attr('selected', true);
-                console.log(teamId);
-            }) // end get
-            $location.path ('/updateTeam');
-        };  
+		}  
 		
 		// update team using modal
 		self.openTeamUpdModal = function(id){
@@ -419,7 +388,25 @@ angular.module("AppMod", ["ngRoute"])
 			}) // end get
 		}
 		
+		// update team using modal
+		self.openProjUpdModal = function(id){
+			$http.get("http://localhost:8080/project/" + id).
+			then(function(resp) {
+				var project = resp.data;
+                $("#project-id").val(project.id);
+                $("#project-name").val(project.name);
+                $("#project-description").val(project.description);
+                $('#project-status option[value="' + project.status + '"]').attr('selected', true);
+                $('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
+                $('#datepickerSD option[value="' + project.start_date + '"]').datepicker('selected', true);
+                $('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
+                $("#project-work").val(project.work_remaining);
+                $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
+			}) // end get
+		}
+		
 		// nav to proj upd page
+		// DEPRECATED
         self.toUpdProj = function(projId){
             $http.get("http://localhost:8080/project/" + projId).
             then(function(resp) {

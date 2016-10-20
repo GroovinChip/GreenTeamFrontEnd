@@ -18,8 +18,68 @@
 				<td>{{project.start_date | date:'MMM dd, yyyy'}}</td>
 				<td>{{project.deadline | date:'MMM dd, yyyy'}}</}}</td>
 				<td>{{project.work_remaining}} hours</td>
-				<td><button class="btn btn-default" ng-click="ctrl.toUpdProj(project.id)" title="Update {{project.name}}">Update</button> <button class="btn btn-default" ng-click="ctrl.deleteProject(project.id)" title="Delete {{project.name}}">Delete</button></td>
+				<td>
+					<button class="btn btn-default" ng-click="ctrl.openProjUpdModal(project.id)" title="Update {{project.name}}" data-toggle="modal" data-target="#updateProjModal">Update</button> 
+					<button class="btn btn-default" ng-click="ctrl.deleteProject(project.id)" title="Delete {{project.name}}">Delete</button>
+				</td>
 			</tr>
 		</table>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="updateProjModal" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">			
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+					<h4 class="modal-title">Update {{project.description}}</h4>
+				</div>
+				<div class="modal-body">
+					<label>ID</label>
+					&nbsp;<input id="project-id" size="3" disabled />
+					<br>
+					<label>Project Name</label>
+					<input id="project-name" ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
+					<label>Description</label>
+					<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
+					<label>Priority</label>
+					<select id="project-priority" ng-model="ctrl.projectObj.priority" class="form-control">
+						<option value="">Choose a Priority</option>
+						<option value=1>Low</option>
+						<option value=2>Normal</option>
+						<option value=3>High</option>
+						<option value=4>Critical</option>
+					</select>
+					<label>Start Date</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+						<input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
+					</div>
+					<label>Deadline</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+						<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
+					</div>
+					<label>Status</label>
+					<select id="project-status" ng-model="ctrl.projectObj.active" class="form-control">
+						<option value="">Choose a Status</option>
+						<option value=0>Inactive</option>
+						<option value=1>Active</option>
+						<option value=2>Completed</option>
+					</select>
+					<label>Work Remaining</label>
+					<input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
+					<br>
+					<button class="btn btn-default" ng-click="ctrl.updateProject()">Update Project</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+				</div>
+			</div>				
+		</div>
 	</div>
 </div>
