@@ -71,15 +71,16 @@ angular.module("AppMod", ["ngRoute"])
 			)
 		}
 		
-		// Delete a note
-		self.deleteNote = function(id){
+		// Delete a note | OPTIONAL (refreshing list doesn't work)
+		self.deleteNote = function(noteId, projId){
 			var conf = confirm("Delete this note?");
+			
 			if(conf) {
 				$http({
 					method: 'DELETE',
-					url: 'http://localhost:8080/deletenote/'+id
+					url: 'http://localhost:8080/deletenote/'+noteId
 				}).then(
-					
+					self.passToNotes(projId)
 				)
 			}
 		}
