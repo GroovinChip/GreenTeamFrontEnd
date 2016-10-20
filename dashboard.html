@@ -17,10 +17,12 @@
 					//console.log("AJAX CALL PERFORMED");
 					for(var count = 0; count < projects.length; count++){
 						event = {
+							allDay: true,
 							title: projects[count].description,
-							start: projects[count].start_date,
+							start: projects[count].deadline,
 							end: projects[count].deadline,
 							textColor: 'black',
+							backgroundColor: '#15c',
 							id: projects[count].id
 						};
 						$("#calendar").fullCalendar('renderEvent', event);
