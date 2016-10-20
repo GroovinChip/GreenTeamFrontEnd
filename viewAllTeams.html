@@ -32,33 +32,33 @@
 			</tr>
 		</table>
 	</div>
-<!-- Modal -->
-<div class="modal fade" id="updateTeamModal" role="dialog" data-backdrop="static">
-	<div class="modal-dialog">			
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
-				<h4 class="modal-title">Update {{}}</h4>
-			</div>
-			<div class="modal-body">
-				<label>ID</label>
-				&nbsp;<input id="team-id" size="3" disabled />
-				<br>
-				<label>Team Name</label>
-				<input class="form-control" id="description" type="text" ></input>
-				<label>Members</label>
-				<select class="form-control" id="chooseMembers">
-					<option value="">Choose Members</option> 
-					<option ng-repeat="member in ctrl.members" value={{member.id}}>{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
-				</select>
-				<br>
-				<button class="btn btn-default" ng-click="ctrl.updateTeam()">Update Team</button>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
-			</div>
-		</div>				
+	<!-- Modal -->
+	<div class="modal fade" id="updateTeamModal" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">			
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+					<h4 class="modal-title">Update {{team.description}}</h4>
+				</div>
+				<div class="modal-body">
+					<label>ID</label>
+					&nbsp;<input id="team-id" size="6" disabled />
+					<br>
+					<label>Team Name</label>
+					<input class="form-control" id="description" type="text" ></input>
+					<label>Members</label>
+					<select class="form-control" id="chooseMembers">
+						<option value="">Choose Members</option> 
+						<option ng-repeat="member in ctrl.members" value={{member.id}}>{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
+					</select>
+					<br>
+					<button class="btn btn-default" ng-click="ctrl.updateTeam()">Update Team</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+				</div>
+			</div>				
+		</div>
 	</div>
-</div>
 </div>

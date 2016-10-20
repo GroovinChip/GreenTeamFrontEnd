@@ -89,9 +89,18 @@ angular.module("AppMod", ["ngRoute"])
 		$http.get('http://localhost:8080/projects')
 			.then(function(resp){
 				self.projects = resp.data;
-				for(var count = 0; count < self.projects.length; count++){
-					// will need to get changed to a switch to account for the value '2'
-					var activeStatus = (self.projects[count].active == 1)?self.projects[count].active = "Inactive":self.projects[count].active = "Active"
+				for(var count = 0; count < self.projects.length; count++){                    
+                    switch(self.projects[count].status){
+                        case 0:
+                            self.projects[count].status = "Inactive";
+                            break;
+                        case 1:
+                            self.projects[count].status = "Active";
+                            break;
+                        case 2:
+                            self.projects[count].status = "Completed";
+                            break;
+                    }
 					
 					switch(self.projects[count].priority){
 						case 1:
@@ -107,13 +116,14 @@ angular.module("AppMod", ["ngRoute"])
 							self.projects[count].priority = "Critical";
 							break;
 					}
-					
+				
 				var startDate = new Date(self.projects[count].start_date);
 				var deadline = new Date(self.projects[count].deadline);
 
                 self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
 			}
-				
+			// Solves project health sorting on dashboard - KYLE
+			self.projects.sort(function(a,b){return a.project_health-b.project_health})		
 			},function(err) {
 
 			});
@@ -173,15 +183,6 @@ angular.module("AppMod", ["ngRoute"])
 			else if(health < 80){
 				return { color: "red" };
 			}
-		}
-		
-		//
-		self.openTeamUpdModal = function(id){
-			$http.get("http://localhost:8080/team/" + id).
-			then(function(resp) {
-				//var project = resp.data;
-				self.teamObj = resp.data;
-			}) // end get
 		}
 
 		// MEMBER OBJECT
@@ -252,7 +253,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/updatemember',
 				data: member
 			}).then(function() {
-				$location.path("/viewAllMembers");
+				location.reload(true);
 			});
 		}; // end updateMember
 		
@@ -283,20 +284,20 @@ angular.module("AppMod", ["ngRoute"])
 		};
 		
 		// Update team
-		self.updateTeam = function(){
-			var team = {};
-			team.id = $("#team-id").val();
-			team.description = $("#description").val();
-			team.team_id = $("#chooseMembers").val();
-
-			$http({
-				method: 'PUT',
-				url: 'http://localhost:8080/updateteam',
-				data: team
-			}).then(function() {
-				$location.path("/viewAllTeams");
-			});
-		}; // end updateMember
+        self.updateTeam = function(){
+            var team = {};
+            team.id = $("#team-id").val();
+            team.description = $("#description").val();
+            team.member_id = $("#chooseMembers").val();
+            $http({
+                method: 'PUT',
+                url: 'http://localhost:8080/updateteam',
+                data: team
+            }).then(function() {
+                //$location.path("/viewAllTeams");
+				location.reload(true);
+            });
+        }; // end updateTeam
 		
 		// Delete member		
 		self.deleteTeam = function(id){
@@ -324,13 +325,13 @@ angular.module("AppMod", ["ngRoute"])
 				});
 			}
 			
-		// Update project
+        // Update project
         self.updateProject = function(){
             var project = {};
             project.id = $("#project-id").val();
             project.name = $("#project-name").val();
             project.description = $("#project-description").val();
-            project.active = $("#project-active").val();
+            project.status = $("#project-status").val();
             project.priority = $("#project-priority").val();
             // project.start_date = $("#datepickerSD").val();
             project.start_date = $("#datepickerSD").datepicker("getDate");
@@ -360,9 +361,9 @@ angular.module("AppMod", ["ngRoute"])
 			}
 		};
 		
-		//self.memberObj = {};
-		
+
 		// nav to member upd page
+		// DEPRECATED
 		self.toUpdMem = function(memberId){
 			$http.get("http://localhost:8080/member/" + memberId).
 			then(function(resp) {
@@ -378,19 +379,45 @@ angular.module("AppMod", ["ngRoute"])
 			$location.path ('/updateMember');
 		};
 		
+		// update member using modal
+		self.openMemberUpdModal = function(id){
+			console.log("ITS ME");
+			$http.get("http://localhost:8080/member/" + id).
+			then(function(resp) {
+				var member = resp.data;
+
+				$("#member-id").val(member.id);
+				$("#first-name").val(member.first_name);
+				$("#last-name").val(member.last_name);
+				$('#gs-grade option:contains(' + member.gs_grade + ')').prop('selected', true);
+				$('#role option:contains(' + member.role + ')').prop('selected', true);
+			}) // end get
+		}
+		
 		// nav to team upd page
-		self.toUpdTeam = function(teamId, teamMemberId){
-			$http.get("http://localhost:8080/team/" + teamId).
+		// DEPRECATED!
+        self.toUpdTeam = function(teamId){
+            $http.get("http://localhost:8080/team/" + teamId).
+            then(function(resp) {
+                var team = resp.data;
+                $("#team-id").val(team.id);
+                $("#description").val(team.description);
+                $('#chooseMembers option[value="'+ team.member_id +'"]').attr('selected', true);
+                console.log(teamId);
+            }) // end get
+            $location.path ('/updateTeam');
+        };  
+		
+		// update team using modal
+		self.openTeamUpdModal = function(id){
+			$http.get("http://localhost:8080/team/" + id).
 			then(function(resp) {
 				var team = resp.data;
-
-				$("#team-id").val(team.id);
-				$("#description").val(team.description);
-				$('#chooseMembers option[value="'+teamMemberId+'"]').attr("selected", "selected");
-				console.log(teamMemberId);
+                $("#team-id").val(team.id);
+                $("#description").val(team.description);
+                $('#chooseMembers option[value="'+ team.member_id +'"]').attr('selected', true);
 			}) // end get
-			$location.path ('/updateTeam');
-		};
+		}
 		
 		// nav to proj upd page
         self.toUpdProj = function(projId){
@@ -400,15 +427,15 @@ angular.module("AppMod", ["ngRoute"])
                 $("#project-id").val(project.id);
                 $("#project-name").val(project.name);
                 $("#project-description").val(project.description);
-                $('#project-active option:contains(' + project.active + ')').prop('selected', true);
-                $('#project-priority option:contains(' + project.priority + ')').prop('selected', true);
-                $('#datepickerSD option:contains(' + project.start_date + ')').prop('selected', true);
+                $('#project-status option[value="' + project.status + '"]').attr('selected', true);
+                $('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
+                $('#datepickerSD option[value="' + project.start_date + '"]').datepicker('selected', true);
                 $('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
                 $("#project-work").val(project.work_remaining);
                 $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
             }) // end get
             $location.path ('/updateProject');
-        };
+        };  
 		
 		self.toViewProject = function(id){
 			$http.get('http://localhost:8080/project/' + id).
