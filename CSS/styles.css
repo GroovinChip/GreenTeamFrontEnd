@@ -192,3 +192,9 @@ body{
 #project-description{
 	resize: none;
 }
+
+.error {
+    font-size: 10px;
+    color: red;
+    font-style: italic;
+}

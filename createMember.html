@@ -1,43 +1,45 @@
 <div id="bodyDiv">
-	<div class="wrapper">
-		<div id="ctmHeader">
-			<h3>Create Team Member</h3>
-		</div>
-		<div id="ctmDiv">
-			<label>First Name</label>
-			<input ng-model="ctrl.memberObj.first_name" class="form-control" type="text"></input>
-			<label>Last Name</label>
-			<input ng-model="ctrl.memberObj.last_name" class="form-control" type="text"></input>
-			<label>GS Grade</label>
-			<select class="form-control" ng-model="ctrl.memberObj.gs_grade">
-				<option value="">Choose a Grade</option>
-				<option>01</option>
-				<option>02</option>
-				<option>03</option>
-				<option>04</option>
-				<option>05</option>
-				<option>06</option>
-				<option>07</option>
-				<option>08</option>
-				<option>09</option>
-				<option>10</option>
-				<option>11</option>
-				<option>12</option>
-				<option>13</option>
-				<option>14</option>
-				<option>15</option>
-			</select>
-			<label>Role</label>
-			<select class="form-control" ng-model="ctrl.memberObj.role">
-				<option value="">Choose a Role</option>
-				<option>Developer</option>
-				<option>Analyst</option>
-				<option>Validator</option>
-				<option>Team Lead</option>
-				<option>Project Manager</option>
-			</select>
-			<br>
-			<button ng-click="ctrl.addNewMember()" class="btn btn-default" id="createMemberBtn">Create Member</button>
-		</div>
-	</div>
+    <div class="wrapper">
+        <div id="ctmHeader">
+            <h3>Create Team Member</h3>
+        </div>
+        <div id="ctmDiv">
+            <form name="createmember" ng-model="createmember">
+            <label>First Name </label><span class="error" ng-show="createmember.firstname.$error.required && createmember.firstname.$dirty">(Required field)</span>
+            <input name="firstname" ng-model="ctrl.memberObj.first_name" class="form-control" type="text" required></input>
+            <label>Last Name </label><span class="error" ng-show="createmember.lastname.$error.required && createmember.lastname.$dirty">(Required field)</span>
+            <input name="lastname" ng-model="ctrl.memberObj.last_name" class="form-control" type="text" required></input>
+            <label>GS Grade</label>
+            <select class="form-control" ng-model="ctrl.memberObj.gs_grade">
+                <option value="">Choose a Grade</option>
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+            </select>
+            <label>Role</label>
+            <select class="form-control" ng-model="ctrl.memberObj.role">
+                <option value="">Choose a Role</option>
+                <option>Developer</option>
+                <option>Analyst</option>
+                <option>Validator</option>
+                <option>Team Lead</option>
+                <option>Project Manager</option>
+            </select>
+        </form>
+            <br>
+            <button ng-click="ctrl.addNewMember()" class="btn btn-default" id="createMemberBtn" ng-disabled="createmember.firstname.$error.required || createmember.lastname.$error.required">Create Member</button>
+        </div>
+    </div>
 </div>
