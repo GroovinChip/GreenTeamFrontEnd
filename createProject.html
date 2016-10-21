@@ -28,13 +28,14 @@
             <h3>Create Project</h3>
         </div>
         <div id="cpDiv">
-            <label>Project Name</label>
-            <input ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
+          <form name="createproject"
+            <label>Project Name </label><span class="error" ng-show="createproject.projectname.$error.required && createproject.projectname.$dirty">(Required field)</span>
+            <input name="projectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" required></input>
             <label>Description</label>
             <textarea ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
-			<label>Team</label>
-			<select class="form-control" id="team-select" ng-model="ctrl.projectObj.team_id">
-				<option>Choose a Team</option>
+			<label>Team </label><span class="error" ng-show="createproject.chooseteam.$error.required && createproject.chooseteam.$dirty">(Required field)</span>
+			<select name="chooseteam" class="form-control" id="team-select" ng-model="ctrl.projectObj.team_id" required>
+				<option value="">Choose a Team</option>
 				<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
 			</select>
             <label>Priority</label>
@@ -78,8 +79,9 @@
 			</select>
             <label>Work Remaining</label>
             <input ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
+          </form>
             <br>
-            <button class="btn btn-default" ng-click="ctrl.createProject()">Create Project</button>
+            <button class="btn btn-default" ng-click="ctrl.createProject()" ng-disabled="createproject.projectname.$error.required || createproject.chooseteam.$error.required">Create Project</button>
         </div>
     </div>
 </div>

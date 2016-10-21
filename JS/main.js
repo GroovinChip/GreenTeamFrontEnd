@@ -46,11 +46,9 @@ angular.module("AppMod", ["ngRoute"])
 				// Get the specified project
 				self.projectObj = resp.data;
 				// Get the specified project's notes
-				console.log("fetching notes");
 				$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
-					self.notes = resp.data,
-					console.log("notes fetched")
+					self.notes = resp.data
 				});
 			}) // end get
 		}
@@ -64,8 +62,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/note',
 				data: self.noteObj
 			}).then(
-				self.passToNotes(self.noteObj.project_id),
-				console.log("the note was added")
+				self.passToNotes(self.noteObj.project_id)
 			)
 		};
 		
@@ -100,6 +97,9 @@ angular.module("AppMod", ["ngRoute"])
                     }
 					
 					switch(self.projects[count].priority){
+						case 0:
+							self.projects[count].priority = "-";
+							break;
 						case 1:
 							self.projects[count].priority = "Low";
 							break;
@@ -160,11 +160,9 @@ angular.module("AppMod", ["ngRoute"])
 
 			var hoursRemaining = (iDateDiff + 1) * 8;
 			var projectHealth = hoursRemaining / work_remaining * 100;
-			//console.log("Project Health:", projectHealth);
 			// TERNIARY
 			projectHealth > 100 ? projectHealth = 100 : projectHealth = projectHealth;
 			//self.projects[count].project_health = projectHealth;
-			//console.log(self.projects[count]);
 			projectHealth = Math.round(projectHealth);
 			return projectHealth;
 		}
@@ -314,7 +312,6 @@ angular.module("AppMod", ["ngRoute"])
 		self.createProject = function() {
 			self.projectObj.deadline = $("#datepickerD").datepicker("getDate");
 		    self.projectObj.start_date = $("#datepickerSD").datepicker("getDate");
-			console.log(self.projectObj);
 			$http({
 					method: 'POST',
 					url: "http://localhost:8080/project",
@@ -362,7 +359,6 @@ angular.module("AppMod", ["ngRoute"])
 		
 		// update member using modal
 		self.openMemberUpdModal = function(id){
-			console.log("IT'S ME");
 			$http.get("http://localhost:8080/member/" + id).
 			then(function(resp) {
 				var member = resp.data;

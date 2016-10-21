@@ -20,15 +20,23 @@
 			<li role="presentation"><a href="#/viewAllMembers"><span class="glyphicon glyphicon-user"></span> View All Team Members</a></li>
 		</ul>		
 	</div>
-	<div id="teamList">
+	<div id="teamList" style="width:60%; float:left; margin-left: 10%;">
 		<table class="table table-striped">
 			<tr><th>Team ID</th><th>Team Name</th><th>ID of Team Member</th><th>Actions</th></tr>
 			<tr ng-repeat="team in ctrl.teams">
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
 				<td>{{team.member_id}}</td>
-				<td><button class="btn btn-default" ng-click="ctrl.openTeamUpdModal(team.id)" data-toggle="modal" data-target="#updateTeamModal">Update</button> 
-				<button class="btn btn-default" ng-click="ctrl.deleteTeam(team.id)">Delete</button></td>
+				<td>				
+					<div class="btn-group">
+						<button class="btn btn-default" ng-click="ctrl.openTeamUpdModal(team.id)" data-toggle="modal" data-target="#updateTeamModal" title="Update {{team.description}} Team">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button> 
+						<button class="btn btn-danger" ng-click="ctrl.deleteTeam(team.id)" title="Delete {{team.description}} Team">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</div>
+				</td>
 			</tr>
 		</table>
 	</div>

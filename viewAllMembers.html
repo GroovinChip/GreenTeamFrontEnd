@@ -16,8 +16,14 @@
 				<td>{{member.gs_grade}}</td>
 				<td>{{member.role}}</td>
 				<td>
-					<button class="btn btn-default" ng-click="ctrl.openMemberUpdModal(member.id)" data-toggle="modal" data-target="#updateMemberModal">Update</button> 
-					<button class="btn btn-default" ng-click="ctrl.deleteMember(member.id)">Delete</button>
+					<div class="btn-group">
+						<button class="btn btn-default" ng-click="ctrl.openMemberUpdModal(member.id)" data-toggle="modal" data-target="#updateMemberModal" title="Update {{member.first_name}} {{member.last_name}}">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button> 
+						<button class="btn btn-danger" ng-click="ctrl.deleteMember(member.id)" title="Delete {{member.first_name}} {{member.last_name}}">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</div>
 				</td>
 			</tr>
 		</table>
