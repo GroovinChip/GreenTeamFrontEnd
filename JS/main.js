@@ -334,9 +334,7 @@ angular.module("AppMod", ["ngRoute"])
             project.description = $("#project-description").val();
             project.status = $("#project-status").val();
             project.priority = $("#project-priority").val();
-            // project.start_date = $("#datepickerSD").val();
             project.start_date = $("#datepickerSD").datepicker("getDate");
-            // project.deadline = $("#datepickerD").val();
             project.deadline = $("#datepickerD").datepicker("getDate");
             project.work_remaining = $("#project-work").val();
             project.phase = $("#project-phase").val();
@@ -403,26 +401,7 @@ angular.module("AppMod", ["ngRoute"])
                 $("#project-work").val(project.work_remaining);
                 $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
 			}) // end get
-		}
-		
-		// nav to proj upd page
-		// DEPRECATED
-        self.toUpdProj = function(projId){
-            $http.get("http://localhost:8080/project/" + projId).
-            then(function(resp) {
-                var project = resp.data;
-                $("#project-id").val(project.id);
-                $("#project-name").val(project.name);
-                $("#project-description").val(project.description);
-                $('#project-status option[value="' + project.status + '"]').attr('selected', true);
-                $('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
-                $('#datepickerSD option[value="' + project.start_date + '"]').datepicker('selected', true);
-                $('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
-                $("#project-work").val(project.work_remaining);
-                $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
-            }) // end get
-            $location.path ('/updateProject');
-        };  
+		}  
 		
 		self.toViewProject = function(id){
 			$http.get('http://localhost:8080/project/' + id).
@@ -467,21 +446,7 @@ angular.module("AppMod", ["ngRoute"])
 			controller: 'AppCtrl',
 			controllerAs: 'ctrl'
 		})
-		.when('/updateMember', {
-			templateUrl: 'updateMember.html',
-			controller: 'AppCtrl',
-			controllerAs: 'ctrl'
-		})
-		.when('/updateTeam', {
-			templateUrl: 'updateTeam.html',
-			controller: 'AppCtrl',
-			controllerAs: 'ctrl'
-		})
-		.when('/updateProject', {
-			templateUrl: 'updateProject.html',
-			controller: 'AppCtrl',
-			controllerAs: 'ctrl'
-		}).when('/viewProject', {
+		.when('/viewProject/:projectId', {
 			templateUrl: 'viewProject.html',
 			controller: 'AppCtrl',
 			controllerAs: 'ctrl'

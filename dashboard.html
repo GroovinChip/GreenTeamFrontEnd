@@ -1,5 +1,25 @@
 <script>
 	$(document).ready(function(){
+		var today = new Date();
+		$("#datepickerD").attr("min", today);
+		$("#datepickerSD").attr("min", today);
+		$( function() {
+			$( "#datepickerD" ).datepicker({
+				minDate: -0, maxDate: "+12M +0D",
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true
+			});
+		} );
+		$( function() {
+			$( "#datepickerSD" ).datepicker({
+				minDate: -0, maxDate: "+12M +0D",
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true,
+				setDate: today
+			});
+		} );
+		// Need to get current date
+		
 		var projects = [];		
 		var event;
 		$("#calendar").fullCalendar({
@@ -30,7 +50,22 @@
 				});		
 			},
 			eventClick: function(event, jsEvent, view){
-				
+				$("#viewProjModal").modal("show");
+				$.ajax({
+					url: 'http://localhost:8080/project/' + event.id
+				}).then(function(resp){
+					var project = resp;
+					console.log(project);
+					$("#project-id").val(project.id);
+					$("#project-name").val(project.name);
+					$("#project-description").val(project.description);
+					$('#project-status option[value="' + project.status + '"]').attr('selected', true);
+					$('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
+					$('#datepickerSD option[value="' + project.start_date + '"]').datepicker('selected', true);
+					$('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
+					$("#project-work").val(project.work_remaining);
+					$('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
+				});
 			}
 		});
 		
@@ -67,7 +102,7 @@
 					<tr><th>Name</th><th>Deadline</th><th>Project Health</th><th>Priority</th><th>Actions</th></tr>
 					<tr ng-repeat="project in ctrl.projects" ng-if="project.project_health < 100 && ctrl.today < project.deadline" ng-style="ctrl.changeColor(project.project_health)">
 						<td>{{project.name}}</td>
-						<td>{{project.deadline | date:'MMM dd, yyyy'}}</td>
+						<td>{{project.deadline | date:'MM/dd/yyyy'}}</td>
 						<td>
 							<progress max="100" value="{{project.project_health}}" ng-style="{ctrl.changeColor(project.project_health)}"></progress>
 							<label>{{project.project_health}}%</label>
@@ -176,6 +211,71 @@
 						<input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
 						<br>
 						<button class="btn btn-default" ng-click="ctrl.updateProject()">Update Project</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="viewProjModal" role="dialog" data-backdrop="static">
+			<div class="modal-dialog">			
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+						<h4 class="modal-title">View Project </h4>
+					</div>
+					<div class="modal-body">
+						<label>ID</label>
+						&nbsp;<input id="project-id" size="3" disabled />
+						<br>
+						<label>Project Name</label>
+						<input id="project-name" class="form-control" type="text" disabled ></input>
+						<label>Description</label>
+						<textarea id="project-description" class="form-control" rows="5" disabled></textarea>
+						<label>Priority</label>
+						<select id="project-priority" class="form-control">
+							<option value="">Choose a Priority</option>
+							<option value=1>Low</option>
+							<option value=2>Normal</option>
+							<option value=3>High</option>
+							<option value=4>Critical</option>
+						</select>
+						<label>Start Date</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+							<input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"disabled></input>
+						</div>
+						<label>Deadline</label>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">
+								<span class="glyphicon glyphicon-calendar"></span>
+							</span>
+							<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"disabled ></input>
+						</div>
+						<label>Status</label>
+						<select id="project-status" class="form-control">
+							<option value="">Choose a Status</option>
+							<option value=0>Inactive</option>
+							<option value=1>Active</option>
+							<option value=2>Completed</option>
+						</select>
+						<label>Phase</label>
+						<select id="project-phase" class="form-control">
+							<option value="">Choose a Phase</option>
+							<option value="Planning and Analysis">Planning and Analysis</option>
+							<option value="Requirements">Requirements</option>
+							<option value="Development">Development</option>
+							<option value="Testing and Validation">Testing and Validation</option>
+							<option value="Integration">Integration</option>
+							<option value="Production">Production</option>
+						</select>
+						<label>Work Remaining</label>
+						<input id="project-work" class="form-control" type="text" disabled></input>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>

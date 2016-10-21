@@ -30,14 +30,15 @@
 	</div>
 	<div id="projectList">
 		<table class="table table-striped">
-			<tr><th>Name</th><th>Description</th><th>Status</th><th>Priority</th><th>Start Date</th><th>Deadline</th><th>Work Remaining</th><th>Actions</th></tr>
+			<tr><th>Name</th><th>Description</th><th>Team</th><th>Status</th><th>Priority</th><th>Start Date</th><th>Deadline</th><th>Work Remaining</th><th>Actions</th></tr>
 			<tr ng-repeat="project in ctrl.projects">
 				<td>{{project.name}}</td>
 				<td>{{project.description}}</td>
+				<td>{{project.team_id}}</td>
 				<td>{{project.status}}</td>
 				<td>{{project.priority}}</td>
-				<td>{{project.start_date | date:'MMM dd, yyyy'}}</td>
-				<td>{{project.deadline | date:'MMM dd, yyyy'}}</}}</td>
+				<td>{{project.start_date | date:'MM/dd/yyyy'}}</td>
+				<td>{{project.deadline | date:'MM/dd/yyyy'}}</}}</td>
 				<td>{{project.work_remaining}} hours</td>
 				<td>
 					<button class="btn btn-default" ng-click="ctrl.openProjUpdModal(project.id)" title="Update {{project.name}}" data-toggle="modal" data-target="#updateProjModal">Update</button> 
