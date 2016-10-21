@@ -210,6 +210,7 @@ angular.module("AppMod", ["ngRoute"])
 			id: null,
 			name: null,
 			description: null,
+			team_id: null,
 			status: null,
 			priority: null,
 			start_date: null,
@@ -316,6 +317,7 @@ angular.module("AppMod", ["ngRoute"])
 		self.createProject = function() {
 			self.projectObj.deadline = $("#datepickerD").datepicker("getDate");
 		    self.projectObj.start_date = $("#datepickerSD").datepicker("getDate");
+			console.log(self.projectObj);
 			$http({
 					method: 'POST',
 					url: "http://localhost:8080/project",
@@ -332,6 +334,7 @@ angular.module("AppMod", ["ngRoute"])
             project.id = $("#project-id").val();
             project.name = $("#project-name").val();
             project.description = $("#project-description").val();
+			project.team_id = $("#team-select").val(); // NEW - BUILD 36
             project.status = $("#project-status").val();
             project.priority = $("#project-priority").val();
             project.start_date = $("#datepickerSD").datepicker("getDate");
@@ -394,6 +397,7 @@ angular.module("AppMod", ["ngRoute"])
                 $("#project-id").val(project.id);
                 $("#project-name").val(project.name);
                 $("#project-description").val(project.description);
+				$("#team-select").val(project.team_id);
                 $('#project-status option[value="' + project.status + '"]').attr('selected', true);
                 $('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
                 $("#datepickerSD").datepicker('setDate', new Date(project.start_date));

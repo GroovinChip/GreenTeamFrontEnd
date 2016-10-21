@@ -64,6 +64,11 @@
 					<input id="project-name" ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
 					<label>Description</label>
 					<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
+					<label>Team</label>
+					<select class="form-control" id="team-select" ng-model="ctrl.projectObj.team_id">
+						<option value="">Choose a Team</option>
+						<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
+					</select>
 					<label>Priority</label>
 					<select id="project-priority" ng-model="ctrl.projectObj.priority" class="form-control">
 						<option value="">Choose a Priority</option>

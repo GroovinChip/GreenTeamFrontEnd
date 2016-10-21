@@ -20,6 +20,25 @@
 		} );
 		// Need to get current date
 		
+		$("#datepickerD2").attr("min", today);
+		$("#datepickerSD2").attr("min", today);
+		$( function() {
+			$( "#datepickerD2" ).datepicker({
+				minDate: "-12M -0D", maxDate: "+12M +0D",
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true
+			});
+		} );
+		$( function() {
+			$( "#datepickerSD2" ).datepicker({
+				minDate: "-12M -0D", maxDate: "+12M +0D",
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true,
+				setDate: today
+			});
+		} );
+		// Need to get current date
+		
 		var projects = [];		
 		var event;
 		$("#calendar").fullCalendar({
@@ -56,15 +75,16 @@
 				}).then(function(resp){
 					var project = resp;
 					console.log(project);
-					$("#project-id").val(project.id);
-					$("#project-name").val(project.name);
-					$("#project-description").val(project.description);
-					$('#project-status option[value="' + project.status + '"]').attr('selected', true);
-					$('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
-					$('#datepickerSD option[value="' + project.start_date + '"]').datepicker('selected', true);
-					$('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
-					$("#project-work").val(project.work_remaining);
-					$('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
+					$("#project-id2").val(project.id);
+					$("#project-name2").val(project.name);
+					$("#project-description2").val(project.description);
+					$("#team-select2").val(project.team_id);
+					$('#project-status2 option[value="' + project.status + '"]').attr('selected', true);
+					$('#project-priority2 option[value="' + project.priority + '"]').attr('selected', true);
+					$("#datepickerSD2").datepicker('setDate', new Date(project.start_date));
+					$("#datepickerD2").datepicker('setDate', new Date(project.deadline));
+					$("#project-work2").val(project.work_remaining);
+					$('#project-phase2 option:contains(' + project.phase + ')').prop('selected', true);
 				});
 			}
 		});
@@ -168,6 +188,11 @@
 						<input id="project-name" ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
 						<label>Description</label>
 						<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
+						<label>Team</label>
+						<select class="form-control" id="team-select" ng-model="ctrl.projectObj.team_id">
+							<option value="">Choose a Team</option>
+							<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
+						</select>
 						<label>Priority</label>
 						<select id="project-priority" ng-model="ctrl.projectObj.priority" class="form-control">
 							<option value="">Choose a Priority</option>
@@ -229,14 +254,19 @@
 					</div>
 					<div class="modal-body">
 						<label>ID</label>
-						&nbsp;<input id="project-id" size="3" disabled />
+						&nbsp;<input id="project-id2" size="3" disabled />
 						<br>
 						<label>Project Name</label>
-						<input id="project-name" class="form-control" type="text" disabled ></input>
+						<input id="project-name2" class="form-control" type="text" disabled ></input>
 						<label>Description</label>
-						<textarea id="project-description" class="form-control" rows="5" disabled></textarea>
+						<textarea id="project-description2" class="form-control" rows="5" disabled></textarea>
+						<label>Team</label>
+						<select class="form-control" id="team-select2" ng-model="ctrl.projectObj.team_id">
+							<option value="">Choose a Team</option>
+							<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
+						</select>
 						<label>Priority</label>
-						<select id="project-priority" class="form-control">
+						<select id="project-priority2" class="form-control">
 							<option value="">Choose a Priority</option>
 							<option value=1>Low</option>
 							<option value=2>Normal</option>
@@ -248,24 +278,24 @@
 							<span class="input-group-addon" id="basic-addon1">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
-							<input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"disabled></input>
+							<input type="date" min="" class="form-control" id="datepickerSD2" placeholder="Select a date"disabled></input>
 						</div>
 						<label>Deadline</label>
 						<div class="input-group">
 							<span class="input-group-addon" id="basic-addon1">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
-							<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"disabled ></input>
+							<input type="date" min="" class="form-control" id="datepickerD2" placeholder="Select a date"disabled ></input>
 						</div>
 						<label>Status</label>
-						<select id="project-status" class="form-control">
+						<select id="project-status2" class="form-control">
 							<option value="">Choose a Status</option>
 							<option value=0>Inactive</option>
 							<option value=1>Active</option>
 							<option value=2>Completed</option>
 						</select>
 						<label>Phase</label>
-						<select id="project-phase" class="form-control">
+						<select id="project-phase2" class="form-control">
 							<option value="">Choose a Phase</option>
 							<option value="Planning and Analysis">Planning and Analysis</option>
 							<option value="Requirements">Requirements</option>
@@ -275,7 +305,7 @@
 							<option value="Production">Production</option>
 						</select>
 						<label>Work Remaining</label>
-						<input id="project-work" class="form-control" type="text" disabled></input>
+						<input id="project-work2" class="form-control" type="text" disabled></input>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>

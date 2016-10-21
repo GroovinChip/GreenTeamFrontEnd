@@ -17,6 +17,9 @@
             setDate: today
         });
     } );
+	$(document).ready(function() {
+		$("#datepickerSD").datepicker('setDate', new Date());
+	}); // end document.ready
     // Need to get current date
 </script>
 <div id="bodyDiv">
@@ -30,8 +33,9 @@
             <label>Description</label>
             <textarea ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
 			<label>Team</label>
-			<select class="form-control">
-				
+			<select class="form-control" id="team-select" ng-model="ctrl.projectObj.team_id">
+				<option>Choose a Team</option>
+				<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
 			</select>
             <label>Priority</label>
             <select ng-model="ctrl.projectObj.priority" class="form-control">

@@ -192,6 +192,9 @@ body{
 #project-description{
 	resize: none;
 }
+#project-description2{
+	resize: none;
+}
 
 .error {
     font-size: 10px;
