@@ -18,6 +18,19 @@
         });
     } );
     // Need to get current date
+	
+	$("#closeModal").click(function(){
+		$("#popupNoteInput").val("");
+	});
+	$("#x").click(function(){
+		$("#popupNoteInput").val("");
+	});
+	$("#clear").click(function(){
+		$("#popupNoteInput").val("");
+	});
+	$("#addNoteBtn").click(function(){
+		$("#popupNoteInput").val("");
+	});
 </script>
 <div id="bodyDiv">
 	<div id="tabDiv">
@@ -41,11 +54,48 @@
 				<td>{{project.deadline | date:'MM/dd/yyyy'}}</}}</td>
 				<td>{{project.work_remaining}} hours</td>
 				<td>
-					<button class="btn btn-default" ng-click="ctrl.openProjUpdModal(project.id)" title="Update {{project.name}}" data-toggle="modal" data-target="#updateProjModal">Update</button> 
+					<div class="btn-group">
+						<button class="btn btn-default" ng-click="ctrl.openProjUpdModal(project.id)" title="Update {{project.name}}" data-toggle="modal" data-target="#updateProjModal">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+						<button class="btn btn-info" title="Add a Comment" data-toggle="modal" data-target="#notes" ng-click="ctrl.passToNotes(project.id)">
+							<span class="glyphicon glyphicon-comment"></span>						
+						</button>						
+					</div>
 					<button class="btn btn-default" ng-click="ctrl.deleteProject(project.id)" title="Delete {{project.name}}">Delete</button>
 				</td>
 			</tr>
 		</table>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="notes" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">			
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+					<h4 class="modal-title">Notes for Project: {{ctrl.projectObj.name}}</h4>
+				</div>
+				<div class="modal-body">
+					<textarea class="form-control" id="popupNoteInput" rows="5"ng-model="ctrl.note"></textarea>
+					<br>
+					<div style="text-align:center">
+						<button class="btn btn-info" id="addNoteBtn" ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id)">Add Note</button>
+						<button class="btn btn-info" id="clear">Clear</button>
+					</div>
+				</div>
+				<div id="noteHistory" class="modal-footer" style="text-align:center">
+					<div id="historyItem" style="text-align: left;border-bottom: 1px solid #e5e5e5" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
+						<p style="text-decoration: underline">{{note.time_stamp | date:'MMM dd, yyyy, h:mm a'}}</p>
+						<p>{{note.message}}</p>
+						<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id, ctrl.projectObj.id)"><span class="glyphicon glyphicon-trash"></span></button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+				</div>
+			</div>				
+		</div>
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="updateProjModal" role="dialog" data-backdrop="static">
