@@ -43,38 +43,35 @@ angular.module("AppMod", ["ngRoute"])
 		self.passToNotes = function(id){
 			$http.get("http://localhost:8080/project/" + id).
 			then(function(resp) {
-				//var project = resp.data;
+				// Get the specified project
 				self.projectObj = resp.data;
-				self.getProjNotes(id);
-			}) // end get
-		}
-		
-		// Get notes by project id 
-		self.getProjNotes = function(id){
-			$http.get('http://localhost:8080/notes/'+id)
+				// Get the specified project's notes
+				console.log("fetching notes");
+				$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
-					self.notes = resp.data;
+					self.notes = resp.data,
+					console.log("notes fetched")
 				});
+			}) // end get
 		}
 		
 		// Add a note to a project
 		self.addProjNote = function(note, id){
 			self.noteObj.message = note;
 			self.noteObj.project_id = id;
-			console.log(self.noteObj);
 			$http({
 				method: 'POST',
 				url: 'http://localhost:8080/note',
 				data: self.noteObj
 			}).then(
-				self.passToNotes(self.noteObj.project_id)
+				self.passToNotes(self.noteObj.project_id),
+				console.log("the note was added")
 			)
-		}
+		};
 		
 		// Delete a note | OPTIONAL (refreshing list doesn't work)
 		self.deleteNote = function(noteId, projId){
 			var conf = confirm("Delete this note?");
-			
 			if(conf) {
 				$http({
 					method: 'DELETE',
@@ -83,7 +80,7 @@ angular.module("AppMod", ["ngRoute"])
 					self.passToNotes(projId)
 				)
 			}
-		}
+		};
 		
 		// Get all projects
 		$http.get('http://localhost:8080/projects')

@@ -4,15 +4,17 @@
 			<h3>Create Team</h3>
 		</div>
 		<div id="ctDiv">
-			<label>Team Name</label>
-			<input class="form-control" type="text" ng-model="ctrl.teamObj.description"></input>
-			<label>Members</label>
-			<select class="form-control" id="chooseMembers" ng-model="ctrl.teamObj.member_id">
-				<option value="">Choose Members</option> 
+			<form name="createteam">
+			<label>Team Name </label><span class="error" ng-show="createteam.teamname.$error.required && createteam.teamname.$dirty">(Required field)</span>
+			<input name="teamname" class="form-control" type="text" ng-model="ctrl.teamObj.description" required></input>
+			<label>Members </label> <span class="error" ng-show="createteam.selectmember.$error.required && createteam.selectmember.$dirty">(Required field)</span>
+			<select name="selectmember" class="form-control" id="chooseMembers" ng-model="ctrl.teamObj.member_id" required>
+				<option value="">Choose Members</option>
 				<option ng-repeat="member in ctrl.members" value="{{member.id}}">{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
 			</select>
+		</form>
 			<br>
-			<button class="btn btn-default" ng-click="ctrl.addNewTeam()">Create Team</button>
+			<button class="btn btn-default" ng-click="ctrl.addNewTeam()" ng-disabled="createteam.teamname.$error.required || createteam.selectmember.$error.required">Create Team</button>
 		</div>
 	</div>
 </div>
