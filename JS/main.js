@@ -396,8 +396,8 @@ angular.module("AppMod", ["ngRoute"])
                 $("#project-description").val(project.description);
                 $('#project-status option[value="' + project.status + '"]').attr('selected', true);
                 $('#project-priority option[value="' + project.priority + '"]').attr('selected', true);
-                $('#datepickerSD option[value="' + project.start_date + '"]').datepicker('selected', true);
-                $('#datepickerD option:contains(' + project.deadline + ')').prop('selected', true);
+                $("#datepickerSD").datepicker('setDate', new Date(project.start_date));
+				$("#datepickerD").datepicker('setDate', new Date(project.deadline));
                 $("#project-work").val(project.work_remaining);
                 $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
 			}) // end get

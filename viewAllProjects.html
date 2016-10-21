@@ -4,14 +4,14 @@
     $("#datepickerSD").attr("min", today);
     $( function() {
         $( "#datepickerD" ).datepicker({
-            minDate: -0, maxDate: "+12M +0D",
+            minDate: "-12M -0D", maxDate: "+12M +0D",
             dateFormat: "yy-mm-dd",
             showButtonPanel: true
         });
     } );
     $( function() {
         $( "#datepickerSD" ).datepicker({
-            minDate: -0, maxDate: "+12M +0D",
+            minDate: "-12M -0D", maxDate: "+12M +0D",
             dateFormat: "yy-mm-dd",
             showButtonPanel: true,
             setDate: today
