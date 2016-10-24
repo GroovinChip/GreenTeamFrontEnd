@@ -53,15 +53,16 @@
 					<label>ID</label>
 					&nbsp;<input id="team-id" size="6" disabled />
 					<br>
-					<label>Team Name</label>
-					<input class="form-control" id="description" type="text" ></input>
-					<label>Members</label>
-					<select class="form-control" id="chooseMembers">
-						<option value="">Choose Members</option> 
-						<option ng-repeat="member in ctrl.members" value={{member.id}}>{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
-					</select>
+					<form name="updateteam">
+						<label>Team Name </label><span class="error" ng-show="updateteam.description.$error.required && updateteam.description.$dirty">(Required field)</span>
+						<input name="description" ng-model="description" class="form-control" id="description" type="text" required></input>
+						<label>Members</label>
+						<select class="form-control" id="chooseMembers">
+							<option ng-repeat="member in ctrl.members" value={{member.id}}>{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>
+						</select>
+					</form>
 					<br>
-					<button class="btn btn-default" ng-click="ctrl.updateTeam()">Update Team</button>
+					<button class="btn btn-default" ng-click="ctrl.updateTeam()" ng-disabled="updateteam.description.$error.required">Update Team</button>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
