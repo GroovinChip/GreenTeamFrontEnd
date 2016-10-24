@@ -121,7 +121,9 @@
 				<table class="table">
 					<tr><th>Name</th><th>Deadline</th><th>Project Health</th><th>Priority</th><th>Actions</th></tr>
 					<tr ng-repeat="project in ctrl.projects" ng-if="project.project_health < 100 && ctrl.today < project.deadline" ng-style="ctrl.changeColor(project.project_health)">
-						<td>{{project.name}}</td>
+						<td>
+							<span class="projectlink" ng-click="ctrl.viewProject(project.id)" title="View {{project.name}}">{{project.name}}</span>
+						</td>
 						<td>{{project.deadline | date:'MM/dd/yyyy'}}</td>
 						<td>
 							<progress max="100" value="{{project.project_health}}" ng-style="ctrl.changeColor(project.project_health)"></progress>
@@ -162,7 +164,7 @@
 						<div id="historyItem" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
 							<p style="text-decoration: underline">{{note.time_stamp | date:'MMM dd, yyyy, h:mm a'}}</p>
 							<p>{{note.message}}</p>
-							<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id, ctrl.projectObj.id)">
+							<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id)">
 								<span class="glyphicon glyphicon-trash"></span>
 							</button>
 						</div>

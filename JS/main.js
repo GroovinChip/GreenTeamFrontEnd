@@ -66,7 +66,7 @@ angular.module("AppMod", ["ngRoute"])
 		};
 		
 		// Delete a note | OPTIONAL (refreshing list doesn't work)
-		self.deleteNote = function(noteId, projId){
+		self.deleteNote = function(noteId){
 			var conf = confirm("Delete this note?");
 			console.log(noteId);
 			if(conf) {
@@ -74,7 +74,6 @@ angular.module("AppMod", ["ngRoute"])
 					method: 'DELETE',
 					url: 'http://localhost:8080/deletenote/'+noteId
 				}).then(function(){
-					//self.notes.pop();
 					for(var i = 0; i < self.notes.length; i++){
 						if(noteId == self.notes[i].id){
 							self.notes.splice(i, 1);
@@ -414,15 +413,25 @@ angular.module("AppMod", ["ngRoute"])
                 $("#project-work").val(project.work_remaining);
                 $('#project-phase option:contains(' + project.phase + ')').prop('selected', true);
 			}) // end get
-		}  
+		} 
 		
-		self.toViewProject = function(id){
-			$http.get('http://localhost:8080/project/' + id).
-				then(function(resp){
-					var project = resp.data;
-					$("#project-name").val(project.name);
-				});
-		}
+	self.viewProject = function(pid){
+		$("#viewProjModal").modal("show");
+		$http.get('http://localhost:8080/project/' + pid)
+			.then(function(resp){
+			var project = resp.data;
+			$("#project-id2").val(project.id);
+			$("#project-name2").val(project.name);
+			$("#project-description2").val(project.description);
+			$("#team-select2").val(project.team_id);
+			$('#project-status2 option[value="' + project.status + '"]').attr('selected', true);
+			$('#project-priority2 option[value="' + project.priority + '"]').attr('selected', true);
+			$("#datepickerSD2").datepicker('setDate', new Date(project.start_date));
+			$("#datepickerD2").datepicker('setDate', new Date(project.deadline));
+			$("#project-work2").val(project.work_remaining);
+			$('#project-phase2 option:contains(' + project.phase + ')').prop('selected', true);
+		});
+	};
 		
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){
