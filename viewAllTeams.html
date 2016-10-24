@@ -19,8 +19,8 @@
 			<li role="presentation"><a href="#/viewAllProjects"><span class="glyphicon glyphicon-list"></span> View All Projects</a></li>
 			<li role="presentation"><a href="#/viewAllMembers"><span class="glyphicon glyphicon-user"></span> View All Team Members</a></li>
 		</ul>		
-	</div>
-	<div id="teamList" style="width:60%; float:left; margin-left: 10%;">
+	</div> 
+	<div id="teamList"> <!-- style="width:60%; float:left; margin-left: 10%;" -->
 		<table class="table table-striped">
 			<tr><th>Team ID</th><th>Team Name</th><th>ID of Team Member</th><th>Actions</th></tr>
 			<tr ng-repeat="team in ctrl.teams">
@@ -34,6 +34,9 @@
 						</button> 
 						<button class="btn btn-danger" ng-click="ctrl.deleteTeam(team.id)" title="Delete {{team.description}} Team">
 							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+						<button class="btn btn-info" title="log member name" ng-click="ctrl.getMemberName(team.member_id)">
+							<span class="glyphicon glyphicon-align-left"></span>
 						</button>
 					</div>
 				</td>

@@ -241,12 +241,13 @@ angular.module("AppMod", ["ngRoute"])
 		};
 		
 		// Get member name by ID
-		self.getMemberName = function(id){
-			console.log(id);
-			$http.get('http://localhost:8080/membername'/+id).
+		self.getMemberName = function(teamMembId){
+			$http.get('http://localhost:8080/member/'+teamMembId).
 			then(function(resp){
-				self.memberName = resp;
-				return self.memberName;
+				var memberbyId = {}
+				memberById = resp.data;
+				var fullName = memberById.first_name + ' ' + memberById.last_name;
+				alert("The member on this team is "+fullName);
 			})
 		};
 		
