@@ -40,37 +40,47 @@ angular.module("AppMod", ["ngRoute"])
 				// Get the specified project's notes
 				$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
-					console.log("Retrieving notes for project ", id),
-					self.notes = resp.data,
+					self.notes = resp.data;
 					console.log(self.notes);
 				});
 			}) // end get
-		}
+		};
 		
 		// Add a note to a project
 		self.addProjNote = function(note, id){
-			self.noteObj.message = note;
-			self.noteObj.project_id = id;
+			self.targetProjId = id;
+			var addNote ={}
+			addNote.message = note;
+			addNote.project_id = id;
+			addNote.time_stamp = new Date();
 			$http({
 				method: 'POST',
 				url: 'http://localhost:8080/note',
-				data: self.noteObj
-			}).then(
-				console.log("note added"),
-				self.passToNotes(self.noteObj.project_id)
-			)
+				data: addNote
+			}).then(function(){
+				$http.get('http://localhost:8080/notes/'+self.targetProjId).
+				then(function(resp){
+					self.notes = resp.data;
+				})
+			})
 		};
 		
 		// Delete a note | OPTIONAL (refreshing list doesn't work)
 		self.deleteNote = function(noteId, projId){
 			var conf = confirm("Delete this note?");
+			console.log(noteId);
 			if(conf) {
 				$http({
 					method: 'DELETE',
 					url: 'http://localhost:8080/deletenote/'+noteId
-				}).then(
-					self.passToNotes(projId)
-				)
+				}).then(function(){
+					//self.notes.pop();
+					for(var i = 0; i < self.notes.length; i++){
+						if(noteId == self.notes[i].id){
+							self.notes.splice(i, 1);
+						}
+					}
+				})
 			}
 		};
 		
@@ -228,6 +238,16 @@ angular.module("AppMod", ["ngRoute"])
 			).then(
                 location.reload(true)
             )
+		};
+		
+		// Get member name by ID
+		self.getMemberName = function(id){
+			console.log(id);
+			$http.get('http://localhost:8080/membername'/+id).
+			then(function(resp){
+				self.memberName = resp;
+				return self.memberName;
+			})
 		};
 		
 		// KYLE'S Update member
