@@ -183,16 +183,16 @@
 						<h4 class="modal-title">Update {{project.description}}</h4>
 					</div>
 					<div class="modal-body">
-						<label>ID</label>
-						&nbsp;<input id="project-id" size="3" disabled />
-						<br>
-						<label>Project Name</label>
-						<input id="project-name" ng-model="ctrl.projectObj.name" class="form-control" type="text"></input>
+                    <label>ID</label>
+                    &nbsp;<input id="project-id" size="3" disabled />
+                    <br>
+					<form name="updateproject">
+						<label>Project Name </label><span class="error" ng-show="updateproject.uprojectname.$error.required && updateproject.uprojectname.$dirty">(Required field)</span>
+						<input id="project-name" name="uprojectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" required></input>
 						<label>Description</label>
 						<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
-						<label>Team</label>
-						<select class="form-control" id="team-select" ng-model="ctrl.projectObj.team_id">
-							<option value="">Choose a Team</option>
+						<label>Team </label>
+						<select class="form-control" id="team-select" name="team-select" ng-model="ctrl.projectObj.team_id" required>
 							<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
 						</select>
 						<label>Priority</label>
@@ -236,8 +236,9 @@
 						</select>
 						<label>Work Remaining</label>
 						<input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
-						<br>
-						<button class="btn btn-default" ng-click="ctrl.updateProject()">Update Project</button>
+					</form>
+                    <br>
+					<button class="btn btn-default" ng-click="ctrl.updateProject()" ng-disabled="updateproject.uprojectname.$error.required || updateproject.team-select.$error.required">Update Project</button>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
