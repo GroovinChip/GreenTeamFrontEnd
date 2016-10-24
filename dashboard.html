@@ -124,7 +124,7 @@
 						<td>{{project.name}}</td>
 						<td>{{project.deadline | date:'MM/dd/yyyy'}}</td>
 						<td>
-							<progress max="100" value="{{project.project_health}}" ng-style="{ctrl.changeColor(project.project_health)}"></progress>
+							<progress max="100" value="{{project.project_health}}" ng-style="ctrl.changeColor(project.project_health)"></progress>
 							<label>{{project.project_health}}%</label>
 						</td>
 						<td>{{project.priority}}</td>
@@ -159,10 +159,12 @@
 						</div>
 					</div>
 					<div id="noteHistory" class="modal-footer" style="text-align:center">
-						<div id="historyItem" style="text-align: left;border-bottom: 1px solid #e5e5e5" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
+						<div id="historyItem" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
 							<p style="text-decoration: underline">{{note.time_stamp | date:'MMM dd, yyyy, h:mm a'}}</p>
 							<p>{{note.message}}</p>
-							<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id, ctrl.projectObj.id)"><span class="glyphicon glyphicon-trash"></span></button>
+							<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id, ctrl.projectObj.id)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</button>
 						</div>
 					</div>
 					<div class="modal-footer">

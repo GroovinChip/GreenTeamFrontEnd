@@ -12,14 +12,6 @@ angular.module("AppMod", ["ngRoute"])
 			},function(err) {
 
 			});
-		
-		// Get a member by ID
-		$http.get('http://localhost:8080/members/'+self.id)
-			.then(function(resp){
-				self.member = resp.data;
-			},function(err) {
-
-			});
 			
 		// Get all teams
 		$http.get('http://localhost:8080/teams')
@@ -43,12 +35,14 @@ angular.module("AppMod", ["ngRoute"])
 		self.passToNotes = function(id){
 			$http.get("http://localhost:8080/project/" + id).
 			then(function(resp) {
-				// Get the specified project
+				// Store the specified project
 				self.projectObj = resp.data;
 				// Get the specified project's notes
 				$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
-					self.notes = resp.data
+					console.log("Retrieving notes for project ", id),
+					self.notes = resp.data,
+					console.log(self.notes);
 				});
 			}) // end get
 		}
@@ -62,6 +56,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/note',
 				data: self.noteObj
 			}).then(
+				console.log("note added"),
 				self.passToNotes(self.noteObj.project_id)
 			)
 		};
