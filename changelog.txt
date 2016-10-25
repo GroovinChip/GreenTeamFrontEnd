@@ -4,6 +4,10 @@ FRONT-END CHANGELOG
 
 Version 1.4.0 - Build 52
 -------------
+- Moved all the javascript in dashboard.html into it's own file
+
+Version 1.4.0 - Build 52
+-------------
 - Added Pie chart to dashboard showing projects by priority
 
 Version 1.3.0 - Build 51
