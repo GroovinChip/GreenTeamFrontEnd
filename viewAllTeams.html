@@ -26,7 +26,7 @@
 			<tr ng-repeat="team in ctrl.teams">
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
-				<td>{{team.member_id}}</td>
+				<td><span ng-click="ctrl.getMemberName(team.member_id)" class="memName" title="Click to View Member Name">{{team.member_id}}</span></td>
 				<td>				
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="ctrl.openTeamUpdModal(team.id)" data-toggle="modal" data-target="#updateTeamModal" title="Update {{team.description}} Team">
@@ -35,9 +35,9 @@
 						<button class="btn btn-danger" ng-click="ctrl.deleteTeam(team.id)" title="Delete {{team.description}} Team">
 							<span class="glyphicon glyphicon-trash"></span>
 						</button>
-						<button class="btn btn-info" title="log member name" ng-click="ctrl.getMemberName(team.member_id)">
+						<!-- <button class="btn btn-info" title="log member name" ng-click="ctrl.getMemberName(team.member_id)">
 							<span class="glyphicon glyphicon-align-left"></span>
-						</button>
+						</button> -->
 					</div>
 				</td>
 			</tr>
@@ -65,7 +65,7 @@
 						</select>
 					</form>
 					<br>
-					<button class="btn btn-default" ng-click="ctrl.updateTeam()" ng-disabled="updateteam.description.$error.required">Update Team</button>
+					<button class="btn btn-default" ng-click="ctrl.updateTeam()" ng-disabled="!updateteam.description.$pristine && updateteam.description.$error.required">Update Team</button>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>

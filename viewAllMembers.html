@@ -76,7 +76,7 @@
 						</select>
 					</form>
 					<br>
-					<button ng-click="ctrl.updateMember()" class="btn btn-default" ng-disabled="updatemember.firstname.$error.required || updatemember.lastname.$error.required">Update Member</button>
+					<button ng-click="ctrl.updateMember()" class="btn btn-default" ng-disabled="(!updatemember.firstname.$pristine && updatemember.firstname.$error.required) || (!updatemember.lastname.$pristine && updatemember.lastname.$error.required)">Update Member</button>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
