@@ -169,8 +169,8 @@ angular.module("AppMod", ["ngRoute"])
 
 			iDateDiff -= iAdjust // take into account both days on weekend
 
-			var hoursRemaining = (iDateDiff + 1) * 8;
-			var projectHealth = hoursRemaining / work_remaining * 100;
+			self.hoursRemaining = (iDateDiff + 1) * 8;
+			var projectHealth = self.hoursRemaining / work_remaining * 100;
 			// TERNIARY
 			projectHealth > 100 ? projectHealth = 100 : projectHealth = projectHealth;
 			//self.projects[count].project_health = projectHealth;

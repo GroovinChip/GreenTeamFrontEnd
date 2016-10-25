@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 1.3.0 - Build 51
+-------------
+- Integrated Kyle's fix for showing the team member on 'view all teams'
+- Getting dynamic data to show in the pie chart on dashboard is NOT working and is NOT complete.
+
 Version 1.2.0 - Build 50
 -------------
 - Integrated Jarrett's fixes for Chrome datepicker issues
