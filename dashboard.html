@@ -48,7 +48,7 @@
 				right: 'month'
 			},
 			weekends: false,
-			nowIndicator: true,
+			height: 650,
 			events: function(start, end, callback){
 				$.ajax({
 					url: 'http://localhost:8080/projects'
@@ -103,6 +103,29 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+	window.onload = function () {
+		var chart = new CanvasJS.Chart("chartContainer", {
+			title:{
+				text: "My First Chart in CanvasJS"              
+			},
+			data: [              
+			{
+				// Change type to "doughnut", "line", "splineArea", etc.
+				type: "column",
+				dataPoints: [
+					{ label: "apple",  y: 10  },
+					{ label: "orange", y: 15  },
+					{ label: "banana", y: 25  },
+					{ label: "mango",  y: 30  },
+					{ label: "grape",  y: 28  }
+				]
+			}
+			]
+		});
+		chart.render();
+	}
+</script>
 <div id="bodyDiv">
 	<div id="tabDiv">
 		<ul class="nav nav-tabs">
@@ -147,116 +170,119 @@
 				</table>
 			</div>
 		</div>
-		<div id="calendarDiv">
-			<div id="calendar"></div>
+		<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<div id="chartContainer" style="height: 300px; display: inline-block;margin-top:5%;"></div>
+	</div>
+	<div id="calendarDiv">
+		<div id="calendar"></div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="notes" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">			
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+					<h4 class="modal-title">Notes for Project: {{ctrl.projectObj.name}}</h4>
+				</div>
+				<div class="modal-body">
+					<textarea class="form-control" id="popupNoteInput" rows="5"ng-model="ctrl.note"></textarea>
+					<br>
+						<div style="text-align:center">
+						<button class="btn btn-info" id="addNoteBtn" ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id)">Add Note</button>
+						<button class="btn btn-info" id="clear">Clear</button>
+					</div>
+				</div>
+				<div id="noteHistory" class="modal-footer" style="text-align:center">
+					<div id="historyItem" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
+						<p style="text-decoration: underline">{{note.time_stamp | date:'MMM dd, yyyy, h:mm a'}}</p>
+						<p>{{note.message}}</p>
+						<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+				</div>
+			</div>				
 		</div>
-		<!-- Modal -->
-		<div class="modal fade" id="notes" role="dialog" data-backdrop="static">
-			<div class="modal-dialog">			
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
-						<h4 class="modal-title">Notes for Project: {{ctrl.projectObj.name}}</h4>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="updateProjModal" role="dialog" data-backdrop="static">
+		<div class="modal-dialog">			
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
+					<h4 class="modal-title">Update {{project.description}}</h4>
+				</div>
+				<div class="modal-body">
+				<label>ID</label>
+				&nbsp;<input id="project-id" size="3" disabled />
+				<br>
+				<form name="updateproject">
+					<label><span class="requiredflag">*</span> Project Name </label><span class="error" ng-show="updateproject.uprojectname.$error.required && updateproject.uprojectname.$dirty">(Required field)</span>
+					<input id="project-name" name="uprojectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" required></input>
+					<label>Description</label>
+					<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
+					<label><span class="requiredflag">*</span> Team</label>
+					<select class="form-control" id="team-select" name="team-select" ng-model="ctrl.projectObj.team_id" required>
+						<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
+					</select>
+					<label>Priority</label>
+					<select id="project-priority" ng-model="ctrl.projectObj.priority" class="form-control">
+						<option value="">Choose a Priority</option>
+						<option value=1>Low</option>
+						<option value=2>Normal</option>
+						<option value=3>High</option>
+						<option value=4>Critical</option>
+					</select>
+					<label>Start Date</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+						<input type="text" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
 					</div>
-					<div class="modal-body">
-						<textarea class="form-control" id="popupNoteInput" rows="5"ng-model="ctrl.note"></textarea>
-						<br>
-							<div style="text-align:center">
-							<button class="btn btn-info" id="addNoteBtn" ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id)">Add Note</button>
-							<button class="btn btn-info" id="clear">Clear</button>
-						</div>
+					<label>Deadline</label>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+						<input type="text" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
 					</div>
-					<div id="noteHistory" class="modal-footer" style="text-align:center">
-						<div id="historyItem" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
-							<p style="text-decoration: underline">{{note.time_stamp | date:'MMM dd, yyyy, h:mm a'}}</p>
-							<p>{{note.message}}</p>
-							<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id)">
-								<span class="glyphicon glyphicon-trash"></span>
-							</button>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
-					</div>
-				</div>				
-			</div>
+					<label>Status</label>
+					<select id="project-status" ng-model="ctrl.projectObj.status" class="form-control">
+						<option value="">Choose a Status</option>
+						<option value=0>Inactive</option>
+						<option value=1>Active</option>
+						<option value=2>Completed</option>
+					</select>
+					<label>Phase</label>
+					<select id="project-phase" ng-model="ctrl.projectObj.phase" class="form-control">
+						<option value="">Choose a Phase</option>
+						<option value="Planning and Analysis">Planning and Analysis</option>
+						<option value="Requirements">Requirements</option>
+						<option value="Development">Development</option>
+						<option value="Testing and Validation">Testing and Validation</option>
+						<option value="Integration">Integration</option>
+						<option value="Production">Production</option>
+					</select>
+					<label>Work Remaining</label>
+					<input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
+				</form>
+				<br>
+				<button class="btn btn-default" ng-click="ctrl.updateProject()" ng-disabled="!updateproject.uprojectname.$pristine && updateproject.uprojectname.$error.required">Update Project</button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
+				</div>
+			</div>				
 		</div>
-		<!-- Modal -->
-		<div class="modal fade" id="updateProjModal" role="dialog" data-backdrop="static">
-			<div class="modal-dialog">			
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" id="x">&times;</button>
-						<h4 class="modal-title">Update {{project.description}}</h4>
-					</div>
-					<div class="modal-body">
-                    <label>ID</label>
-                    &nbsp;<input id="project-id" size="3" disabled />
-                    <br>
-					<form name="updateproject">
-						<label>Project Name </label><span class="error" ng-show="updateproject.uprojectname.$error.required && updateproject.uprojectname.$dirty">(Required field)</span>
-						<input id="project-name" name="uprojectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" required></input>
-						<label>Description</label>
-						<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
-						<label>Team </label>
-						<select class="form-control" id="team-select" name="team-select" ng-model="ctrl.projectObj.team_id" required>
-							<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
-						</select>
-						<label>Priority</label>
-						<select id="project-priority" ng-model="ctrl.projectObj.priority" class="form-control">
-							<option value="">Choose a Priority</option>
-							<option value=1>Low</option>
-							<option value=2>Normal</option>
-							<option value=3>High</option>
-							<option value=4>Critical</option>
-						</select>
-						<label>Start Date</label>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-							<input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
-						</div>
-						<label>Deadline</label>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-							<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
-						</div>
-						<label>Status</label>
-						<select id="project-status" ng-model="ctrl.projectObj.status" class="form-control">
-							<option value="">Choose a Status</option>
-							<option value=0>Inactive</option>
-							<option value=1>Active</option>
-							<option value=2>Completed</option>
-						</select>
-						<label>Phase</label>
-						<select id="project-phase" ng-model="ctrl.projectObj.phase" class="form-control">
-							<option value="">Choose a Phase</option>
-							<option value="Planning and Analysis">Planning and Analysis</option>
-							<option value="Requirements">Requirements</option>
-							<option value="Development">Development</option>
-							<option value="Testing and Validation">Testing and Validation</option>
-							<option value="Integration">Integration</option>
-							<option value="Production">Production</option>
-						</select>
-						<label>Work Remaining</label>
-						<input id="project-work" ng-model="ctrl.projectObj.work_remaining" class="form-control" type="text"></input>
-					</form>
-                    <br>
-					<button class="btn btn-default" ng-click="ctrl.updateProject()" ng-disabled="!updateproject.uprojectname.$pristine && updateproject.uprojectname.$error.required">Update Project</button>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>
-					</div>
-				</div>				
-			</div>
-		</div>
-		<!-- Modal -->
-		<div class="modal fade" id="viewProjModal" role="dialog" data-backdrop="static">
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="viewProjModal" role="dialog" data-backdrop="static">
 			<div class="modal-dialog">			
 				<!-- Modal content-->
 				<div class="modal-content">
@@ -325,5 +351,4 @@
 				</div>				
 			</div>
 		</div>
-	</div>
 </div>

@@ -9,14 +9,14 @@
             showButtonPanel: true
         });
     } );
-    $( function() {
-        $( "#datepickerSD" ).datepicker({
-            minDate: -0, maxDate: "+12M +0D",
-            dateFormat: "yy-mm-dd",
-            showButtonPanel: true,
-            setDate: today
-        });
-    } );
+	$( function() {
+		$( "#datepickerSD" ).datepicker({
+			minDate: "-12M +0D", maxDate: "+12M +0D",
+			dateFormat: "yy-mm-dd",
+			showButtonPanel: true,
+			setDate: today
+		});
+	} );
 	$(document).ready(function() {
 		$("#datepickerSD").datepicker('setDate', new Date());
 	}); // end document.ready
@@ -51,14 +51,14 @@
                 <span class="input-group-addon" id="basic-addon1">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
-                <input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
+                <input type="text" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
             </div>
             <label>Deadline</label>
             <div class="input-group">
                 <span class="input-group-addon" id="basic-addon1">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
-                <input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
+                <input type="text" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
             </div>
             <label>Status</label>
             <select ng-model="ctrl.projectObj.active" class="form-control">

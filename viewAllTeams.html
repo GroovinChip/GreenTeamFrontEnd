@@ -20,13 +20,13 @@
 			<li role="presentation"><a href="#/viewAllMembers"><span class="glyphicon glyphicon-user"></span> View All Team Members</a></li>
 		</ul>		
 	</div> 
-	<div id="teamList"> <!-- style="width:60%; float:left; margin-left: 10%;" -->
+	<div id="teamList" style="width:45%; float:left; margin-left: 10%;"> <!-- style="width:60%; float:left; margin-left: 10%;" -->
 		<table class="table table-striped">
 			<tr><th>Team ID</th><th>Team Name</th><th>ID of Team Member</th><th>Actions</th></tr>
 			<tr ng-repeat="team in ctrl.teams">
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
-				<td><span ng-click="ctrl.getMemberName(team.member_id)" class="memName" title="Click to View Member Name">{{team.member_id}}</span></td>
+				<td><span ng-click="ctrl.getMemberName(team.member_id)" class="memName" title="Click to View Member Name">{{team.member_name}}</span></td>
 				<td>				
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="ctrl.openTeamUpdModal(team.id)" data-toggle="modal" data-target="#updateTeamModal" title="Update {{team.description}} Team">
@@ -57,7 +57,7 @@
 					&nbsp;<input id="team-id" size="6" disabled />
 					<br>
 					<form name="updateteam">
-						<label>Team Name </label><span class="error" ng-show="updateteam.description.$error.required && updateteam.description.$dirty">(Required field)</span>
+						<label><span class="requiredflag">*</span> Team Name</label><span class="error" ng-show="updateteam.description.$error.required && updateteam.description.$dirty">(Required field)</span>
 						<input name="description" ng-model="description" class="form-control" id="description" type="text" required></input>
 						<label>Members</label>
 						<select class="form-control" id="chooseMembers">

@@ -113,11 +113,11 @@
                     &nbsp;<input id="project-id" size="3" disabled />
                     <br>
 					<form name="updateproject">
-						<label>Project Name </label><span class="error" ng-show="updateproject.uprojectname.$error.required && updateproject.uprojectname.$dirty">(Required field)</span>
+						<label><span class="requiredflag">*</span> Project Name</label><span class="error" ng-show="updateproject.uprojectname.$error.required && updateproject.uprojectname.$dirty">(Required field)</span>
 						<input id="project-name" name="uprojectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" required></input>
 						<label>Description</label>
 						<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
-						<label>Team </label>
+						<label><span class="requiredflag">*</span> Team</label>
 						<select class="form-control" id="team-select" name="team-select" ng-model="ctrl.projectObj.team_id" required>
 							<option ng-repeat="team in ctrl.teams" value={{team.id}}>{{team.description}}</option>
 						</select>
@@ -130,19 +130,19 @@
 							<option value=4>Critical</option>
 						</select>
 						<label>Start Date</label>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-							<input type="date" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
-						</div>
-						<label>Deadline</label>
-						<div class="input-group">
-							<span class="input-group-addon" id="basic-addon1">
-								<span class="glyphicon glyphicon-calendar"></span>
-							</span>
-							<input type="date" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
-						</div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="text" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
+                        </div>
+                        <label>Deadline</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            <input type="text" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
+                        </div>
 						<label>Status</label>
 						<select id="project-status" ng-model="ctrl.projectObj.status" class="form-control">
 							<option value="">Choose a Status</option>

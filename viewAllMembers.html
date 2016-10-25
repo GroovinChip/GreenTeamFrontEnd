@@ -42,9 +42,9 @@
 					&nbsp;<input id="member-id" size="5" disabled />
 					<br>
 					<form name="updatemember">
-						<label>First Name </label><span class="error" ng-show="updatemember.firstname.$error.required && updatemember.firstname.$dirty">(Required field)</span>
+						<label><span class="requiredflag">*</span> First Name</label><span class="error" ng-show="updatemember.firstname.$error.required && updatemember.firstname.$dirty">(Required field)</span>
 						<input name="firstname" id="first-name" ng-model="firstname" class="form-control" type="text" required></input>
-						<label>Last Name </label><span class="error" ng-show="updatemember.lastname.$error.required && updatemember.lastname.$dirty">(Required field)</span>
+						<label><span class="requiredflag">*</span> Last Name</label><span class="error" ng-show="updatemember.lastname.$error.required && updatemember.lastname.$dirty">(Required field)</span>
 						<input name="lastname" ng-model="lastname" id="last-name" class="form-control" type="text" required></input>
 						<label>GS Grade</label>
 						<select id="gs-grade" class="form-control">

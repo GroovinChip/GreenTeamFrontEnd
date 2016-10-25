@@ -1,0 +1,13 @@
+GREEN TEAM - TRACKY
+FRONT-END CHANGELOG
+===================
+
+Version 1.2.0 - Build 50
+-------------
+- Integrated Jarrett's fixes for Chrome datepicker issues
+- Integrated Jarrett's udpate to 'update project' to allow for adding a start date in the past
+
+Version 1.1.2 - Build 50
+-------------
+- Added red asterisk to required fields for 'update' on member/team/project
+- Reduced width of 'view all teams' table
