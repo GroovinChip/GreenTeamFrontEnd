@@ -101,39 +101,63 @@
 		$("#addNoteBtn").click(function(){
 			$("#popupNoteInput").val("");
 		});
-	});
-</script>
-<script type="text/javascript">
-	window.onload = function () {
+		
 		var projects = [];
-		var projNames = [];
+		var projectCount = 0;
+		var lowCount = 0;
+		var normalCount = 0;
+		var highCount = 0;
+		var criticalCount = 0;
 		$.ajax({
 			url: 'http://localhost:8080/projects'
 		}).then(function(resp){
 			projects = resp;
+			projectCount = projects.length;
+
 			for(var i = 0; i < projects.length; i++){
-				projNames[i] = projects[i].name;
+				switch(projects[i].priority){
+					case 1: lowCount++;
+					break;
+					case 2: normalCount++;
+					break;
+					case 3: highCount++;
+					break;
+					case 4: criticalCount++;
+					break;
+				}
 			}
-			
+			CanvasJS.addColorSet("priority",
+                [//colorSet Array
+                "#335EFF", //blue
+		"#06C900", // green
+			"#FF8633", // orange
+			"#FC2525" // red
+			]);
 			var chart = new CanvasJS.Chart("chartContainer", {
+				colorSet: "priority",
 				title:{
-					text: "Needs Title"              
+					text: "Projects by Priority"
 				},
 				animationEnabled: true,
 				theme: "theme2",
-				data: [              
-					{
-						// Change type to "doughnut", "line", "splineArea", etc.
-						type: "pie",
-						showInLegend: true,
-						name: projNames,
-						dataPoints: projNames
-					}
-				]
+				data: [
+				{
+					// Change type to "doughnut", "line", "splineArea", etc.
+					type: "pie",
+					showInLegend: true,
+					name: "Name",
+					dataPoints: [
+					{y: lowCount, legendText:"Low", label:"Low Priority"},
+					{y: normalCount, legendText:"Normal", label:"Normal Priority"},
+					{y: highCount, legendText:"High", label:"High Priority"},
+					{y: criticalCount, legendText:"Critical", label:"Critical Priority"}
+					]
+				}
+				] // end
 			});
 			chart.render();
 		});
-	}
+	});
 </script>
 <div id="bodyDiv">
 	<div id="tabDiv">
@@ -170,8 +194,9 @@
 								<button class="btn btn-info" title="Add a Comment to {{project.name}}" data-toggle="modal" data-target="#notes" ng-click="ctrl.passToNotes(project.id)">
 									<span class="glyphicon glyphicon-comment"></span>
 								</button>
-								<!-- <button class="btn btn-primary" title="Send email to project team" ng-click="ctrl.sendEmail()">
+								<!-- <button class="btn btn-primary" title="Send email to project team">
 									<span class="glyphicon glyphicon-envelope"></span>
+									<a href="mailto:team@ssa.gov"></a>
 								</button> -->
 							</div>
 						</td>

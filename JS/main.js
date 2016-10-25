@@ -17,13 +17,6 @@ angular.module("AppMod", ["ngRoute"])
 		$http.get('http://localhost:8080/teams')
 			.then(function(resp){
 				self.teams = resp.data;
-				for(var i = 0; i < self.teams.length; i++) {
-					for(var j = 0; j < self.members.length; j++){
-						if(self.teams[i].member_id == self.members[j].id) {
-							self.teams[i].member_name = self.members[j].first_name + " " + self.members[j].last_name;
-						} // end if case
-					} // end j for loop
-				} // end i for loop
 			},function(err) {
 
 			});
@@ -169,8 +162,8 @@ angular.module("AppMod", ["ngRoute"])
 
 			iDateDiff -= iAdjust // take into account both days on weekend
 
-			self.hoursRemaining = (iDateDiff + 1) * 8;
-			var projectHealth = self.hoursRemaining / work_remaining * 100;
+			var hoursRemaining = (iDateDiff + 1) * 8;
+			var projectHealth = hoursRemaining / work_remaining * 100;
 			// TERNIARY
 			projectHealth > 100 ? projectHealth = 100 : projectHealth = projectHealth;
 			//self.projects[count].project_health = projectHealth;
