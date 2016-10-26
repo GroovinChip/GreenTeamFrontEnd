@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.0.1 - Build 61
+-------------
+- BUG FIX: fixed issue where team name would not always display on 'view all projects'
+
 Version 2.0 - Build 60
 -------------
 - Implemented Login/Logout

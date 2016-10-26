@@ -1,4 +1,5 @@
 <script>
+	$(document).ready(function(){
     var today = new Date();
     $("#datepickerD").attr("min", today);
     $("#datepickerSD").attr("min", today);
@@ -8,15 +9,15 @@
             dateFormat: "yy-mm-dd",
             showButtonPanel: true
         });
-    } );
-    $( function() {
+    });
+    $(function(){
         $( "#datepickerSD" ).datepicker({
             minDate: "-12M -0D", maxDate: "+12M +0D",
             dateFormat: "yy-mm-dd",
             showButtonPanel: true,
             setDate: today
         });
-    } );
+    });
     // Need to get current date
 	
 	$("#closeModal").click(function(){
@@ -31,7 +32,7 @@
 	$("#addNoteBtn").click(function(){
 		$("#popupNoteInput").val("");
 	});
-	
+
 	$.ajax({
 		method: 'GET',
 		url: "http://localhost:8080/teams"
@@ -40,8 +41,9 @@
 			var id = resp[i].id;
 			var teamname = resp[i].description;
 			$("#" + id).text(teamname);
-		}
-	})
+			}
+		})
+	});
 </script>
 <div id="bodyDiv">
 	<div id="tabDiv">
