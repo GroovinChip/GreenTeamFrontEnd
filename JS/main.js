@@ -2,10 +2,56 @@ angular.module("AppMod", ["ngRoute"])
 	.controller("AppCtrl", ['$http', '$routeParams', '$location', function($http, $routeParams, $location) {
 		var self = this;
 		self.id = $routeParams.memberId;
-		
 		self.today = new Date();
-		
 		self.problemProjects = 0;
+		
+		/* OBJECT SECTION 
+		   --------------  */
+		
+		// MEMBER OBJECT
+		self.memberObj = {
+			id: "",
+			first_name: "",
+			last_name: "",
+			gs_grade: "",
+			role: ""
+		};
+		// setter
+		self.setMemberObj = function(obj){
+			self.memberObj = obj;
+		};
+		
+		// TEAM OBJECT
+		self.teamObj = {
+			id: "",
+			description: "",
+			member_id: ""
+		};
+		
+		// PROJECT OBJECT
+		self.projectObj = {
+			id: null,
+			name: null,
+			description: null,
+			team_id: null,
+			status: null,
+			priority: null,
+			start_date: null,
+			deadline: null,
+			work_remaining: null,
+			phase: null
+		};
+		
+		// NOTE OBJECT
+		self.noteObj = {
+			id: null,
+			message: null,
+			time_stamp: null,
+			project_id: null
+		};
+	
+		/* 'GET ALL X' SECTION 
+		   -------------------  */
 	
 		// Get all members
 		$http.get('http://localhost:8080/members')
@@ -22,68 +68,6 @@ angular.module("AppMod", ["ngRoute"])
 			},function(err) {
 
 			});
-		
-		// Delete Team
-		self.deleteMember = function(id){
-			$http({
-				method: 'DELETE',
-				url: 'http://localhost:8080/deleteteam/'+id
-			}).then(
-				location.reload(true)
-			)
-		};
-		
-		//
-		self.passToNotes = function(id){
-			$http.get("http://localhost:8080/project/" + id).
-			then(function(resp) {
-				// Store the specified project
-				self.projectObj = resp.data;
-				// Get the specified project's notes
-				$http.get('http://localhost:8080/notes/'+id)
-				.then(function(resp){
-					self.notes = resp.data;
-					console.log(self.notes);
-				});
-			}) // end get
-		};
-		
-		// Add a note to a project
-		self.addProjNote = function(note, id){
-			self.targetProjId = id;
-			var addNote ={}
-			addNote.message = note;
-			addNote.project_id = id;
-			addNote.time_stamp = new Date();
-			$http({
-				method: 'POST',
-				url: 'http://localhost:8080/note',
-				data: addNote
-			}).then(function(){
-				$http.get('http://localhost:8080/notes/'+self.targetProjId).
-				then(function(resp){
-					self.notes = resp.data;
-				})
-			})
-		};
-		
-		// Delete a note | OPTIONAL (refreshing list doesn't work)
-		self.deleteNote = function(noteId){
-			var conf = confirm("Delete this note?");
-			console.log(noteId);
-			if(conf) {
-				$http({
-					method: 'DELETE',
-					url: 'http://localhost:8080/deletenote/'+noteId
-				}).then(function(){
-					for(var i = 0; i < self.notes.length; i++){
-						if(noteId == self.notes[i].id){
-							self.notes.splice(i, 1);
-						}
-					}
-				})
-			}
-		};
 		
 		// Get all projects
 		$http.get('http://localhost:8080/projects')
@@ -190,48 +174,9 @@ angular.module("AppMod", ["ngRoute"])
 				return { color: "red" };
 			}
 		}
-
-		// MEMBER OBJECT
-		self.memberObj = {
-			id: "",
-			first_name: "",
-			last_name: "",
-			gs_grade: "",
-			role: ""
-		};
-		// setter
-		self.setMemberObj = function(obj){
-			self.memberObj = obj;
-		};
 		
-		// TEAM OBJECT
-		self.teamObj = {
-			id: "",
-			description: "",
-			member_id: ""
-		};
-		
-		// PROJECT OBJECT
-		self.projectObj = {
-			id: null,
-			name: null,
-			description: null,
-			team_id: null,
-			status: null,
-			priority: null,
-			start_date: null,
-			deadline: null,
-			work_remaining: null,
-			phase: null
-		};
-		
-		// NOTE OBJECT
-		self.noteObj = {
-			id: null,
-			message: null,
-			time_stamp: null,
-			project_id: null
-		}
+		/* MEMBER ACTIONS SECTION 
+		   ----------------------  */
 		
 		// Add new member
 		self.addNewMember = function(){
@@ -257,7 +202,21 @@ angular.module("AppMod", ["ngRoute"])
 			})
 		};
 		
-		// KYLE'S Update member
+		// Open modal to update member
+		self.openMemberUpdModal = function(id){
+			$http.get("http://localhost:8080/member/" + id).
+			then(function(resp) {
+				var member = resp.data;
+
+				$("#member-id").val(member.id);
+				$("#first-name").val(member.first_name);
+				$("#last-name").val(member.last_name);
+				$('#gs-grade option:contains(' + member.gs_grade + ')').prop('selected', true);
+				$('#role option:contains(' + member.role + ')').prop('selected', true);
+			}) // end get
+		};
+		
+		// Update member
 		self.updateMember = function(){
 			var member = {};
 			member.id = $("#member-id").val();
@@ -275,7 +234,7 @@ angular.module("AppMod", ["ngRoute"])
 			});
 		}; // end updateMember
 		
-		// KYLE'S Delete member
+		// Delete member
 		self.deleteMember = function(id){
 			var conf = confirm("Delete member with ID: " + id + "?");
 			if(conf) {
@@ -288,6 +247,9 @@ angular.module("AppMod", ["ngRoute"])
 			}
 		};
 		
+		/* TEAM ACTIONS SECTION 
+		   --------------------  */
+		
 		// Add new team
 		self.addNewTeam = function(){
 			$http({
@@ -299,6 +261,17 @@ angular.module("AppMod", ["ngRoute"])
 			).then(
                 location.reload(true)
             )
+		};
+		
+		// Open modal to update team
+		self.openTeamUpdModal = function(id){
+			$http.get("http://localhost:8080/team/" + id).
+			then(function(resp) {
+				var team = resp.data;
+                $("#team-id").val(team.id);
+                $("#description").val(team.description);
+                $('#chooseMembers option[value="'+ team.member_id +'"]').attr('selected', true);
+			}) // end get
 		};
 		
 		// Update team
@@ -317,7 +290,7 @@ angular.module("AppMod", ["ngRoute"])
             });
         }; // end updateTeam
 		
-		// Delete member		
+		// Delete Team		
 		self.deleteTeam = function(id){
 			var conf = confirm("Delete team with ID: " + id + "?");
 			if(conf) {
@@ -330,7 +303,10 @@ angular.module("AppMod", ["ngRoute"])
 			}
 		};
 		
-		// KYLE'S CREATE PROJECT
+		/* PROJECTS ACTIONS SECTION 
+		   ------------------------  */
+		
+		// Create Project
 		self.createProject = function() {
 			self.projectObj.deadline = $("#datepickerD").datepicker("getDate");
 		    self.projectObj.start_date = $("#datepickerSD").datepicker("getDate");
@@ -366,7 +342,7 @@ angular.module("AppMod", ["ngRoute"])
             });
         }; // end updateProject
 		
-		// Delete member		
+		// Delete Project		
 		self.deleteProject = function(id){
 			var conf = confirm("Delete project with ID: " + id + "?");
 			if(conf) {
@@ -379,32 +355,7 @@ angular.module("AppMod", ["ngRoute"])
 			}
 		};
 		
-		// update member using modal
-		self.openMemberUpdModal = function(id){
-			$http.get("http://localhost:8080/member/" + id).
-			then(function(resp) {
-				var member = resp.data;
-
-				$("#member-id").val(member.id);
-				$("#first-name").val(member.first_name);
-				$("#last-name").val(member.last_name);
-				$('#gs-grade option:contains(' + member.gs_grade + ')').prop('selected', true);
-				$('#role option:contains(' + member.role + ')').prop('selected', true);
-			}) // end get
-		}  
-		
-		// update team using modal
-		self.openTeamUpdModal = function(id){
-			$http.get("http://localhost:8080/team/" + id).
-			then(function(resp) {
-				var team = resp.data;
-                $("#team-id").val(team.id);
-                $("#description").val(team.description);
-                $('#chooseMembers option[value="'+ team.member_id +'"]').attr('selected', true);
-			}) // end get
-		}
-		
-		// update team using modal
+		// Open modal to update project
 		self.openProjUpdModal = function(id){
 			$http.get("http://localhost:8080/project/" + id).
 			then(function(resp) {
@@ -422,24 +373,80 @@ angular.module("AppMod", ["ngRoute"])
 			}) // end get
 		} 
 		
-	self.viewProject = function(pid){
-		$("#viewProjModal").modal("show");
-		$http.get('http://localhost:8080/project/' + pid)
-			.then(function(resp){
-			var project = resp.data;
-			$("#project-id2").val(project.id);
-			$("#project-name2").val(project.name);
-			$("#project-description2").val(project.description);
-			$("#team-select2").val(project.team_id);
-			$('#project-status2 option[value="' + project.status + '"]').attr('selected', true);
-			$('#project-priority2 option[value="' + project.priority + '"]').attr('selected', true);
-			$("#datepickerSD2").datepicker('setDate', new Date(project.start_date));
-			$("#datepickerD2").datepicker('setDate', new Date(project.deadline));
-			$("#project-work2").val(project.work_remaining);
-			$('#project-phase2 option:contains(' + project.phase + ')').prop('selected', true);
-		});
-	};
+		// Populate the content of the 'view project' modal
+		self.viewProject = function(pid){
+			$("#viewProjModal").modal("show");
+			$http.get('http://localhost:8080/project/' + pid)
+				.then(function(resp){
+				var project = resp.data;
+				$("#project-id2").val(project.id);
+				$("#project-name2").val(project.name);
+				$("#project-description2").val(project.description);
+				$("#team-select2").val(project.team_id);
+				$('#project-status2 option[value="' + project.status + '"]').attr('selected', true);
+				$('#project-priority2 option[value="' + project.priority + '"]').attr('selected', true);
+				$("#datepickerSD2").datepicker('setDate', new Date(project.start_date));
+				$("#datepickerD2").datepicker('setDate', new Date(project.deadline));
+				$("#project-work2").val(project.work_remaining);
+				$('#project-phase2 option:contains(' + project.phase + ')').prop('selected', true);
+			});
+		};
 		
+		/* NOTES ACTIONS SECTION
+		   ---------------------  */
+		
+		// Open the notes modal and get the notes for the specified project
+		self.openNotesModal = function(id){
+			$http.get("http://localhost:8080/project/" + id).
+			then(function(resp) {
+				// Store the specified project
+				self.projectObj = resp.data;
+				// Get the specified project's notes
+				$http.get('http://localhost:8080/notes/'+id)
+				.then(function(resp){
+					self.notes = resp.data;
+					console.log(self.notes);
+				});
+			}) // end get
+		};
+		
+		// Add a note to a project
+		self.addProjNote = function(note, id){
+			self.targetProjId = id;
+			var addNote ={}
+			addNote.message = note;
+			addNote.project_id = id;
+			addNote.time_stamp = new Date();
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8080/note',
+				data: addNote
+			}).then(function(){
+				$http.get('http://localhost:8080/notes/'+self.targetProjId).
+				then(function(resp){
+					self.notes = resp.data;
+				})
+			})
+		};
+		
+		// Delete a note | OPTIONAL (refreshing list doesn't work)
+		self.deleteNote = function(noteId){
+			var conf = confirm("Delete this note?");
+			console.log(noteId);
+			if(conf) {
+				$http({
+					method: 'DELETE',
+					url: 'http://localhost:8080/deletenote/'+noteId
+				}).then(function(){
+					for(var i = 0; i < self.notes.length; i++){
+						if(noteId == self.notes[i].id){
+							self.notes.splice(i, 1);
+						}
+					}
+				})
+			}
+		};
+	
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider
