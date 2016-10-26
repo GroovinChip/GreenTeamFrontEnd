@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.0 - Build 60
+-------------
+- Implemented Login/Logout
+
 Version 1.7 - Build 59
 -------------
 -Integrated Jarrett's code to show team name on 'view all projects'

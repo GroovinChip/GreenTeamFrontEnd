@@ -1,12 +1,8 @@
-<!--------------------------------------------------------------\
-| Reuben Turner
-\--------------------------------------------------------------->
-
 <!DOCTYPE html>
-<html lang="en-US" ng-app="AppMod">
+<html ng-app="AppMod">
 	<head>
-		<title>Tracky - Dashboard</title>
-		<link href="CSS/bootstrap/css/bootstrap.min.css" rel="stylesheet">	
+		<title>Tracky Login</title>
+		<link href="CSS/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 		<!-- LINK TO JQUERY: -->
 		<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
@@ -17,30 +13,35 @@
 		<!-- LINKS TO ANGULAR -->
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js" type="text/javascript"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js" type="text/javascript"></script>
-		<script src="JS/main.js"></script>
-		<!-- FULLCALENDAR PLUGIN -->
-		<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
-		<script src='fullcalendar/lib/jquery.min.js'></script>
-		<script src='fullcalendar/lib/moment.min.js'></script>
-		<script src='fullcalendar/fullcalendar.js'></script>
+		<script src="JS/login.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-		<!-- CANVASJS CHARTS PLUGIN -->
-		<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
 		<!-- MY CSS -->
 		<link rel="stylesheet" type="text/css" href="CSS/styles.css">
 		<script src="CSS/bootstrap/js/bootstrap.min.js"></script>
-		
 	</head>
 	<body ng-controller="AppCtrl as ctrl">
 		<div id="headerDiv">
 			<h1>Tracky</h1>
-			<ul>
-				<li><a href="#/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-				<li><a href="#/createMember"><span class="glyphicon glyphicon-plus"></span> Create Team Member</a></li>
-				<li><a href="#/createTeam"><span class="glyphicon glyphicon-plus"></span> Create Team</a></li>
-				<li><a href="#/createProject"><span class="glyphicon glyphicon-plus"></span> Create Project</a></li>
-			</ul>
 		</div>
-		<div ng-view></div>
+		<div id="loginform">
+			<div class="mainDivsHeader" id="loginHeader">
+				<h3>Login</h3>				
+			</div>
+			<div style="padding:20px;">
+				<form name="login">
+					<label><span class="requiredflag">*</span>Username</label>
+					<span class="error" ng-show="login.uname.$error.required && login.uname.$dirty">(Required Field)</span>
+					<span class="error" ng-show="login.uname.$error.email">Not a valid email address</span>
+					<input name="uname" ng-model="ctrl.uname" class="form-control" id="username" type="email" required />
+					<label><span class="requiredflag">*</span>Password</label>
+					<span class="error" ng-show="login.pword.$error.required && login.pword.$dirty">(Required Field)</span>
+					<input name="pword" ng-model="ctrl.pword" class="form-control" id="password" type="password" required />
+					<br>
+					<button class="btn btn-primary" ng-click="ctrl.login()" ng-disabled="login.uname.$error.required || login.pword.$error.required || login.uname.$error.email" style="margin-top: 5px;">Login</button>
+					<span class="error" ng-show="ctrl.accessDenied">Invalid Password</span>
+					<span class="error" ng-show="ctrl.userNotFound">User Not Found</span>
+				</form>
+			</div>
+		</div>
 	</body>
 </html>
