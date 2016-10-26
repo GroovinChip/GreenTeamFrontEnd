@@ -224,3 +224,7 @@ body{
 .requiredflag {
 	color: red;
 }
+
+textarea{
+	resize: none;	
+}

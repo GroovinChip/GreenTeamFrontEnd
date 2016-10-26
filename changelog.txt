@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 1.6 - Build 58
+-------------
+- Re-added email button, which now opens a non-functional modal when clicked
+
 Version 1.5.3 - Build 57
 -------------
 - Renamed the function passToNotes() to openNotesModal(); more descriptive that way
