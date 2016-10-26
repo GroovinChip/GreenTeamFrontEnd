@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 1.7 - Build 59
+-------------
+-Integrated Jarrett's code to show team name on 'view all projects'
+
 Version 1.6 - Build 58
 -------------
 - Re-added email button, which now opens a non-functional modal when clicked

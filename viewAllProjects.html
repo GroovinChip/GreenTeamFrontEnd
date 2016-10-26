@@ -31,6 +31,17 @@
 	$("#addNoteBtn").click(function(){
 		$("#popupNoteInput").val("");
 	});
+	
+	$.ajax({
+		method: 'GET',
+		url: "http://localhost:8080/teams"
+		}).then(function(resp) {
+		for(var i = 0; i < resp.length; i++){
+			var id = resp[i].id;
+			var teamname = resp[i].description;
+			$("#" + id).text(teamname);
+		}
+	})
 </script>
 <div id="bodyDiv">
 	<div id="tabDiv">
@@ -47,7 +58,7 @@
 			<tr ng-repeat="project in ctrl.projects">
 				<td>{{project.name}}</td>
 				<td>{{project.description}}</td>
-				<td>{{project.team_id}}</td>
+				<td><span id="{{project.team_id}}"></span></td>
 				<td>{{project.status}}</td>
 				<td>{{project.priority}}</td>
 				<td>{{project.start_date | date:'MM/dd/yyyy'}}</td>
