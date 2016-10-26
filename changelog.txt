@@ -2,6 +2,12 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 1.5.2 - Build 56
+-------------
+- Moved the CSS for the dashboard chart into style.css
+- Fixed a weird tag on index.html
+- Minor CSS changes to chart on the dashboard
+
 Version 1.5.1 - Build 55
 -------------
 - Added asterisks for all the create pages for required fields

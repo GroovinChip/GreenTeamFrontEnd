@@ -63,9 +63,15 @@ body{
 }
 #listContainer{
 	margin-left: 10%;
-	width: 32.5%;
+	width: 36%;
 	margin-top: 2.5%;
 	float: left;
+}
+#chartContainer{
+	height: 300px; 
+	display:inline-block;
+	margin-top:5%;
+	margin-left:12.5%;
 }
 #projectListDiv{
 	width: 100%;
@@ -82,7 +88,7 @@ body{
 	overflow: auto;
 }
 #calendarDiv{
-	width: 50%;
+	width: 45%;
 	float: right;
 	margin-top: 2.5%;
 	margin-right: 5%;
