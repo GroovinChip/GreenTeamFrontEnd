@@ -5,9 +5,9 @@
 		</div>
 		<div id="ctDiv">
 			<form name="createteam">
-			<label>Team Name </label><span class="error" ng-show="createteam.teamname.$error.required && createteam.teamname.$dirty">(Required field)</span>
+			<label><span class="requiredflag">*</span> Team Name</label><span class="error" ng-show="createteam.teamname.$error.required && createteam.teamname.$dirty">(Required field)</span>
 			<input name="teamname" class="form-control" type="text" ng-model="ctrl.teamObj.description" required></input>
-			<label>Members </label> <span class="error" ng-show="createteam.selectmember.$error.required && createteam.selectmember.$dirty">(Required field)</span>
+			<label><span class="requiredflag">*</span> Members</label> <span class="error" ng-show="createteam.selectmember.$error.required && createteam.selectmember.$dirty">(Required field)</span>
 			<select name="selectmember" class="form-control" id="chooseMembers" ng-model="ctrl.teamObj.member_id" required>
 				<option value="">Choose Members</option>
 				<option ng-repeat="member in ctrl.members" value="{{member.id}}">{{member.id}} {{member.first_name}} {{member.last_name}} - {{member.role}}</option>

@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 1.5.1 - Build 55
+-------------
+- Added asterisks for all the create pages for required fields
+
 Version 1.5.0 - Build 54
 -------------
 - Modified header of projects that need attention to display the amount of problem projects out of

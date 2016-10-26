@@ -5,9 +5,9 @@
         </div>
         <div id="ctmDiv">
             <form name="createmember" ng-model="createmember">
-            <label>First Name </label><span class="error" ng-show="createmember.firstname.$error.required && createmember.firstname.$dirty">(Required field)</span>
+            <label><span class="requiredflag">*</span> First Name </label><span class="error" ng-show="createmember.firstname.$error.required && createmember.firstname.$dirty">(Required field)</span>
             <input name="firstname" ng-model="ctrl.memberObj.first_name" class="form-control" type="text" required></input>
-            <label>Last Name </label><span class="error" ng-show="createmember.lastname.$error.required && createmember.lastname.$dirty">(Required field)</span>
+            <label><span class="requiredflag">*</span> Last Name </label><span class="error" ng-show="createmember.lastname.$error.required && createmember.lastname.$dirty">(Required field)</span>
             <input name="lastname" ng-model="ctrl.memberObj.last_name" class="form-control" type="text" required></input>
             <label>GS Grade</label>
             <select class="form-control" ng-model="ctrl.memberObj.gs_grade">
