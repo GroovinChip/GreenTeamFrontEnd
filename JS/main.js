@@ -4,6 +4,8 @@ angular.module("AppMod", ["ngRoute"])
 		self.id = $routeParams.memberId;
 		
 		self.today = new Date();
+		
+		self.problemProjects = 0;
 	
 		// Get all members
 		$http.get('http://localhost:8080/members')
@@ -120,8 +122,13 @@ angular.module("AppMod", ["ngRoute"])
 				
 				var startDate = new Date(self.projects[count].start_date);
 				var deadline = new Date(self.projects[count].deadline);
+				
 
                 self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
+				
+				if(self.projects[count].project_health < 100 && self.today < self.projects[count].deadline ) {
+					self.problemProjects++;
+				}
 			}
 			// Solves project health sorting on dashboard - KYLE
 			self.projects.sort(function(a,b){return a.project_health-b.project_health})		

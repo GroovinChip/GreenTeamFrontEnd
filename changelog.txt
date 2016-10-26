@@ -2,7 +2,12 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
-Version 1.4.0 - Build 52
+Version 1.5.0 - Build 54
+-------------
+- Modified header of projects that need attention to display the amount of problem projects out of
+  the total amount of projects
+
+Version 1.4.0 - Build 53
 -------------
 - Moved all the javascript in dashboard.html into it's own file
 
