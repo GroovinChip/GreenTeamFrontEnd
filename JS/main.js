@@ -185,7 +185,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/member',
 				data: self.memberObj
 			}).then(
-				window.location.href = "http://localhost:8081/#/viewAllMembers"
+				window.location.href = "http://localhost:8081/start.html#/viewAllMembers"
 			).then(
                 location.reload(true)
             )
@@ -257,7 +257,7 @@ angular.module("AppMod", ["ngRoute"])
 				url: 'http://localhost:8080/team',
 				data: self.teamObj
 			}).then(
-				window.location.href = "http://localhost:8081/#/viewAllTeams"
+				window.location.href = "http://localhost:8081/start.html#/viewAllTeams"
 			).then(
                 location.reload(true)
             )

@@ -56,7 +56,7 @@ $(document).ready(function(){
 					for(var count = 0; count < projects.length; count++){
 						event = {
 							allDay: true,
-							title: projects[count].description,
+							title: projects[count].name,
 							start: projects[count].deadline,
 							end: projects[count].deadline,
 							textColor: 'black',

@@ -2,6 +2,12 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.1 - Build 65
+-------------
+- Changed calendar events to show project name, not description
+- Found and fixed a bug where the project status defaults to inactive
+- Found and fixed a bug where creating teams and members does not redirect to their respective 'view all' pages
+
 Version 2.0.4 - Build 64
 -------------
 - Fixed right-alignment of calendar on dashboard
