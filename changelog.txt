@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.0.2 - Build 62
+-------------
+- Removed inline styling on 'view all teams' so that the look is consistent with other views again
+
 Version 2.0.1 - Build 61
 -------------
 - BUG FIX: fixed issue where team name would not always display on 'view all projects'
