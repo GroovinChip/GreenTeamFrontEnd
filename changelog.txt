@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.0.4 - Build 64
+-------------
+- Fixed right-alignment of calendar on dashboard
+
 Version 2.0.3 - Build 63
 -------------
 - Increased font size of table headers

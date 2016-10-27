@@ -87,10 +87,10 @@ body{
 	max-height: 325px;
 }
 #calendarDiv{
-	width: 45%;
+	width: 40%;
 	float: right;
 	margin-top: 2.5%;
-	margin-right: 5%;
+	margin-right: 10%;
 }
 .tableDiv{
 	width: 100%;
