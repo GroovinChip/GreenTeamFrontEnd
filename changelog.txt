@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.1.1 - Build 66
+-------------
+- Found and fixed a bug where after a note is added, clicking the 'add note' button would add that note again.
+
 Version 2.1 - Build 65
 -------------
 - Changed calendar events to show project name, not description

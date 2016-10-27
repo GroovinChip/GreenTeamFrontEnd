@@ -82,7 +82,7 @@
 			</tr>
 		</table>
 	</div>
-	<!-- Modal -->
+	<!-- Notes Modal -->
 	<div class="modal fade" id="notes" role="dialog" data-backdrop="static">
 		<div class="modal-dialog">			
 			<!-- Modal content-->
@@ -95,7 +95,7 @@
 					<textarea class="form-control" id="popupNoteInput" rows="5"ng-model="ctrl.note"></textarea>
 					<br>
 					<div style="text-align:center">
-						<button class="btn btn-info" id="addNoteBtn" ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id)">Add Note</button>
+						<button class="btn btn-info" id="addNoteBtn" ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id); ctrl.note = null">Add Note</button>
 						<button class="btn btn-info" id="clear">Clear</button>
 					</div>
 				</div>
@@ -112,7 +112,7 @@
 			</div>				
 		</div>
 	</div>
-	<!-- Modal -->
+	<!-- UpdateProject Modal -->
 	<div class="modal fade" id="updateProjModal" role="dialog" data-backdrop="static">
 		<div class="modal-dialog">			
 			<!-- Modal content-->
