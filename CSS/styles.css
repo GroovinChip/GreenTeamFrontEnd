@@ -197,6 +197,9 @@ body{
 .fc-event-container, .projectlink, .memName{
 	cursor: pointer;
 }
+.fc-title{
+	font-size: 16px;
+}
 
 #project-description{
 	resize: none;
@@ -245,4 +248,7 @@ textarea{
 	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
 	/* padding: 20px; */
 	border-radius: 5px;
+}
+.header{
+	font-size: 16px;
 }

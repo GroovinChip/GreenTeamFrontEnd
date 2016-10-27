@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 2.0.3 - Build 63
+-------------
+- Increased font size of table headers
+- Increased font size of calendar events
+
 Version 2.0.2 - Build 62
 -------------
 - Removed inline styling on 'view all teams' so that the look is consistent with other views again

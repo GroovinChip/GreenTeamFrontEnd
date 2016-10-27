@@ -9,7 +9,7 @@
 	</div>
 	<div id="memberList">
 		<table class="table table-striped">
-			<tr><th>Employee ID</th><th>Name</th><th>GS Grade</th><th>Role</th><th>Actions</th></tr>
+			<tr class="header"><th>Employee ID</th><th>Name</th><th>GS Grade</th><th>Role</th><th>Actions</th></tr>
 			<tr ng-repeat="member in ctrl.members">
 				<td>{{member.id}}</td>
 				<td>{{member.first_name}} {{member.last_name}}</td>
