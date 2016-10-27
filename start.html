@@ -26,10 +26,11 @@
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<!-- CANVASJS CHARTS PLUGIN -->
 		<script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<!-- GMAIL API DEPENCIES -->
+		<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 		<!-- MY CSS -->
 		<link rel="stylesheet" type="text/css" href="CSS/styles.css">
-		<script src="CSS/bootstrap/js/bootstrap.min.js"></script>
-		
+		<script src="CSS/bootstrap/js/bootstrap.min.js"></script>	
 	</head>
 	<body ng-controller="AppCtrl as ctrl">
 		<div id="headerDiv">
@@ -39,7 +40,7 @@
 				<li><a href="#/createMember"><span class="glyphicon glyphicon-plus"></span> Create Team Member</a></li>
 				<li><a href="#/createTeam"><span class="glyphicon glyphicon-plus"></span> Create Team</a></li>
 				<li><a href="#/createProject"><span class="glyphicon glyphicon-plus"></span> Create Project</a></li>
-				<li><a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+				<li><a href=""><span class="glyphicon glyphicon-log-out" ng-click="ctrl.confirmLogout()"></span> <span ng-click="ctrl.confirmLogout()">Logout<span></a></li>
 			</ul>
 		</div>
 		<div ng-view></div>

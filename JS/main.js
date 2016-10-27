@@ -446,6 +446,18 @@ angular.module("AppMod", ["ngRoute"])
 				})
 			}
 		};
+		
+		/* OTHER ACTIONS SECTION
+		   ---------------------  */
+		
+		// Logout button
+		self.confirmLogout = function() {
+			var conf = confirm("Log out?");
+
+			if(conf){
+				window.location.href = "http://localhost:8081/";
+			}
+		}
 	
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){

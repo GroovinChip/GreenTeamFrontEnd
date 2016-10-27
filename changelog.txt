@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.0 - Build 67
+-------------
+- Added email feature to dashboard
+- Added confirm box to logout
+
 Version 2.1.1 - Build 66
 -------------
 - Found and fixed a bug where after a note is added, clicking the 'add note' button would add that note again.
