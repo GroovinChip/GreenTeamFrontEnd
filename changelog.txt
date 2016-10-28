@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.0.1 - Build 68
+-------------
+- Edited the styling of some divs
+
 Version 3.0 - Build 67
 -------------
 - Added email feature to dashboard
