@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.0.2 - Build 69
+-------------
+- removed deprecated 'noteObj' from JS code
+
 Version 3.0.1 - Build 68
 -------------
 - Edited the styling of some divs

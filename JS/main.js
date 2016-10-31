@@ -41,14 +41,6 @@ angular.module("AppMod", ["ngRoute"])
 			work_remaining: null,
 			phase: null
 		};
-		
-		// NOTE OBJECT
-		self.noteObj = {
-			id: null,
-			message: null,
-			time_stamp: null,
-			project_id: null
-		};
 	
 		/* 'GET ALL X' SECTION 
 		   -------------------  */
