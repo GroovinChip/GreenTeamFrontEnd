@@ -103,7 +103,12 @@
 					<div id="historyItem" style="text-align: left;border-bottom: 1px solid #e5e5e5" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
 						<p style="text-decoration: underline">{{note.time_stamp | date:'MMM dd, yyyy, h:mm a'}}</p>
 						<p>{{note.message}}</p>
-						<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id)"><span class="glyphicon glyphicon-trash"></span></button>
+						<button class="btn btn-danger" ng-click="ctrl.deleteNote(note.id)">
+							<span class="glyphicon glyphicon-trash"></span>
+						</button>
+						<button class="btn" ng-class="{true: 'btn-warning', false: 'btn-default'}[note.flagged==1]" ng-click="ctrl.flagNote(note)" title="Flag note">
+							<span class="glyphicon glyphicon-flag"></span>
+						</button>
 					</div>
 				</div>
 				<div class="modal-footer">

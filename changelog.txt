@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.4 - Build 73
+-------------
+- Added Steve's flag button to 'view all projects'
+
 Version 3.3 - Build 72
 -------------
 - Re-arranged nav tabs
