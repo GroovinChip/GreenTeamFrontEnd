@@ -397,7 +397,6 @@ angular.module("AppMod", ["ngRoute"])
 				$http.get('http://localhost:8080/notes/'+id)
 				.then(function(resp){
 					self.notes = resp.data;
-					console.log(self.notes);
 				});
 			}) // end get
 		};
@@ -424,7 +423,6 @@ angular.module("AppMod", ["ngRoute"])
 		// Delete a note | OPTIONAL (refreshing list doesn't work)
 		self.deleteNote = function(noteId){
 			var conf = confirm("Delete this note?");
-			console.log(noteId);
 			if(conf) {
 				$http({
 					method: 'DELETE',
@@ -450,6 +448,33 @@ angular.module("AppMod", ["ngRoute"])
 				window.location.href = "http://localhost:8081/";
 			}
 		}
+		
+		 // Steve's flag button
+		self.flagNote = function(note) {
+    		if (note.flagged == 0) {
+					note.flagged = 1;
+					self.updateNote(note);
+			} else { //if (note.toggleText == "Resolve!")
+					  note.flagged = 0;
+			  self.updateNote(note);
+			  // note.problemflag = 0;
+			}
+		}
+		
+		// Steve's update note
+		self.updateNote = function(note) {
+			self.targetProjId = note.project_id;
+			$http({
+				method: 'PUT',
+				url: 'http://localhost:8080/updatenote',
+				data: note
+			}).then(function(note) {
+				  $http.get('http://localhost:8080/notes/' + self.targetProjId).
+				  then(function(resp){
+					  self.notes = resp.data;
+			    }) // end get
+		  }); // end update
+		} // end updateNote
 	
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){
