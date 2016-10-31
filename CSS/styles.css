@@ -95,6 +95,12 @@ body{
 	padding: 10px;
 	border-radius: 5px; */
 }
+.fc-unthemed th, .fc-unthemed td, .fc-unthemed thead, .fc-unthemed tbody, .fc-unthemed .fc-divider, .fc-unthemed .fc-row, .fc-unthemed .fc-content, .fc-unthemed .fc-popover, .fc-unthemed .fc-list-view, .fc-unthemed .fc-list-heading td {
+    border-color: #c2c2a3;
+}
+#calendar > div.fc-view-container > div > table > thead > tr > td > div{
+	background-color: #b2b5aa;
+}
 .tableDiv{
 	width: 100%;
 	margin-left: auto;
@@ -156,6 +162,9 @@ body{
 	margin-right: auto;
 	width: 80%;
 }
+#teamList tbody{
+	font-size: 16px;
+}
 
 /* viewAllProjects.html styles */
 #projectList{
@@ -164,6 +173,9 @@ body{
 	margin-right: auto;
 	width: 80%;
 }
+#projectList tbody{
+	font-size: 16px;
+}
 
 /* viewAllMembers.html styles */
 #memberList{
@@ -171,6 +183,9 @@ body{
 	margin-left: auto;
 	margin-right: auto;
 	width: 80%;
+}
+#memberList tbody{
+	font-size: 16px;
 }
 
 #popupNoteInput{

@@ -157,7 +157,7 @@ angular.module("AppMod", ["ngRoute"])
 		// Based on the health level of a project, change the color
 		self.changeColor = function(health){
 			if(health < 100 && health >= 90){
-				return { color: "#e6e600" };
+				return { color: "#009900" };
 			}
 			else if(health < 90 && health >= 80){
 				return { color: "orange" };

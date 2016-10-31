@@ -2,6 +2,13 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.1 - Build 70
+-------------
+- Increased font size for table elements for 'view all' tables
+- Changed color of 90-99% project health from yellow to green
+- Darkened border colors of dashboard calendar
+- Added dynamic color changing to calendar events based on project health
+
 Version 3.0.2 - Build 69
 -------------
 - removed deprecated 'noteObj' from JS code
