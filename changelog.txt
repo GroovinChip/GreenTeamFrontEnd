@@ -2,9 +2,14 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.3 - Build 72
+-------------
+- Re-arranged nav tabs
+
 Version 3.2 - Build 71
 -------------
 - Added Steve's 'flag note' feature
+- Added tooltips to 'delete note' and 'flag note' buttons
 
 Version 3.1 - Build 70
 -------------
