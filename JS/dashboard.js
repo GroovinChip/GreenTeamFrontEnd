@@ -55,7 +55,11 @@ $(document).ready(function(){
 				//console.log("AJAX CALL PERFORMED");
 				for(var count = 0; count < projects.length; count++){
 					var project = projects[count];
-					project.project_health = calcProjHealth(project.start_date, project.deadline,project.work_remaining);
+					if( project.deadline > today || new Date(project.deadline).getDate() == today.getDate()) {
+						project.project_health = calcProjHealth(project.start_date, project.deadline,project.work_remaining);
+					} else {
+						project.project_health = 100;
+					}
 					
 					event = {
 						allDay: true,

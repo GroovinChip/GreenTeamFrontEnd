@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.5 - Build 74
+-------------
+- Updated dashboard calendar so that dates in the past show as blue
+
 Version 3.4 - Build 73
 -------------
 - Added Steve's flag button to 'view all projects'
