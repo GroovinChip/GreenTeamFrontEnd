@@ -408,6 +408,8 @@ angular.module("AppMod", ["ngRoute"])
 			}) // end get
 		};
 		
+		self.regex1 = new RegExp(/^[\s\S]*/);
+		
 		// Add a note to a project
 		self.addProjNote = function(note, id){
 			self.targetProjId = id;

@@ -59,12 +59,15 @@
 					<h4 class="modal-title">Notes for Project: {{ctrl.projectObj.name}}</h4>
 				</div>
 				<div class="modal-body">
-					<textarea class="form-control" id="popupNoteInput" rows="5" ng-model="ctrl.note"></textarea>
-					<br>
+					<form name="stringForm" novalidate>
+						<textarea class="form-control" ng-model="ctrl.note" name="noten" ng-pattern="ctrl.regex1" id="popupNoteInput" rows="5" required></textarea>
+						<span ng-show="stringForm.noten.$error.pattern && stringForm.noten.$dirty" style="color:red">Pattern warning will say what goes here.</span>
+						<span class="error" ng-show="stringForm.noten.$error.required && stringForm.noten.$dirty">(Text required)</span>
 						<div style="text-align:center">
-						<button class="btn btn-info" id="addNoteBtn" ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id); ctrl.note = null">Add Note</button>
-						<button class="btn btn-info" id="clear">Clear</button>
-					</div>
+						<button class="btn btn-info" id="addNoteBtn" 
+						ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id); ctrl.note=null">Add Note</button>
+					</form>
+					<button class="btn btn-info" id="clear">Clear</button>
 				</div>
 				<div id="noteHistory" class="modal-footer" style="text-align:center">
 					<div id="historyItem" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">
