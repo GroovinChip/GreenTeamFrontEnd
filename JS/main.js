@@ -70,14 +70,10 @@ angular.module("AppMod", ["ngRoute"])
 					var startDate = new Date(self.projects[count].start_date);
 					var deadline = new Date(self.projects[count].deadline);
 					
-					var startDate = new Date(self.projects[count].start_date);
 					startDate.setHours(0,0,0,0); // FIX FOR DATES
-					var deadline = new Date(self.projects[count].deadline);
 					deadline.setHours(0,0,0,0); // FIX FOR DATES
 					self.projects[count].start_date = startDate; // FIX FOR DATES
 					self.projects[count].deadline = deadline; // FIX FOR DATES
-
-					self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
 					
 					if(self.projects[count].status == 1) {
 						self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
@@ -509,6 +505,32 @@ angular.module("AppMod", ["ngRoute"])
 				break;
 			}
 			return priorityString;
+		}
+		
+		// Return member name given memberId
+		self.loadMemberName = function(memberId) {
+			var memberName = "";
+
+			for (var i = 0; i < self.members.length; i++) {
+				if (memberId == self.members[i].id) {
+					memberName = self.members[i].first_name + " " + self.members[i].last_name;
+					break;
+				}
+			}
+			return memberName;
+		}
+		
+		// Return team name given id
+		self.loadTeamName = function(teamId) {
+			var teamName = "";
+
+			for (var i = 0; i < self.teams.length; i++) {
+				if (teamId == self.teams[i].id) {
+					teamName = self.teams[i].description;
+					break;
+				}
+			}
+			return teamName;
 		}
 	
 	}]) // end controller

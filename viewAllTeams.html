@@ -9,17 +9,6 @@
 		$("#clear").click(function(){
 			$("#popupNoteInput").val("");
 		});
-		
-		$.ajax({
-			method: 'GET',
-			url: "http://localhost:8080/members"
-			}).then(function(resp) {
-			for(var i = 0; i < resp.length; i++){
-				var id = resp[i].id;
-				var fullname = resp[i].first_name + " " + resp[i].last_name;
-				$("#" + id).text(fullname);
-			}
-		})
 	});
 </script>
 <div id="bodyDiv">
@@ -37,7 +26,7 @@
 			<tr ng-repeat="team in ctrl.teams">
 				<td>{{team.id}}</td>
 				<td>{{team.description}}</td>
-				<td><span id="{{team.member_id}}"></span></td>
+				<td>{{ctrl.loadMemberName(team.member_id)}}</td>
 				<td>				
 					<div class="btn-group">
 						<button class="btn btn-default" ng-click="ctrl.openTeamUpdModal(team.id)" data-toggle="modal" data-target="#updateTeamModal" title="Update {{team.description}} Team">

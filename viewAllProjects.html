@@ -1,48 +1,37 @@
 <script>
 	$(document).ready(function(){
-    var today = new Date();
-    $("#datepickerD").attr("min", today);
-    $("#datepickerSD").attr("min", today);
-    $( function() {
-        $( "#datepickerD" ).datepicker({
-            minDate: "-12M -0D", maxDate: "+12M +0D",
-            dateFormat: "yy-mm-dd",
-            showButtonPanel: true
-        });
-    });
-    $(function(){
-        $( "#datepickerSD" ).datepicker({
-            minDate: "-12M -0D", maxDate: "+12M +0D",
-            dateFormat: "yy-mm-dd",
-            showButtonPanel: true,
-            setDate: today
-        });
-    });
-    // Need to get current date
-	
-	$("#closeModal").click(function(){
-		$("#popupNoteInput").val("");
-	});
-	$("#x").click(function(){
-		$("#popupNoteInput").val("");
-	});
-	$("#clear").click(function(){
-		$("#popupNoteInput").val("");
-	});
-	$("#addNoteBtn").click(function(){
-		$("#popupNoteInput").val("");
-	});
-
-	$.ajax({
-		method: 'GET',
-		url: "http://localhost:8080/teams"
-		}).then(function(resp) {
-		for(var i = 0; i < resp.length; i++){
-			var id = resp[i].id;
-			var teamname = resp[i].description;
-			$("#" + id).text(teamname);
-			}
-		})
+		var today = new Date();
+		$("#datepickerD").attr("min", today);
+		$("#datepickerSD").attr("min", today);
+		$( function() {
+			$( "#datepickerD" ).datepicker({
+				minDate: "-12M -0D", maxDate: "+12M +0D",
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true
+			});
+		});
+		$(function(){
+			$( "#datepickerSD" ).datepicker({
+				minDate: "-12M -0D", maxDate: "+12M +0D",
+				dateFormat: "yy-mm-dd",
+				showButtonPanel: true,
+				setDate: today
+			});
+		});
+		// Need to get current date
+		
+		$("#closeModal").click(function(){
+			$("#popupNoteInput").val("");
+		});
+		$("#x").click(function(){
+			$("#popupNoteInput").val("");
+		});
+		$("#clear").click(function(){
+			$("#popupNoteInput").val("");
+		});
+		$("#addNoteBtn").click(function(){
+			$("#popupNoteInput").val("");
+		});
 	});
 </script>
 <div id="bodyDiv">
@@ -60,7 +49,7 @@
 			<tr ng-repeat="project in ctrl.projects">
 				<td>{{project.name}}</td>
 				<td style="max-width: 50px;">{{project.description}}</td>
-				<td><span id="{{project.team_id}}"></span></td>
+				<td>{{ctrl.loadTeamName(project.team_id)}}</td>
 				<td>{{ctrl.evaluateStatus(project.status)}}</td>
 				<td>{{ctrl.evaluatePriority(project.priority)}}</td>
 				<td>{{project.start_date | date:'MM/dd/yyyy'}}</td>

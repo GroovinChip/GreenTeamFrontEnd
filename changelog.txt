@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.8.3 - Build 83
+-------------
+- Improved loading of team names and member names
+- JS code cleanup
+
 Version 3.8.2 - Build 82
 -------------
 - Found and fixed a bug that prevented the 'tracked' state of a project from being preserved when updating a project
