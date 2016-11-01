@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.6 - Build 75
+-------------
+- Found and fixed a bug where projects due 'today' would not appear on the dashboard
+
 Version 3.5 - Build 74
 -------------
 - Updated dashboard calendar so that dates in the past show as blue

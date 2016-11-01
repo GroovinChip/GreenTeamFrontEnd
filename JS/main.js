@@ -3,6 +3,7 @@ angular.module("AppMod", ["ngRoute"])
 		var self = this;
 		self.id = $routeParams.memberId;
 		self.today = new Date();
+		self.today.setHours(0,0,0,0);
 		self.problemProjects = 0;
 		
 		/* OBJECT SECTION 
@@ -99,10 +100,16 @@ angular.module("AppMod", ["ngRoute"])
 				var startDate = new Date(self.projects[count].start_date);
 				var deadline = new Date(self.projects[count].deadline);
 				
+				var startDate = new Date(self.projects[count].start_date);
+				startDate.setHours(0,0,0,0); // FIX FOR DATES
+				var deadline = new Date(self.projects[count].deadline);
+				deadline.setHours(0,0,0,0); // FIX FOR DATES
+				self.projects[count].start_date = startDate; // FIX FOR DATES
+				self.projects[count].deadline = deadline; // FIX FOR DATES
 
                 self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
 				
-				if(self.projects[count].project_health < 100 && self.today < self.projects[count].deadline ) {
+				if(self.projects[count].project_health < 100 && self.today <= self.projects[count].deadline ) { // FIX FOR DATES
 					self.problemProjects++;
 				}
 			}
