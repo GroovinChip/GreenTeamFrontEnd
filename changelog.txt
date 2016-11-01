@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.8 - Build 80
+-------------
+- Changed the dashboard so that tracked projects that are in the past and/or are inactive/completed display properly
+- Found and fixed a bug where when updating a project, the object contained null values
+
 Version 3.7.1 - Build 79
 -------------
 - Fixed a typo :p

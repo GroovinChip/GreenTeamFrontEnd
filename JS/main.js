@@ -79,6 +79,12 @@ angular.module("AppMod", ["ngRoute"])
 
 					self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
 					
+					if(self.projects[count].status == 1) {
+						self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
+					} else {
+						self.projects[count].project_health = 100;
+					}
+					
 					if( (self.projects[count].project_health < 100 && self.today <= self.projects[count].deadline) || self.projects[count].tracked == 1 ) { // FIX FOR DATES
 						self.problemProjects++;
 					}
@@ -329,6 +335,7 @@ angular.module("AppMod", ["ngRoute"])
 			$http.get("http://localhost:8080/project/" + id).
 			then(function(resp) {
 				var project = resp.data;
+				self.projectObj = project;
                 $("#project-id").val(project.id);
                 $("#project-name").val(project.name);
                 $("#project-description").val(project.description);
@@ -461,7 +468,7 @@ angular.module("AppMod", ["ngRoute"])
 				self.projectObj.track = 0;
 			} else {
 				project.tracked = 1;
-				self.projectObj = 0;
+				self.projectObj = 1;
 			}
 			delete project.project_health;
 			self.projectObj = project;

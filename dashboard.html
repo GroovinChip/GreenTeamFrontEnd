@@ -22,8 +22,9 @@
 						</td>
 						<td>{{project.deadline | date:'MM/dd/yyyy'}}</td>
 						<td>
-							<progress max="100" value="{{project.project_health}}" ng-style="ctrl.changeColor(project.project_health)"></progress>
-							<label>{{project.project_health}}%</label>
+							<progress ng-show="project.status == 1" max="100" value="{{project.project_health}}" ng-style="ctrl.changeColor(project.project_health)"></progress>
+							<label ng-show="project.status == 1">{{project.project_health}}%</label>
+							<label style="font-style: italic;" ng-show="project.status != 1">{{ctrl.evaluateStatus(project.status)}}</label>
 						</td>
 						<td>{{ctrl.evaluatePriority(project.priority)}}</td>
 						<td>
