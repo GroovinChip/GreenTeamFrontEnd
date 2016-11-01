@@ -270,3 +270,9 @@ textarea{
 .header{
 	font-size: 16px;
 }
+
+/* Hide all weekend options in the jQueryUI DatePicker dialog */
+th.ui-datepicker-week-end,
+td.ui-datepicker-week-end {
+    display: none;
+}

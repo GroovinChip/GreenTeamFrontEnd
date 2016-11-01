@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.6.2 - Build 77
+-------------
+- Disabled weekend days in JQuery calendar
+
 Version 3.6.1 - Build 76
 -------------
 - Added a sub-banner to the login page
