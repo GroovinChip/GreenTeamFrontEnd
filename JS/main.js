@@ -308,7 +308,8 @@ angular.module("AppMod", ["ngRoute"])
             project.deadline = $("#datepickerD").datepicker("getDate");
             project.work_remaining = $("#project-work").val();
             project.phase = $("#project-phase").val();
-            $http({
+            project.tracked = self.projectObj.tracked; 
+			$http({
                 method: 'PUT',
                 url: 'http://localhost:8080/updateproject',
                 data: project

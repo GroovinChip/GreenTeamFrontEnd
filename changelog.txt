@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.8.2 - Build 82
+-------------
+- Found and fixed a bug that prevented the 'tracked' state of a project from being preserved when updating a project
+- Added fix from Build 82 to 'view all projects'
+
 Version 3.8.1 - Build 81
 -------------
 - Found and fixed a bug that prevented projects from being updated
