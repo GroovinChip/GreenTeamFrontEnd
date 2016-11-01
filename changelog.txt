@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.6.1 - Build 76
+-------------
+- Added a sub-banner to the login page
+
 Version 3.6 - Build 75
 -------------
 - Found and fixed a bug where projects due 'today' would not appear on the dashboard
