@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.8.1 - Build 81
+-------------
+- Found and fixed a bug that prevented projects from being updated
+
 Version 3.8 - Build 80
 -------------
 - Changed the dashboard so that tracked projects that are in the past and/or are inactive/completed display properly
