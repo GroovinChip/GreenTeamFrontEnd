@@ -67,51 +67,21 @@ angular.module("AppMod", ["ngRoute"])
 			.then(function(resp){
 				self.projects = resp.data;
 				for(var count = 0; count < self.projects.length; count++){                    
-                    switch(self.projects[count].status){
-                        case 0:
-                            self.projects[count].status = "Inactive";
-                            break;
-                        case 1:
-                            self.projects[count].status = "Active";
-                            break;
-                        case 2:
-                            self.projects[count].status = "Completed";
-                            break;
-                    }
+					var startDate = new Date(self.projects[count].start_date);
+					var deadline = new Date(self.projects[count].deadline);
 					
-					switch(self.projects[count].priority){
-						case 0:
-							self.projects[count].priority = "-";
-							break;
-						case 1:
-							self.projects[count].priority = "Low";
-							break;
-						case 2:
-							self.projects[count].priority = "Normal";
-							break;
-						case 3:
-							self.projects[count].priority = "High";
-							break;
-						case 4:
-							self.projects[count].priority = "Critical";
-							break;
-					}
-				
-				var startDate = new Date(self.projects[count].start_date);
-				var deadline = new Date(self.projects[count].deadline);
-				
-				var startDate = new Date(self.projects[count].start_date);
-				startDate.setHours(0,0,0,0); // FIX FOR DATES
-				var deadline = new Date(self.projects[count].deadline);
-				deadline.setHours(0,0,0,0); // FIX FOR DATES
-				self.projects[count].start_date = startDate; // FIX FOR DATES
-				self.projects[count].deadline = deadline; // FIX FOR DATES
+					var startDate = new Date(self.projects[count].start_date);
+					startDate.setHours(0,0,0,0); // FIX FOR DATES
+					var deadline = new Date(self.projects[count].deadline);
+					deadline.setHours(0,0,0,0); // FIX FOR DATES
+					self.projects[count].start_date = startDate; // FIX FOR DATES
+					self.projects[count].deadline = deadline; // FIX FOR DATES
 
-                self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
-				
-				if(self.projects[count].project_health < 100 && self.today <= self.projects[count].deadline ) { // FIX FOR DATES
-					self.problemProjects++;
-				}
+					self.projects[count].project_health = self.calcProjHealth(startDate, deadline, self.projects[count].work_remaining);
+					
+					if( (self.projects[count].project_health < 100 && self.today <= self.projects[count].deadline) || self.projects[count].tracked == 1 ) { // FIX FOR DATES
+						self.problemProjects++;
+					}
 			}
 			// Solves project health sorting on dashboard - KYLE
 			self.projects.sort(function(a,b){return a.project_health-b.project_health})		
@@ -482,6 +452,56 @@ angular.module("AppMod", ["ngRoute"])
 			    }) // end get
 		  }); // end update
 		} // end updateNote
+		
+		// Toggle project tracking
+		self.trackProject = function(project) {
+			console.log("Clicked: ", project.id);
+			if(project.tracked == 1) {
+				project.tracked = 0;
+				self.projectObj.track = 0;
+			} else {
+				project.tracked = 1;
+				self.projectObj = 0;
+			}
+			delete project.project_health;
+			self.projectObj = project;
+			console.log(project);
+		$http({
+					method: 'PUT',
+					url: 'http://localhost:8080/updateproject',
+					data: project
+			});
+		}
+		
+		// Tracked implementation
+		self.evaluateStatus = function(status) {
+			var statusString = "";
+			switch(status) {
+				case 0: statusString = "Inactive";
+				break;
+				case 1: statusString = "Active";
+				break;
+				case 2: statusString = "Completed";
+				break;
+			}
+			return statusString;
+		}
+
+		// Tracked implementation
+		self.evaluatePriority = function(priority) {
+			var priorityString = "";
+			switch(priority) {
+				case 1: priorityString = "Low";
+				break;
+				case 2: priorityString = "Normal";
+				break;
+				case 3: priorityString = "High";
+				break;
+				case 4: priorityString = "Critical";
+				break;
+			}
+			return priorityString;
+		}
 	
 	}]) // end controller
 	.config(['$routeProvider', function($routeProvider){

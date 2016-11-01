@@ -16,7 +16,7 @@
 			<div class="tableDiv">
 				<table class="table">
 					<tr class="header"><th>Name</th><th>Deadline</th><th>Project Health</th><th>Priority</th><th>Actions</th></tr>
-					<tr ng-repeat="project in ctrl.projects" ng-if="project.project_health < 100 && ctrl.today <= project.deadline" ng-style="ctrl.changeColor(project.project_health)">
+					<tr ng-repeat="project in ctrl.projects" ng-if="(project.project_health < 100 && ctrl.today <= project.deadline) || project.tracked == 1" ng-style="ctrl.changeColor(project.project_health)">
 						<td>
 							<span class="projectlink" ng-click="ctrl.viewProject(project.id)" title="View {{project.name}}">{{project.name}}</span>
 						</td>
@@ -25,7 +25,7 @@
 							<progress max="100" value="{{project.project_health}}" ng-style="ctrl.changeColor(project.project_health)"></progress>
 							<label>{{project.project_health}}%</label>
 						</td>
-						<td>{{project.priority}}</td>
+						<td>{{ctrl.evaluatePriority(project.priority)}}</td>
 						<td>
 							<div class="btn-group">
 								<button class="btn btn-default" title="Update {{project.name}}" ng-click="ctrl.openProjUpdModal(project.id)" data-toggle="modal" data-target="#updateProjModal">
@@ -150,6 +150,9 @@
 				</form>
 				<br>
 				<button class="btn btn-default" ng-click="ctrl.updateProject()" ng-disabled="!updateproject.uprojectname.$pristine && updateproject.uprojectname.$error.required">Update Project</button>
+				<button class="btn" ng-class="{true: 'btn-success', false: 'btn-default'}[ctrl.projectObj.tracked==1]" ng-click="ctrl.trackProject(ctrl.projectObj)" title="Track {{ctrl.projectObj.name}}">
+					<span class="glyphicon glyphicon-screenshot"></span> Track Project
+				</button>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal" id="closeModal">Close</button>

@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.7 - Build 78
+-------------
+- NEW FEATURE: Track a project by clicking the 'track project' button on the 'view all projects' page. If a project is being tracked, it will appear in the dashboard. Untracking a project will remove it from the dashboard. A project can be tracked or untracked in the 'update project' modal as well.
+
 Version 3.6.2 - Build 77
 -------------
 - Disabled weekend days in JQuery calendar
