@@ -2,10 +2,6 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
-Version 3.6.3 - Build 78
--------------
-- Added Steve's REGEX to disable adding a comment with only spaces in it
-
 Version 3.6.2 - Build 77
 -------------
 - Disabled weekend days in JQuery calendar
