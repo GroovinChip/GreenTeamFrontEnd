@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.12 - Build 88
+-------------
+- Changed the calendar so that events that have passed will show as gray
+
 Version 3.11.1 - Build 87
 -------------
 - Changed the red of projects in the calendar to a lighter shade

@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	var today = new Date();
+	today.setHours(0,0,0,0);
 	$("#datepickerD").attr("min", today);
 	$("#datepickerSD").attr("min", today);
 	$( function() {
@@ -17,7 +18,6 @@ $(document).ready(function(){
 			setDate: today
 		});
 	} );
-	// Need to get current date
 	
 	$("#datepickerD2").attr("min", today);
 	$("#datepickerSD2").attr("min", today);
@@ -52,7 +52,6 @@ $(document).ready(function(){
 			$.ajax({
 				url: 'http://localhost:8080/projects'
 			}).then(function(projects){
-				//console.log("AJAX CALL PERFORMED");
 				for(var count = 0; count < projects.length; count++){
 					var project = projects[count];
 					if( project.deadline > today || new Date(project.deadline).getDate() == today.getDate()) {
@@ -67,7 +66,7 @@ $(document).ready(function(){
 						start: projects[count].deadline,
 						end: projects[count].deadline,
 						textColor: 'black',
-						backgroundColor: changeColor(project.project_health),
+						backgroundColor: changeColor(project.project_health,project.deadline),
 						id: projects[count].id
 					};
 					$("#calendar").fullCalendar('renderEvent', event);
@@ -137,16 +136,20 @@ $(document).ready(function(){
 	}
 
 	// Based on the health level of a project, change the color
-	function changeColor(health){
+	function changeColor(health, deadline){
+		var color = "";
 		if(health < 100 && health >= 90){
-			return "#009900";
+			color = "#009900";
+		} else if(health < 90 && health >= 80){
+			color = "orange";
+		} else if(health < 80){
+			color = "#ff4d4d";
 		}
-		else if(health < 90 && health >= 80){
-			return "orange";
+
+		if(deadline < today) {
+			color = "#d9d9d9";
 		}
-		else if(health < 80){
-			return "#ff4d4d";
-		}
+		return color;
 	}
 	
 	$("#closeModal").click(function(){
