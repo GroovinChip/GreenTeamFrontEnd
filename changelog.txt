@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.11 - Build 86
+-------------
+- Added color change to comment buttons if there is a flagged note for that project
+
 Version 3.10 - Build 85
 -------------
 - Changed chart statistic on dashboard

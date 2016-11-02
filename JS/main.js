@@ -90,6 +90,14 @@ angular.module("AppMod", ["ngRoute"])
 			},function(err) {
 
 			});
+			
+		// Get all notes
+		$http.get('http://localhost:8080/notes')
+			.then(function(resp){
+				self.allNotes = resp.data;
+			},function(err) {
+
+		});
 		
 		// Calculate the health level of a project
 		self.calcProjHealth = function(startDate, deadline, work_remaining){
@@ -389,6 +397,7 @@ angular.module("AppMod", ["ngRoute"])
 			addNote.message = note;
 			addNote.project_id = id;
 			addNote.time_stamp = new Date();
+
 			$http({
 				method: 'POST',
 				url: 'http://localhost:8080/note',
@@ -397,11 +406,22 @@ angular.module("AppMod", ["ngRoute"])
 				$http.get('http://localhost:8080/notes/'+self.targetProjId).
 				then(function(resp){
 					self.notes = resp.data;
+					// for note button flagging implementation on dashboard
+					self.allNotes.forEach(function(thisnote,index,list) {
+						for(var i = 0; i < self.notes.length; i++) {
+							if(thisnote.project_id == self.notes[i].project_id) {
+								list.splice(index, 1);
+							}
+						}
+					}) // end ForEach on self.allNotes
+					self.notes.forEach(function(thisnote) {
+						self.allNotes.push(thisnote);
+					}) // end ForEach on self.notes
 				})
 			})
 		};
 		
-		// Delete a note | OPTIONAL (refreshing list doesn't work)
+		// Delete a note 
 		self.deleteNote = function(noteId){
 			var conf = confirm("Delete this note?");
 			if(conf) {
@@ -412,8 +432,14 @@ angular.module("AppMod", ["ngRoute"])
 					for(var i = 0; i < self.notes.length; i++){
 						if(noteId == self.notes[i].id){
 							self.notes.splice(i, 1);
+							}
 						}
-					}
+						// Delete same note from allNotes list
+						self.allNotes.forEach(function(note, index, list) {
+							if(noteId === note.id) {
+								list.splice(index, 1);
+							}
+						}); // end forEach
 				})
 			}
 		};
@@ -430,8 +456,9 @@ angular.module("AppMod", ["ngRoute"])
 			}
 		}
 		
-		 // Steve's flag button
+		// Steve's flag button
 		self.flagNote = function(note) {
+			// flag the note and update the database
     		if (note.flagged == 0) {
 					note.flagged = 1;
 					self.updateNote(note);
@@ -440,6 +467,23 @@ angular.module("AppMod", ["ngRoute"])
 			  self.updateNote(note);
 			  // note.problemflag = 0;
 			}
+			// find same note in angular list and update that so that comment icon changes
+			for(var i = 0; i < self.allNotes.length; i++) {
+				if(note.id == self.allNotes[i].id) {
+					self.allNotes[i] = note;
+				}
+			}
+		}
+		
+		self.hasFlaggedNotes = function(projectId) {
+			var hasFlaggedNotes = false;
+			for(var i = 0; i < self.allNotes.length; i++) {
+				if (projectId == self.allNotes[i].project_id && self.allNotes[i].flagged == 1) {
+					hasFlaggedNotes = true;
+					break;
+				}
+			}
+			return hasFlaggedNotes;
 		}
 		
 		// Steve's update note

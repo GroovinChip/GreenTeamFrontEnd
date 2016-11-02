@@ -32,7 +32,7 @@
 								<button class="btn btn-default" title="Update {{project.name}}" ng-click="ctrl.openProjUpdModal(project.id)" data-toggle="modal" data-target="#updateProjModal">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</button>
-								<button class="btn btn-info" title="Add a Comment to {{project.name}}" data-toggle="modal" data-target="#notes" ng-click="ctrl.openNotesModal(project.id)">
+								<button class="btn btn-info" title="Add a Comment to {{project.name}}" data-toggle="modal" data-target="#notes" ng-click="ctrl.openNotesModal(project.id)" ng-class="{true: 'btn-warning', false: 'btn-info'}[ctrl.hasFlaggedNotes(project.id)]">
 									<span class="glyphicon glyphicon-comment"></span>
 								</button>
 								<button class="btn btn-primary" title="Send email to project team" data-toggle="modal" data-target="#sendEmailModal">

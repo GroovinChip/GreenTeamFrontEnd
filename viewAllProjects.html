@@ -60,7 +60,7 @@
 						<button class="btn btn-default" ng-click="ctrl.openProjUpdModal(project.id)" title="Update {{project.name}}" data-toggle="modal" data-target="#updateProjModal">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</button>
-						<button class="btn btn-info" title="Add a Comment to {{project.name}}" data-toggle="modal" data-target="#notes" ng-click="ctrl.openNotesModal(project.id)">
+						<button class="btn btn-info" title="Add a Comment to {{project.name}}" data-toggle="modal" data-target="#notes" ng-click="ctrl.openNotesModal(project.id)" ng-class="{true: 'btn-warning', false: 'btn-info'}[ctrl.hasFlaggedNotes(project.id)]">
 							<span class="glyphicon glyphicon-comment"></span>						
 						</button>			
 						<button class="btn btn-danger" ng-click="ctrl.deleteProject(project.id)" title="Delete {{project.name}}">
