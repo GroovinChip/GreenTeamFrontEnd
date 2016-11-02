@@ -2,6 +2,11 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.9 - Build 84
+-------------
+- For 'update member': removed 'select a grade' and 'select a role' options so that only valid choices can be selected
+- For 'update project': removed 'choose a priority', 'choose a phase', 'choose a phase' options so that only valid choices can be selected
+
 Version 3.8.3 - Build 83
 -------------
 - Improved loading of team names and member names
