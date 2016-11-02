@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.10 - Build 85
+-------------
+- Changed chart statistic on dashboard
+
 Version 3.9 - Build 84
 -------------
 - For 'update member': removed 'select a grade' and 'select a role' options so that only valid choices can be selected

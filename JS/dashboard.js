@@ -163,58 +163,52 @@ $(document).ready(function(){
 	});
 	
 	var projects = [];
-	var projectCount = 0;
-	var lowCount = 0;
-	var normalCount = 0;
-	var highCount = 0;
-	var criticalCount = 0;
-	$.ajax({
-		url: 'http://localhost:8080/projects'
-	}).then(function(resp){
-		projects = resp;
-		projectCount = projects.length;
-
-		for(var i = 0; i < projects.length; i++){
-			switch(projects[i].priority){
-				case 1: lowCount++;
-				break;
-				case 2: normalCount++;
-				break;
-				case 3: highCount++;
-				break;
-				case 4: criticalCount++;
-				break;
-			}
-		}
-		CanvasJS.addColorSet("priority",
-			[//colorSet Array
-			"#335EFF", //blue
-			"#06C900", // green
-			"#FF8633", // orange
-			"#FC2525" // red
-		]);
-		var chart = new CanvasJS.Chart("chartContainer", {
-			colorSet: "priority",
-			title:{
-				text: "Projects by Priority"
-			},
-			animationEnabled: true,
-			theme: "theme2",
-			data: [
-			{
-				// Change type to "doughnut", "line", "splineArea", etc.
-				type: "pie",
-				showInLegend: true,
-				name: "Name",
-				dataPoints: [
-				{y: lowCount, legendText:"Low", label:"Low Priority"},
-				{y: normalCount, legendText:"Normal", label:"Normal Priority"},
-				{y: highCount, legendText:"High", label:"High Priority"},
-				{y: criticalCount, legendText:"Critical", label:"Critical Priority"}
-				]
-			}
-			] // end
-		});
-		chart.render();
-	});
+    var projectCount = 0;
+    var inactiveStatus = 0;
+    var activeStatus = 0;
+    var completedStatus = 0;
+    $.ajax({
+        url: 'http://localhost:8080/projects'
+    }).then(function(resp){
+        projects = resp;
+        projectCount = projects.length;
+        for(var i = 0; i < projects.length; i++){
+            switch(projects[i].status){
+                case 0: inactiveStatus++;
+                break;
+                case 1: activeStatus++;
+                break;
+                case 2: completedStatus++;
+                break;
+            }
+        }
+        CanvasJS.addColorSet("status",
+            [//colorSet Array
+            "#bf00ff", //purple
+            "#808080", // grey
+            "#993333", // brown
+        ]);
+        var chart = new CanvasJS.Chart("chartContainer", {
+            colorSet: "status",
+            title:{
+                text: "Projects by Status"
+            },
+            animationEnabled: true,
+            theme: "theme2",
+            data: [
+            {
+                // Change type to "doughnut", "line", "splineArea", etc.
+                type: "pie",
+                showInLegend: true,
+                name: "Name",
+                dataPoints: [
+                {y: inactiveStatus, legendText:"inactive", label:"Inactive Status"},
+                {y: activeStatus, legendText:"active", label:"Active Status"},
+                {y: completedStatus, legendText:"completed", label:"Completed Status"},
+                ]
+            }
+            ] // end
+        });
+        chart.render();
+    });
 });
