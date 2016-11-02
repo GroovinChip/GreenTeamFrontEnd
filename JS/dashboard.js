@@ -187,9 +187,9 @@ $(document).ready(function(){
         }
         CanvasJS.addColorSet("status",
             [//colorSet Array
-            "#bf00ff", //purple
-            "#808080", // grey
-            "#993333", // brown
+            "#cc99ff", // bright purple (active)
+            "#4d0099", // light purple (inactive)
+            "#a64dff" // dark purple (completed)
         ]);
         var chart = new CanvasJS.Chart("chartContainer", {
             colorSet: "status",
@@ -202,6 +202,7 @@ $(document).ready(function(){
             {
                 // Change type to "doughnut", "line", "splineArea", etc.
                 type: "pie",
+				indexLabelFontColor: "black",
                 showInLegend: true,
                 name: "Name",
                 dataPoints: [

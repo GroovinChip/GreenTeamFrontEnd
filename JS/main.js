@@ -425,36 +425,51 @@ angular.module("AppMod", ["ngRoute"])
 			})
 		};
 		
-		// Add a note to a project
-		/* self.addProjNote = function(note, id){
-			self.targetProjId = id;
-			var addNote ={}
-			addNote.message = note;
-			addNote.project_id = id;
-			addNote.time_stamp = new Date();
-
+		// Flag a note
+		self.flagNote = function(note) {
+			// flag the note and update the database
+    		if (note.flagged == 0) {
+					note.flagged = 1;
+					self.updateNote(note);
+			} else { //if (note.toggleText == "Resolve!")
+					  note.flagged = 0;
+			  self.updateNote(note);
+			  // note.problemflag = 0;
+			}
+			// find same note in angular list and update that so that comment icon changes
+			for(var i = 0; i < self.allNotes.length; i++) {
+				if(note.id == self.allNotes[i].id) {
+					self.allNotes[i] = note;
+				}
+			}
+		}
+		
+		// Check if a project has a flagged note
+		self.hasFlaggedNotes = function(projectId) {
+			var hasFlaggedNotes = false;
+			for(var i = 0; i < self.allNotes.length; i++) {
+				if (projectId == self.allNotes[i].project_id && self.allNotes[i].flagged == 1) {
+					hasFlaggedNotes = true;
+					break;
+				}
+			}
+			return hasFlaggedNotes;
+		}
+		
+		// Steve's update note - is called by flagNote()
+		self.updateNote = function(note) {
+			self.targetProjId = note.project_id;
 			$http({
-				method: 'POST',
-				url: 'http://localhost:8080/note',
-				data: addNote
-			}).then(function(){
-				$http.get('http://localhost:8080/notes/'+self.targetProjId).
-				then(function(resp){
-					self.notes = resp.data;
-					// for note button flagging implementation on dashboard
-					self.allNotes.forEach(function(thisnote,index,list) {
-						for(var i = 0; i < self.notes.length; i++) {
-							if(thisnote.project_id == self.notes[i].project_id) {
-								list.splice(index, 1);
-							}
-						}
-					}) // end ForEach on self.allNotes
-					self.notes.forEach(function(thisnote) {
-						self.allNotes.push(thisnote);
-					}) // end ForEach on self.notes
-				})
-			})
-		}; */
+				method: 'PUT',
+				url: 'http://localhost:8080/updatenote',
+				data: note
+			}).then(function(note) {
+				  $http.get('http://localhost:8080/notes/' + self.targetProjId).
+				  then(function(resp){
+					  self.notes = resp.data;
+			    }) // end get
+		  }); // end update
+		} // end updateNote
 		
 		// Delete a note 
 		self.deleteNote = function(noteId){
@@ -490,51 +505,6 @@ angular.module("AppMod", ["ngRoute"])
 				window.location.href = "http://localhost:8081/";
 			}
 		}
-		
-		// Steve's flag button
-		self.flagNote = function(note) {
-			// flag the note and update the database
-    		if (note.flagged == 0) {
-					note.flagged = 1;
-					self.updateNote(note);
-			} else { //if (note.toggleText == "Resolve!")
-					  note.flagged = 0;
-			  self.updateNote(note);
-			  // note.problemflag = 0;
-			}
-			// find same note in angular list and update that so that comment icon changes
-			for(var i = 0; i < self.allNotes.length; i++) {
-				if(note.id == self.allNotes[i].id) {
-					self.allNotes[i] = note;
-				}
-			}
-		}
-		
-		self.hasFlaggedNotes = function(projectId) {
-			var hasFlaggedNotes = false;
-			for(var i = 0; i < self.allNotes.length; i++) {
-				if (projectId == self.allNotes[i].project_id && self.allNotes[i].flagged == 1) {
-					hasFlaggedNotes = true;
-					break;
-				}
-			}
-			return hasFlaggedNotes;
-		}
-		
-		// Steve's update note
-		self.updateNote = function(note) {
-			self.targetProjId = note.project_id;
-			$http({
-				method: 'PUT',
-				url: 'http://localhost:8080/updatenote',
-				data: note
-			}).then(function(note) {
-				  $http.get('http://localhost:8080/notes/' + self.targetProjId).
-				  then(function(resp){
-					  self.notes = resp.data;
-			    }) // end get
-		  }); // end update
-		} // end updateNote
 		
 		// Toggle project tracking
 		self.trackProject = function(project) {

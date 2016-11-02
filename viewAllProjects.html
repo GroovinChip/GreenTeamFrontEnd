@@ -88,12 +88,13 @@
 						<textarea class="form-control" ng-model="ctrl.note" name="noten" ng-pattern="ctrl.regex1" id="popupNoteInput" rows="5" required></textarea>
 						<span ng-show="stringForm.noten.$error.pattern && stringForm.noten.$dirty" style="color:red">Pattern needs to match....</span>
 						<span class="error" ng-show="stringForm.noten.$error.required && stringForm.noten.$dirty">(Text required)</span>
+						<br>
 						<div style="text-align:center">
 							<button class="btn btn-info" id="addNoteBtn" 
+							ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id); ctrl.note=null">Add Note</button>
+							<button class="btn btn-info" id="clear">Clear</button>
 						</div>
-				ng-click="ctrl.addProjNote(ctrl.note, ctrl.projectObj.id); ctrl.note=null">Add Note</button>
 					</form>
-						<button class="btn btn-info" id="clear">Clear</button>
 				</div>
 				<div id="noteHistory" class="modal-footer" style="text-align:center">
 					<div id="historyItem" style="text-align: left;border-bottom: 1px solid #e5e5e5" ng-repeat="note in ctrl.notes | orderBy:'':true track by (note.time_stamp + $index)">

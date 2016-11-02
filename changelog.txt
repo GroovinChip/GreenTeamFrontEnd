@@ -2,6 +2,12 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.13 - Build 90
+-------------
+- Changed pie chart colors
+- Fixed a button alignment issue in the notes modal
+- Moved some code around in main.js
+
 Version 3.12.1 - Build 89
 -------------
 - Added Steve's REGEX to prevent spaces being entered as a note
