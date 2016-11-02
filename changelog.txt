@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.12.1 - Build 89
+-------------
+- Added Steve's REGEX to prevent spaces being entered as a note
+
 Version 3.12 - Build 88
 -------------
 - Changed the calendar so that events that have passed will show as gray

@@ -390,8 +390,43 @@ angular.module("AppMod", ["ngRoute"])
 			}) // end get
 		};
 		
+		self.regex1 = new RegExp(/^[\s\S]*/);
 		// Add a note to a project
 		self.addProjNote = function(note, id){
+			self.targetProjId = id;
+			var notetrimmed = note.trim();//new
+			var addNote ={}
+			//addNote.message = note;
+			addNote.message = notetrimmed;
+			addNote.flagged = 0; //without this set the html would break if the default was changed to 1
+			addNote.project_id = id;
+			addNote.time_stamp = new Date();
+
+			$http({
+				method: 'POST',
+				url: 'http://localhost:8080/note',
+				data: addNote
+			}).then(function(){
+				$http.get('http://localhost:8080/notes/'+self.targetProjId).
+				then(function(resp){
+					self.notes = resp.data;
+					// for note button flagging implementation on dashboard
+					self.allNotes.forEach(function(thisnote,index,list) {
+						for(var i = 0; i < self.notes.length; i++) {
+							if(thisnote.project_id == self.notes[i].project_id) {
+								list.splice(index, 1);
+							}
+						}
+					}) // end ForEach on self.allNotes
+					self.notes.forEach(function(thisnote) {
+						self.allNotes.push(thisnote);
+					}) // end ForEach on self.notes
+				})
+			})
+		};
+		
+		// Add a note to a project
+		/* self.addProjNote = function(note, id){
 			self.targetProjId = id;
 			var addNote ={}
 			addNote.message = note;
@@ -419,7 +454,7 @@ angular.module("AppMod", ["ngRoute"])
 					}) // end ForEach on self.notes
 				})
 			})
-		};
+		}; */
 		
 		// Delete a note 
 		self.deleteNote = function(noteId){
