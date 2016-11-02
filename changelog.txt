@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.13.1 - Build 91
+-------------
+- Bug fix for form validation
+
 Version 3.13 - Build 90
 -------------
 - Changed pie chart colors

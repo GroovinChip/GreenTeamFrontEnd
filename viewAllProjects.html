@@ -129,7 +129,7 @@
                     <br>
 					<form name="updateproject">
 						<label><span class="requiredflag">*</span> Project Name</label><span class="error" ng-show="updateproject.uprojectname.$error.required && updateproject.uprojectname.$dirty">(Required field)</span>
-						<input id="project-name" name="uprojectname" class="form-control" type="text" required></input>
+						<input ng-model="uprojectname" id="project-name" name="uprojectname" class="form-control" type="text" required></input>
 						<label>Description</label>
 						<textarea id="project-description" ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
 						<label><span class="requiredflag">*</span> Team</label>
