@@ -46,20 +46,20 @@
                 <option value=3>High</option>
                 <option value=4>Critical</option>
             </select>
-            <label>Start Date</label>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-                <input type="text" min="" class="form-control" id="datepickerSD" placeholder="Select a date"></input>
-            </div>
-            <label>Deadline</label>
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-                <input type="text" min="" class="form-control" id="datepickerD" placeholder="Select a date"></input>
-            </div>
+           <label>Start Date</label>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+				<input type="text" min="" class="form-control" readonly="readonly" id="datepickerSD" placeholder="Select a date"></input>
+			</div>
+			<label>Deadline</label>
+			<div class="input-group">
+				<span class="input-group-addon" id="basic-addon1">
+					<span class="glyphicon glyphicon-calendar"></span>
+				</span>
+				<input type="text" min="" class="form-control" readonly="readonly" id="datepickerD" placeholder="Select a date"></input>
+			</div>
             <label>Status</label>
             <select ng-model="ctrl.projectObj.status" class="form-control">
                 <option value="">Choose a Status</option>
