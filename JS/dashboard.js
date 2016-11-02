@@ -145,7 +145,7 @@ $(document).ready(function(){
 			return "orange";
 		}
 		else if(health < 80){
-			return "red";
+			return "#ff4d4d";
 		}
 	}
 	

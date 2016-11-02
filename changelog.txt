@@ -2,6 +2,10 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.11.1 - Build 87
+-------------
+- Changed the red of projects in the calendar to a lighter shade
+
 Version 3.11 - Build 86
 -------------
 - Added color change to comment buttons if there is a flagged note for that project
