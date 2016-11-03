@@ -66,7 +66,7 @@ $(document).ready(function(){
 						start: projects[count].deadline,
 						end: projects[count].deadline,
 						textColor: 'black',
-						backgroundColor: changeColor(project.project_health,project.deadline),
+						backgroundColor: changeColor(project.project_health,project.deadline, project.status),
 						id: projects[count].id
 					};
 					$("#calendar").fullCalendar('renderEvent', event);
@@ -136,7 +136,7 @@ $(document).ready(function(){
 	}
 
 	// Based on the health level of a project, change the color
-	function changeColor(health, deadline){
+	function changeColor(health, deadline, status){
 		var color = "";
 		if(health < 100 && health >= 90){
 			color = "#009900";
@@ -146,7 +146,7 @@ $(document).ready(function(){
 			color = "#ff4d4d";
 		}
 
-		if(deadline < today) {
+		if(deadline < today || status == 0) {
 			color = "#d9d9d9";
 		}
 		return color;

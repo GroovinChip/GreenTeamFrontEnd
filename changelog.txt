@@ -2,6 +2,12 @@ GREEN TEAM - TRACKY
 FRONT-END CHANGELOG
 ===================
 
+Version 3.15 - Build 93
+-------------
+- Changed note buttons to a button group
+- Updated calendar so that if the status is inactive, no matter when the deadline is, the event will be gray
+- Added maxlength property to project name field in update/create
+
 Version 3.14 - Build 92
 -------------
 - Disabled manual date selection

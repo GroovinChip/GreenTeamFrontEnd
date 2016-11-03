@@ -394,11 +394,11 @@ angular.module("AppMod", ["ngRoute"])
 		// Add a note to a project
 		self.addProjNote = function(note, id){
 			self.targetProjId = id;
-			var notetrimmed = note.trim();//new
+			var notetrimmed = note.trim();
 			var addNote ={}
-			//addNote.message = note;
+			self.stringForm.$setPristine();
 			addNote.message = notetrimmed;
-			addNote.flagged = 0; //without this set the html would break if the default was changed to 1
+			addNote.flagged = 0; 
 			addNote.project_id = id;
 			addNote.time_stamp = new Date();
 

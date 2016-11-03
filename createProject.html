@@ -29,8 +29,8 @@
         </div>
         <div id="cpDiv">
           <form name="createproject">
-            <label><span class="requiredflag">*</span> Project Name </label><span class="error" ng-show="createproject.projectname.$error.required && createproject.projectname.$dirty">(Required field)</span>
-            <input name="projectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" required></input>
+            <label><span class="requiredflag">*</span> Project Name (15 chars)</label><span class="error" ng-show="createproject.projectname.$error.required && createproject.projectname.$dirty">(Required field)</span>
+            <input name="projectname" ng-model="ctrl.projectObj.name" class="form-control" type="text" maxlength="15" required></input>
             <label>Description</label>
             <textarea ng-model="ctrl.projectObj.description" class="form-control" rows="5"></textarea>
 			<label><span class="requiredflag">*</span> Team </label><span class="error" ng-show="createproject.chooseteam.$error.required && createproject.chooseteam.$dirty">(Required field)</span>
